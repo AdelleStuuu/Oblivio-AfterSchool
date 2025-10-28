@@ -1,77 +1,63 @@
 ﻿define l = Character("Lea", color="#910b7f")
- 
-
 
 label start:
-    $ FWatFounInteraction = SWatFounInteraction = False
-    $ waterFountainInteracted = classroomFirstInteracted = False 
+    $ FWatFounInteraction = SWatFounInteraction = fromInsideClassroom = False
+    $ waterFountainInteracted = classroomFirstInteracted = doorKeyObtained = False 
 
-    scene hallway1stFloor
-    "Lea woke up from her nap, hair all messed up from the deep sleep she was in. There was nothing but the faint glow of moonlight and the weak neon light from the exit signs illuminating the hallways."
-    show lea nauseous at left
-    l "God...What time is it?"
+    scene chairZoomed
+    with fade
 
-    "Lady luck wasn't on her side today, her phone was out of battery." 
-    show lea default at left
-    l "I must've slept for a long... long time." 
+    "Lea woke up from her nap, her hair a mess from the deep sleep she had been in."
 
-    "She stood up and stumbled, catching herself with the help of a nearby."
+    scene chairUnzoomed
+    with dissolve
 
-    l "Right, I skipped lunch too beforehand." 
+    "There was nothing but the faint glow of moonlight and the weak neon light from the exit signs illuminating the hallways."
 
-    "She held the temples of her forehead," 
-    
-    l "I need to at least drink something." 
+    show lea defaultZoomed at right
+    with fade 
+
+    l "God... What time is it?"
+
+    "Lady Luck wasn't on her side today; her phone was dead."
+
+    l "I must've slept for a long, long time."
+
+    "She stood up and stumbled, catching herself on something nearby."
+
+    l "Right — I skipped lunch earlier."
+
+    "She held her temples."
+
+    l "I need to get something to drink."
 
     menu:
         "Use the water fountain.":
             scene black 
             with fade
             jump waterFountain1st
-        "Ignore your senses, return to the classroom.": 
+        "Ignore your instincts, stay in the classroom.": 
             scene black
             with fade
-            jump returnToClassroom
+            $ fromInsideClassroom = True
+            jump returnToClassroom1st
 
 # CLASSROOM INTERACTIONS
-label returnToClassroom:
-    scene classRoom 
-    with fade 
-    "Lea enters the classroom, it is still the same room that she heads to every single school day." 
-    
-    "But, it feels like everyone has left in a hurry."
-    
-    "And everyone has left for a while already."
-
-    menu:
-        "Head out, drink at the water fountain.":
-            scene black
-            with fade
-            if waterFountainInteracted == True:
-                "Lea Returns to the water fountain."
-                jump waterFountainInteracted
-            elif SWatFounInteraction == True:
-                "Lea Returns to the water fountain."
-                jump waterFountain3rd
-            elif FWatFounInteraction == True:
-                jump waterFountain2nd
-            else:
-                jump waterFountain1st
-        "Head out to the hallway.":
-            scene black
-            with fade
-            jump hallway1st
 
 label returnToClassroom1st:
     scene classRoom
     with fade
-    "Returning to the classroom she lounged by, Lea prepared to pack her belongings. The window outside showed a dark and cloudy night sky. Her brows furrowed," 
+    if  fromInsideClassroom == True:
+        "Lea prepared to pack her belongings. The window outside showed a dark and cloudy night sky. Her brows furrowed."
+    else:
+        "Returning to the classroom she lounged by, Lea prepared to pack her belongings. The window outside showed a dark and cloudy night sky. Her brows furrowed." 
 
-    show lea default at left
-    
-    l "It's not like they're going to be suspicious of me being out at night but..." 
+    show lea default at right
+    with fade 
 
-    "She sighs." 
+    l "It's not like anyone will be suspicious of me being out at night, but..."
+
+    "She sighed."
 
     l "I just really want to get home. My head is killing me."
     $ classroomFirstInteracted = True
@@ -80,10 +66,10 @@ label returnToClassroom1st:
             scene black
             with fade
             if waterFountainInteracted == True:
-                "Lea Returns to the water fountain."
+                "Lea returns to the water fountain."
                 jump waterFountainInteracted
             elif SWatFounInteraction == True:
-                "Lea Returns to the water fountain."
+                "Lea returns to the water fountain."
                 jump waterFountain3rd
             elif FWatFounInteraction == True:
                 jump waterFountain2nd
@@ -92,11 +78,45 @@ label returnToClassroom1st:
         "Head out to the hallway.":
             jump hallway1st
 
+label returnToClassroom:
+    scene classRoom
+    with fade
+    "Lea enters the classroom. It's the same room she attends every school day."
+
+    "But it feels like everyone left in a hurry."
+
+    "They've been gone for a while already."
+
+    menu:
+        "Head out, head towards the water fountain.":
+            scene black
+            with fade
+            if waterFountainInteracted == True:
+                "Lea returns to the water fountain."
+                jump waterFountainInteracted
+            elif SWatFounInteraction == True:
+                "Lea returns to the water fountain."
+                jump waterFountain3rd
+            elif FWatFounInteraction == True:
+                jump waterFountain2nd
+            else:
+                jump waterFountain1st
+        "Head out to the hallway.":
+            scene black
+            with fade
+            jump hallway1st
+
+
+
+
 # FIRST FLOOR HALLWAY 
 # SCRIPTED SCENES ONLY 
 label hallway1st:
     scene hallway1stFloor
-    "Lea walks back outside, it is still quiet, not even a cricket dares to break the tense air that fills the building. She looks around, though disoriented from the throbbing pain in her head, she mutters out to herself." 
+    with fade
+    "Lea walks back outside, it is still quiet, not even a cricket dares to break the tense air that fills the building."
+    
+    "She looks around, though disoriented from the throbbing pain in her head, she mutters out to herself." 
 
     l "I should head out of here... I hope mom isn't worried."
     menu:
@@ -110,10 +130,17 @@ label hallway1st:
             jump rightEntrance1
 
 label leftEntrance1:
+    scene black
+
     "Walking through the hall, she makes a turn to the left. Greeting her is the door, but something caught her eyes."
+
     scene hallwayBarricaded
+    with fade
+
     "stacks and stacks of chairs pile upon the door. It is all over the place, futile to break down." 
+
     "She feels a rush of unease go through her."
+
     menu: 
         "Check the back door.":
             scene black
@@ -121,17 +148,81 @@ label leftEntrance1:
             jump rightEntrance2
 
 label leftEntrance2:
+    scene black
+    
+    "Sprinting through the halls, she makes her way to the front door."
+
+    "Chills went down her spine. Unease turns to panic as Lea stares at what greets her."
+    
+    scene hallwayBarricaded
+    with fade
+    
+    "Stairs, stacked so high it towered over her. She tries to remove one, but they aren't budging."
+
+    show lea worried at right
+    with fade 
+
+    l "No... No!"
+
+    l "I need to find a way to get out of here!"
+
+    if doorKeyObtained == True:
+        hide lea 
+        "She remembers something. Reaching into her pockets, She takes out a key to a door."
+        show lea worried at right
+        l "Maybe there is something here that this key can open to."
+    
+    menu:
+        "Return to the middle of the hallway.":
+            jump hallwayMain 
 
 label rightEntrance1:
+    scene black
     "Walking through the hall, she makes a turn to the right. Greeting her is the back door, but something caught her eyes."
-    scene HallwayLocked
+
+    scene hallwayLocked
+    with fade 
     "Lea approaches the locked doors, it is chained and the knob was torn off."
+
     "She feels a rush of unease go through her."
     menu: 
         "Check the front door.":
+            scene black
+            with fade
             jump leftEntrance2
 
 label rightEntrance2:
+    scene black
+    
+    "Sprinting through the halls, she makes her way to the front door."
+
+    "Chills went down her spine. Unease turns to panic as Lea stares at what greets her."
+    
+    scene hallwayLocked 
+    with fade
+
+    "It is the door to the exit, but it locked tight. chained with a lock and the knob is ripped right off. Lea tried kicking it."
+    
+    "Unfortunately, they aren't budging."
+    
+    show lea worried at right
+    with fade 
+
+    l "No... No!"
+
+    l "I need to find a way to get out of here!"
+
+    if doorKeyObtained == True:
+        hide lea 
+        "She remembers something. Reaching into her pockets, She takes out a key to a door."
+        show lea worried at right
+        l "Maybe there is something here that this key can open to."
+    
+    menu:
+        "Return to the middle of the hallway.":
+            jump hallwayMain 
+
+
 
 # WATER FOUNTAIN INTERACTIONS
 label waterFountain1st:
@@ -180,9 +271,12 @@ label waterFountain3rd:
     "In a desperate attempt, Lea turns the water fountain on aggressively, and black unidentifiable liquid pours out."
     scene HallwayBack
 
-    show lea surprised at left
+    show lea surprised at right
+
     "Lea stepped back, aghast by the sudden downpour." 
-    show lea default at left
+    
+    show lea default at right
+    
     l "Maybe they turn off the filters at night. Still...that's...disturbing."
    
     menu:
@@ -199,12 +293,28 @@ label waterFountain3rd:
 label waterFountainInteracted:
     scene waterFountainBlackStained
     with fade
-    "Lea looks over to the water fountain."
-    "The black ooze is gone."
-    "Its stains are left as a gentle reminder to not drink from it."
-    scene HallwayBack
-    show lea default at left
-    l "..."
+    if doorKeyObtained == True:
+        "Lea looks over to the water fountain."
+
+        "The black ooze is gone."
+
+        "Its stains are left as a gentle reminder to not drink from it."
+
+        scene HallwayBack
+        show lea worried at right
+        with fade 
+
+        l "..."
+
+    else:
+        "The ooze makes their way to the fountain's drain."
+
+        "What remained was a key from the fountain, Lea is not sure how it managed to pop out of the water fountain's small spout."
+
+        "She hesitantly picks the key up"
+
+        "*You obtained a Door Key.*"
+        $ doorKeyObtained = True 
 
     menu: 
         "Return to the classroom.":
