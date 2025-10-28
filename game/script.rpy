@@ -25,14 +25,18 @@ label start:
 
     menu:
         "Use the water fountain.":
+            scene black 
+            with fade
             jump waterFountain1st
         "Ignore your senses, return to the classroom.": 
+            scene black
+            with fade
             jump returnToClassroom
 
 # CLASSROOM INTERACTIONS
 label returnToClassroom:
     scene classRoom 
-
+    with fade 
     "Lea enters the classroom, it is still the same room that she heads to every single school day." 
     
     "But, it feels like everyone has left in a hurry."
@@ -41,6 +45,8 @@ label returnToClassroom:
 
     menu:
         "Head out, drink at the water fountain.":
+            scene black
+            with fade
             if waterFountainInteracted == True:
                 "Lea Returns to the water fountain."
                 jump waterFountainInteracted
@@ -52,11 +58,13 @@ label returnToClassroom:
             else:
                 jump waterFountain1st
         "Head out to the hallway.":
+            scene black
+            with fade
             jump hallway1st
 
 label returnToClassroom1st:
     scene classRoom
-
+    with fade
     "Returning to the classroom she lounged by, Lea prepared to pack her belongings. The window outside showed a dark and cloudy night sky. Her brows furrowed," 
 
     show lea default at left
@@ -69,6 +77,8 @@ label returnToClassroom1st:
     $ classroomFirstInteracted = True
     menu:
         "Head out, drink at the water fountain.":
+            scene black
+            with fade
             if waterFountainInteracted == True:
                 "Lea Returns to the water fountain."
                 jump waterFountainInteracted
@@ -91,8 +101,12 @@ label hallway1st:
     l "I should head out of here... I hope mom isn't worried."
     menu:
         "Head left, leave via the front doors.":
+            scene black
+            with fade
             jump leftEntrance1
         "Head right, leave through the back doors.":
+            scene black
+            with fade
             jump rightEntrance1
 
 label leftEntrance1:
@@ -102,6 +116,8 @@ label leftEntrance1:
     "She feels a rush of unease go through her."
     menu: 
         "Check the back door.":
+            scene black
+            with fade
             jump rightEntrance2
 
 label leftEntrance2:
@@ -121,6 +137,7 @@ label rightEntrance2:
 label waterFountain1st:
     $ FWatFounInteraction = True
     scene waterfountain 
+    with fade
     "Lea steps on the pressure plate that activates the water fountain, nothing happens."
     
     menu:
@@ -128,19 +145,28 @@ label waterFountain1st:
             jump waterFountain2nd
         "Return to the classroom.":
             if classroomFirstInteracted == True:
+                scene black 
+                with fade
                 jump returnToClassroom
             else:
+                scene black 
+                with fade
                 jump returnToClassroom1st
 
 label waterFountain2nd:
     $ SWatFounInteraction = True
     scene waterfountain
+    with fade
     "She tries turning the water fountain on again, Lea hear the rushing of liquid, but nothing flows out."
     
     menu:
         "Try again":
+            scene black 
+            with fade
             jump waterFountain3rd
         "Return to the classroom.":
+            scene black 
+            with fade
             if classroomFirstInteracted == True:
                 jump returnToClassroom
             else:
@@ -150,6 +176,7 @@ label waterFountain2nd:
 label waterFountain3rd:
     $ waterFountainInteracted = True
     scene waterfountainOozeFlowing
+    with fade
     "In a desperate attempt, Lea turns the water fountain on aggressively, and black unidentifiable liquid pours out."
     scene HallwayBack
 
@@ -161,12 +188,17 @@ label waterFountain3rd:
     menu:
         "Return to the classroom.":
             if classroomFirstInteracted == True:
+                scene black 
+                with fade
                 jump returnToClassroom
             else:
+                scene black 
+                with fade
                 jump returnToClassroom1st
 
 label waterFountainInteracted:
     scene waterFountainBlackStained
+    with fade
     "Lea looks over to the water fountain."
     "The black ooze is gone."
     "Its stains are left as a gentle reminder to not drink from it."
@@ -177,6 +209,10 @@ label waterFountainInteracted:
     menu: 
         "Return to the classroom.":
             if classroomFirstInteracted == True:
+                scene black 
+                with fade
                 jump returnToClassroom
             else:
+                scene black 
+                with fade
                 jump returnToClassroom1st
