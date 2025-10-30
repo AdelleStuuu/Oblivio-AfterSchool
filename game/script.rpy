@@ -1,12 +1,11 @@
 ﻿# Character
 define l = Character("Lea", color="#910b7f")
+default FWatFounInteraction = firstHallwayFloor1Interaction = SWatFounInteraction = fromInsideClassroom = waterFountainInteracted = classroomFirstInteracted = doorKeyObtained = insideLeaClassRoom = False
+default = chairCheckingfloor1Room2 = chairCheckingLeaClassRoom = 0
 
 label start:
-    $ FWatFounInteraction = firstHallwayFloor1Interaction = SWatFounInteraction = fromInsideClassroom = waterFountainInteracted = classroomFirstInteracted = doorKeyObtained = insideLeaClassRoom = False
-    $ chairCheckingfloor1Room2 = chairCheckingLeaClassRoom = 0 
 
     # Background ambience for night (ambience channel)
-   
    
     scene chairZoomed
     play music "audio/night_ambience.mp3" fadein 2.0 volume 0.4
@@ -133,10 +132,17 @@ label returnToClassroom:
     if firstHallwayFloor1Interaction == True:
         menu:
             "search the chairs.":
+                scene black
+                with fade 
                 jump chairsLeaClassroom
             "search the teacher's desk.":
+                scene black
+                with fade 
                 jump teachersDeskLeaClassroom
             "head back to the hallway.":
+                $ insideLeaClassRoom = False
+                scene black
+                with fade 
                 jump hallwayFloor1
     else:
         menu:
@@ -154,9 +160,9 @@ label returnToClassroom:
                 else:
                     jump waterFountain1st
             "Head out to the hallway.":
+                $ insideLeaClassRoom = False
                 scene black
                 with fade
-                $ insideLeaClassRoom = False
                 jump hallway1st
 
 # FIRST FLOOR HALLWAY 
@@ -526,6 +532,8 @@ label teachersDeskLeaClassroom:
     $ insideLeaClassRoom = True
 
     ""
+
+    jump returnToClassroom
 
 label ClassroomFloor1Room2:
     scene black 
