@@ -6,10 +6,12 @@ label start:
     $ waterFountainInteracted = classroomFirstInteracted = doorKeyObtained = False 
 
     # Background ambience for night (ambience channel)
+   
+   
+    scene chairZoomed
     play music "audio/night_ambience.mp3" fadein 2.0 volume 0.4
     $ renpy.music.set_volume(1.0, channel="music")  # full volume to start
     $ renpy.music.set_volume(0.2, delay=15.0, channel="music")  # slow fade over time
-    scene chairZoomed
     with fade 
     "Lea woke up from her nap, her hair a mess from the deep sleep she had been in."
 
@@ -321,17 +323,16 @@ label waterFountain2nd:
 
     play sound "audio/fountain_click.mp3"
     "She tries turning the water fountain on again, Lea hears the rushing of liquid, but nothing flows out."
-    #play sound "audio/pipe_rush.mp3"
-    extend "—but nothing flows out."
 
     play sound "audio/drip_slow.mp3"
     "The faint echo of dripping pipes fills the hallway."
 
     menu:
         "Try again":
+            
+            scene black
             play sound "audio/fountain_click.mp3"
             stop music fadeout 1.0
-            scene black
             with fade
             jump waterFountain3rd
 
