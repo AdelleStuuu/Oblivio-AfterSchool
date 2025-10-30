@@ -156,6 +156,7 @@ label returnToClassroom:
             "Head out to the hallway.":
                 scene black
                 with fade
+                $ insideLeaClassRoom = False
                 jump hallway1st
 
 # FIRST FLOOR HALLWAY 
