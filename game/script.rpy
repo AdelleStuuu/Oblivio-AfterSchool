@@ -3,7 +3,7 @@ define l = Character("Lea", color="#910b7f")
 
 label start:
     $ FWatFounInteraction = firstHallwayFloor1Interaction = SWatFounInteraction = fromInsideClassroom = waterFountainInteracted = classroomFirstInteracted = doorKeyObtained = False
-    $ chairCheckingfloor1Room2 = chairCheckingLeaClassRoom 0, 
+    $ chairCheckingfloor1Room2 = chairCheckingLeaClassRoom = 0 
 
     # Background ambience for night (ambience channel)
    
