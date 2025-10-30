@@ -2,8 +2,8 @@
 define l = Character("Lea", color="#910b7f")
 
 label start:
-    $ FWatFounInteraction = firstHallwayFloor1Interaction = SWatFounInteraction = fromInsideClassroom = False
-    $ waterFountainInteracted = classroomFirstInteracted = doorKeyObtained = False 
+    $ FWatFounInteraction = firstHallwayFloor1Interaction = SWatFounInteraction = fromInsideClassroom = waterFountainInteracted = classroomFirstInteracted = doorKeyObtained = False
+    $ chairCheckingfloor1Room2 = chairCheckingLeaClassRoom 0, 
 
     # Background ambience for night (ambience channel)
    
@@ -22,7 +22,7 @@ label start:
 
     "There was nothing but the faint glow of moonlight and the weak neon light from the exit signs illuminating the hallways."
 
-    show lea defaultZoomed at right
+    show lea default at right
     with dissolve 
 
     l "God... What time is it?"
@@ -227,7 +227,9 @@ label leftEntrance2:
     show lea worried at right
     with fade 
 
-    l "No... No!"
+    l "No..."
+    
+    l "No!"
 
     l "I need to find a way to get out of here!"
 
@@ -274,7 +276,9 @@ label rightEntrance2:
     show lea worried at right
     with fade 
 
-    l "No... No!"
+    l "No..."
+    
+    l "No!"
 
     l "I need to find a way to get out of here!"
 
@@ -431,6 +435,7 @@ label waterFountainInteracted:
 
 ### HALLWAY INTERACTIONS 
 ### ADVENTURE 
+### VINCE TO NOT TAMPER FIRST PLEASE
 
 label hallwayFloor1:
     scene hallway1stFloor 
@@ -464,18 +469,105 @@ label hallwayFloor1:
                 jump waterFountain1st
 
 label floor1Classrooms:
-    "Flavor Text"
     menu:
         "head to your classroom.":
+            scene black
+            with fade
             jump returnToClassroom
         "head to a classroom by the right.":
+            scene black
+            with fade
             jump ClassroomFloor1Room2
         "head to a classroom by the left.":
+            scene black
+            with fade
             jump ClassroomFloor1Room3
 
 label floor1Hallways:
     menu:
         "head left of the hallway.":
+            scene black
+            with fade
             jump HallwayFloor1Left
         "head right of the hallway.":
+            scene black
+            with fade
             jump HallwayFloor2Right 
+
+label chairsLeaClassroom:
+    scene black 
+    with fade 
+
+    "Checking each chair, she spends her time looking for anything useful here."
+
+    if chairCheckingLeaClassRoom == 0:
+        "..."
+
+        "The first row had nothing of value."
+
+        l "Not Good... There's nothing here."
+
+        l "I should continue checking."
+        $ chairCheckingLeaClassRoom += 1
+    
+    jump returnToClassroom
+    
+
+
+
+label teachersDeskLeaClassroom:
+    scene black 
+    with fade 
+
+    ""
+
+label ClassroomFloor1Room2:
+    scene black 
+    with fade 
+    if room2Found == False:
+        "Lea heads to the right side, twisting the knobs of each of the rooms."
+
+        "Locked."
+
+        "Locked."
+
+        "Locked."
+
+        "One creaks open, the room is available."
+
+    $ room2Found = True
+
+    "She carefully walks inside the door, no one was there to greet her. The chairs are tilted in such a way that it seemed like everyone left in a panic."
+
+    menu: 
+        "Search the chairs.":
+            scene black 
+            with fade
+            jump chairsRoom2 
+        "Search the whiteboard":
+            scene black 
+            with fade
+            jump whiteboardRoom2 
+        "Head back to the halways":
+            scene black 
+            with fade
+            jump hallwayFloor1
+
+label chairsRoom2:
+
+label whiteboardRoom2:
+
+
+label ClassroomFloor1Room3:
+    if room3Found == False:
+        "Lea heads to the left side, twisting the knobs of each of the rooms."
+
+        "Locked."
+
+        "Locked."
+
+        "Locked."
+
+        "One creaks open, the room is available."
+
+    $ room3Found = True
