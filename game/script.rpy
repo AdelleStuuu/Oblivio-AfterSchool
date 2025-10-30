@@ -1,7 +1,7 @@
 ﻿# Character
 define l = Character("Lea", color="#910b7f")
 default FWatFounInteraction = firstHallwayFloor1Interaction = SWatFounInteraction = fromInsideClassroom = waterFountainInteracted = classroomFirstInteracted = doorKeyObtained = insideLeaClassRoom = False
-default = chairCheckingfloor1Room2 = chairCheckingLeaClassRoom = 0
+default chairCheckingfloor1Room2 = chairCheckingLeaClassRoom = 0
 
 label start:
 
