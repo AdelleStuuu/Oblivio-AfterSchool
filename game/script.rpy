@@ -118,16 +118,17 @@ label returnToClassroom:
     scene classRoom
     with fade
 
-    # door sound as she enters
-    play sound "audio/door_open.mp3"
+    if insideLeaClassRoom == True:
+        "..."
+    else: 
+        # door sound as she enters
+        play sound "audio/door_open.mp3"
 
-    "Lea enters the classroom. It's the same room she attends every school day."
+        "Lea enters the classroom. It's the same room she attends every school day."
 
-    "But it feels like everyone left in a hurry."
+        "But it feels like everyone left in a hurry."
 
-    "They've been gone for a while already."
-
-   
+        "They've been gone for a while already."
 
     if firstHallwayFloor1Interaction == True:
         menu:
@@ -498,6 +499,8 @@ label chairsLeaClassroom:
     scene black 
     with fade 
 
+    $ insideLeaClassRoom = True
+
     "Checking each chair, she spends her time looking for anything useful here."
 
     if chairCheckingLeaClassRoom == 0:
@@ -518,6 +521,8 @@ label chairsLeaClassroom:
 label teachersDeskLeaClassroom:
     scene black 
     with fade 
+
+    $ insideLeaClassRoom = True
 
     ""
 
