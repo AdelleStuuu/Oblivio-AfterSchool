@@ -2,7 +2,7 @@
 define l = Character("Lea", color="#910b7f")
 
 label start:
-    $ FWatFounInteraction = SWatFounInteraction = fromInsideClassroom = False
+    $ FWatFounInteraction = firstHallwayFloor1Interaction = SWatFounInteraction = fromInsideClassroom = False
     $ waterFountainInteracted = classroomFirstInteracted = doorKeyObtained = False 
 
     # Background ambience for night (ambience channel)
@@ -10,28 +10,33 @@ label start:
     $ renpy.music.set_volume(1.0, channel="music")  # full volume to start
     $ renpy.music.set_volume(0.2, delay=15.0, channel="music")  # slow fade over time
     scene chairZoomed
-    with fade
-
+    with fade 
     "Lea woke up from her nap, her hair a mess from the deep sleep she had been in."
 
     scene chairUnzoomed
     with dissolve
+
     play sound "lightbulb_buzzing.mp3" volume 0.5
+
     "There was nothing but the faint glow of moonlight and the weak neon light from the exit signs illuminating the hallways."
 
     show lea defaultZoomed at right
-    with fade 
+    with dissolve 
 
     l "God... What time is it?"
+    
     play sound "phone_click.mp3" volume 0.5
     $ renpy.pause(0.2)
-    "Lady Luck wasn't on her side today; her phone was dead."
+    
+    "Lady Luck wasn't on her side today, her phone was dead."
 
-    l "I must've slept for a long, long time."
+    l "I must've slept for a long... long time."
+    
     play sound "stumble.mp3" volume 0.5
+    
     "She stood up and stumbled, catching herself on something nearby."
 
-    l "Right — I skipped lunch earlier."
+    l "Right, I skipped lunch earlier."
 
     "She held her temples."
 
@@ -110,34 +115,45 @@ label returnToClassroom1st:
 label returnToClassroom:
     scene classRoom
     with fade
+
+    # door sound as she enters
+    play sound "audio/door_open.mp3"
+
     "Lea enters the classroom. It's the same room she attends every school day."
 
     "But it feels like everyone left in a hurry."
 
     "They've been gone for a while already."
 
-    # door sound as she enters
-    play sound "audio/door_open.mp3"
+   
 
-    menu:
-        "Head out, head towards the water fountain.":
-            scene black
-            with fade
-            if waterFountainInteracted == True:
-                "Lea returns to the water fountain."
-                jump waterFountainInteracted
-            elif SWatFounInteraction == True:
-                "Lea returns to the water fountain."
-                jump waterFountain3rd
-            elif FWatFounInteraction == True:
-                "Lea returns to the water fountain."
-                jump waterFountain2nd
-            else:
-                jump waterFountain1st
-        "Head out to the hallway.":
-            scene black
-            with fade
-            jump hallway1st
+    if firstHallwayFloor1Interaction == True:
+        menu:
+            "search the chairs.":
+                jump chairsLeaClassroom
+            "search the teacher's desk.":
+                jump teachersDeskLeaClassroom
+            "head back to the hallway.":
+                jump hallwayFloor1
+    else:
+        menu:
+            "Head out, head towards the water fountain.":
+                scene black
+                with fade
+                if waterFountainInteracted == True:
+                    "Lea returns to the water fountain."
+                    jump waterFountainInteracted
+                elif SWatFounInteraction == True:
+                    "Lea returns to the water fountain."
+                    jump waterFountain3rd
+                elif FWatFounInteraction == True:
+                    jump waterFountain2nd
+                else:
+                    jump waterFountain1st
+            "Head out to the hallway.":
+                scene black
+                with fade
+                jump hallway1st
 
 # FIRST FLOOR HALLWAY 
 # SCRIPTED SCENES ONLY 
@@ -221,7 +237,7 @@ label leftEntrance2:
 
     menu:
         "Return to the middle of the hallway.":
-            jump hallwayMain
+            jump hallwayFloor1 
 
 label rightEntrance1:
     scene black
@@ -268,7 +284,7 @@ label rightEntrance2:
 
     menu:
         "Return to the middle of the hallway.":
-            jump hallwayMain
+            jump hallwayFloor1 
 
 # WATER FOUNTAIN INTERACTIONS
 label waterFountain1st:
@@ -304,7 +320,7 @@ label waterFountain2nd:
     play music "audio/quiet_hum.mp3" fadein 1.5
 
     play sound "audio/fountain_click.mp3"
-    "She tries turning the water fountain on again, Lea hear the rushing of liquid, but nothing flows out."
+    "She tries turning the water fountain on again, Lea hears the rushing of liquid, but nothing flows out."
     #play sound "audio/pipe_rush.mp3"
     extend "—but nothing flows out."
 
@@ -412,4 +428,53 @@ label waterFountainInteracted:
                 with fade
                 jump returnToClassroom1st
 
+### HALLWAY INTERACTIONS 
+### ADVENTURE 
 
+label hallwayFloor1:
+    scene hallway1stFloor 
+    show lea default at right 
+    with fade    
+    "Lea is back at the hallway."
+    if firstHallwayFloor1Interaction == True:
+        "The hallway is silent."
+        
+        "Cackling sounds of her shoe's heels are what accompanies her as she walks through the halls devoid of life besides her own."
+    else:
+        "The air is tight, but time spent idling around here is time wasted on finding something to get out of here "
+        $ firstHallwayFloor1Interaction = True
+
+    "What to do now?"
+    menu:
+        "Approach the classrooms.":
+            jump floor1Classrooms
+        "Check each end of the hallways.":
+            jump floor1Hallways
+        "Approach the water fountain.":
+            if waterFountainInteracted == True:
+                "Lea returns to the water fountain."
+                jump waterFountainInteracted
+            elif SWatFounInteraction == True:
+                "Lea returns to the water fountain."
+                jump waterFountain3rd
+            elif FWatFounInteraction == True:
+                jump waterFountain2nd
+            else:
+                jump waterFountain1st
+
+label floor1Classrooms:
+    "Flavor Text"
+    menu:
+        "head to your classroom.":
+            jump returnToClassroom
+        "head to a classroom by the right.":
+            jump ClassroomFloor1Room2
+        "head to a classroom by the left.":
+            jump ClassroomFloor1Room3
+
+label floor1Hallways:
+    menu:
+        "head left of the hallway.":
+            jump HallwayFloor1Left
+        "head right of the hallway.":
+            jump HallwayFloor2Right 
