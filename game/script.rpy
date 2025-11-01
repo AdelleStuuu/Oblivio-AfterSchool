@@ -1,7 +1,47 @@
 ﻿# Character
 define l = Character("Lea", color="#910b7f")
-default FWatFounInteraction = firstHallwayFloor1Interaction = SWatFounInteraction = fromInsideClassroom = waterFountainInteracted = classroomFirstInteracted = doorKeyObtained = insideLeaClassRoom = False
-default chairCheckingfloor1Room2 = chairCheckingLeaClassRoom = 0
+
+default floor1 = {
+    "waterFountain" : {
+        "FirstInteraction" : False, 
+        "SWatFounInteraction" : False,
+        "waterFountainInteracted" : False,
+        "doorKeyObtained" : False
+    },
+    #CLASSROOMS
+
+    "LeaClassroom" : {
+        "chairChecking" : 0,
+        "classroomFirstInteracted" : False,
+        "insideClassRoom" : False,
+        "fromInsideClassroom" : False
+    },
+
+    "Room2" : {
+        "chairChecking" : 0,
+        "insideClassRoom" : False,
+        "isRoomFonund" : False
+    },
+
+    "Room3" : {
+        "chairChecking" : 0,
+        "insideClassRoom" : False,
+        "isRoomFonund" : False
+    },
+    #HALLWAYS
+    "hallway" : {
+        "firstHallwayInteraction" : False
+    },
+    "puzzlePieces" : {
+        "Note1" : False,
+        "Note2" : False,
+        "Note3" : False
+    }
+}
+
+default floor2 = {
+
+}
 
 label start:
 
@@ -59,7 +99,7 @@ label start:
             play sound "audio/door_open.mp3" volume 0.5
             scene black
             with fade
-            $ fromInsideClassroom = True
+            $ floor1["LeaClassroom"]["fromInsideClassroom"] = True
             jump returnToClassroom1st
 
 # CLASSROOM INTERACTIONS
@@ -68,7 +108,7 @@ label returnToClassroom1st:
     scene classRoom
     with fade
 
-    if fromInsideClassroom == True:
+    if floor1["LeaClassroom"]["fromInsideClassroom"] == True:
         "Lea prepared to pack her belongings. The window outside showed a dark and cloudy night sky. Her brows furrowed."
     else:
         "Returning to the classroom she lounged by, Lea prepared to pack her belongings. The window outside showed a dark and cloudy night sky. Her brows furrowed." 
@@ -82,7 +122,7 @@ label returnToClassroom1st:
     "She sighed."
     
     l "I just really want to get home. My head is killing me."
-    $ classroomFirstInteracted = True
+    $ floor1["LeaClassroom"]["classroomFirstInteracted"] = True
 
     # small ambient note (door open effect then footsteps)
     play sound "audio/door_open.mp3"
@@ -96,13 +136,13 @@ label returnToClassroom1st:
             stop sound
             scene black
             with fade
-            if waterFountainInteracted == True:
+            if floor1["waterFountain"]["waterFountainInteracted"] == True:
                 "Lea returns to the water fountain."
                 jump waterFountainInteracted
-            elif SWatFounInteraction == True:
+            elif floor1["waterFountain"]["SsecondInteraction"] == True:
                 "Lea returns to the water fountain."
                 jump waterFountain3rd
-            elif FWatFounInteraction == True:
+            elif floor1["waterFountain"]["FirstInteraction"] == True:
                 jump waterFountain2nd
             else:
                 jump waterFountain1st
@@ -117,7 +157,7 @@ label returnToClassroom:
     scene classRoom
     with fade
 
-    if insideLeaClassRoom == True:
+    if floor1["LeaClassroom"]["insideClassRoom"] == True:
         "..."
     else: 
         # door sound as she enters
@@ -129,7 +169,7 @@ label returnToClassroom:
 
         "They've been gone for a while already."
 
-    if firstHallwayFloor1Interaction == True:
+    if floor1["hallway"]["firstHallwayInteraction"] == True:
         menu:
             "search the chairs.":
                 scene black
@@ -140,7 +180,7 @@ label returnToClassroom:
                 with fade 
                 jump teachersDeskLeaClassroom
             "head back to the hallway.":
-                $ insideLeaClassRoom = False
+                $ floor1["LeaClassroom"]["insideClassRoom"] = False
                 scene black
                 with fade 
                 jump hallwayFloor1
@@ -149,18 +189,18 @@ label returnToClassroom:
             "Head out, head towards the water fountain.":
                 scene black
                 with fade
-                if waterFountainInteracted == True:
+                if floor1["waterFountain"]["waterFountainInteracted"] == True:
                     "Lea returns to the water fountain."
                     jump waterFountainInteracted
-                elif SWatFounInteraction == True:
+                elif floor1["waterFountain"]["SsecondInteraction"] == True:
                     "Lea returns to the water fountain."
                     jump waterFountain3rd
-                elif FWatFounInteraction == True:
+                elif floor1["waterFountain"]["FirstInteraction"] == True:
                     jump waterFountain2nd
                 else:
                     jump waterFountain1st
             "Head out to the hallway.":
-                $ insideLeaClassRoom = False
+                $ floor1["LeaClassroom"]["insideClassRoom"] = False
                 scene black
                 with fade
                 jump hallway1st
@@ -241,7 +281,7 @@ label leftEntrance2:
 
     l "I need to find a way to get out of here!"
 
-    if doorKeyObtained == True:
+    if floor1["waterFountain"]["doorKeyObtained"] == True:
         hide lea 
         "She remembers something. Reaching into her pockets, She takes out a key to a door."
         show lea worried at right
@@ -290,7 +330,7 @@ label rightEntrance2:
 
     l "I need to find a way to get out of here!"
 
-    if doorKeyObtained == True:
+    if floor1["waterFountain"]["doorKeyObtained"] == True:
         hide lea 
         "She remembers something. Reaching into her pockets, She takes out a key to a door."
         show lea worried at right
@@ -302,7 +342,7 @@ label rightEntrance2:
 
 # WATER FOUNTAIN INTERACTIONS
 label waterFountain1st:
-    $ FWatFounInteraction = True
+    $ floor1["waterFountain"]["FirstInteraction"] = True
     scene waterfountain 
     with fade
     "Lea steps on the pressure plate that activates the water fountain, nothing happens."
@@ -316,7 +356,7 @@ label waterFountain1st:
             play sound "audio/walking_heels_echo.mp3" volume 0.5 fadeout 1.5
             $ renpy.pause(7.0)
             stop sound
-            if classroomFirstInteracted == True:
+            if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
                 scene black 
                 with fade
                 jump returnToClassroom
@@ -326,7 +366,7 @@ label waterFountain1st:
                 jump returnToClassroom1st
 
 label waterFountain2nd:
-    $ SWatFounInteraction = True
+    $ floor1["waterFountain"]["SsecondInteraction"] = True
     scene waterfountain
     with fade
 
@@ -350,7 +390,7 @@ label waterFountain2nd:
 
         "Return to the classroom.":
             stop music fadeout 1.0
-            if classroomFirstInteracted == True:
+            if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
                 scene black
                 with fade
                 jump returnToClassroom
@@ -360,7 +400,7 @@ label waterFountain2nd:
                 jump returnToClassroom1st
 
 label waterFountain3rd:
-    $ waterFountainInteracted = True
+    $ floor1["waterFountain"]["waterFountainInteracted"] = True
     scene waterfountainOozeFlowing
     with fade
 
@@ -390,7 +430,7 @@ label waterFountain3rd:
             play sound "audio/walking_heels_echo.mp3" volume 0.5 fadeout 1.5
             $ renpy.pause(7.0)
             stop sound
-            if classroomFirstInteracted == True:
+            if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
                 scene black 
                 with fade
                 jump returnToClassroom
@@ -405,7 +445,8 @@ label waterFountainInteracted:
 
     play music "audio/ambient_silence.mp3" fadein 2.0
     play sound "audio/drip_slow.mp3"
-    if doorKeyObtained == True:
+
+    if floor1["waterFountain"]["doorKeyObtained"] == True :
         "Lea looks over to the water fountain."
 
         "The black ooze is gone."
@@ -425,14 +466,14 @@ label waterFountainInteracted:
         "She hesitantly picks the key up"
 
         "*You obtained a Door Key.*"
-        $ doorKeyObtained = True 
+        $ floor1["waterFountain"]["doorKeyObtained"] = True 
 
     menu: 
         "Return to the classroom.":
             play sound "audio/walking_heels_echo.mp3" volume 0.5 fadeout 1.5
             $ renpy.pause(7.0)
             stop sound
-            if classroomFirstInteracted == True:
+            if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
                 scene black 
                 with fade
                 jump returnToClassroom
@@ -450,13 +491,13 @@ label hallwayFloor1:
     show lea default at right 
     with fade    
     "Lea is back at the hallway."
-    if firstHallwayFloor1Interaction == True:
+    if floor1["hallway"]["firstHallwayInteraction"] == True:
         "The hallway is silent."
         
         "Cackling sounds of her shoe's heels are what accompanies her as she walks through the halls devoid of life besides her own."
     else:
         "The air is tight, but time spent idling around here is time wasted on finding something to get out of here "
-        $ firstHallwayFloor1Interaction = True
+        $ floor1["hallway"]["firstHallwayInteraction"] = True
 
     "What to do now?"
     menu:
@@ -465,13 +506,13 @@ label hallwayFloor1:
         "Check each end of the hallways.":
             jump floor1Hallways
         "Approach the water fountain.":
-            if waterFountainInteracted == True:
+            if floor1["waterFountain"]["waterFountainInteracted"] == True:
                 "Lea returns to the water fountain."
                 jump waterFountainInteracted
-            elif SWatFounInteraction == True:
+            elif floor1["waterFountain"]["SsecondInteraction"] == True:
                 "Lea returns to the water fountain."
                 jump waterFountain3rd
-            elif FWatFounInteraction == True:
+            elif floor1["waterFountain"]["FirstInteraction"] == True:
                 jump waterFountain2nd
             else:
                 jump waterFountain1st
@@ -506,20 +547,59 @@ label chairsLeaClassroom:
     scene black 
     with fade 
 
-    $ insideLeaClassRoom = True
+    $ floor1["LeaClassroom"]["insideClassRoom"] = True
 
     "Checking each chair, she spends her time looking for anything useful here."
 
-    if chairCheckingLeaClassRoom == 0:
+    if floor1["LeaClassroom"]["chairChecking"] == 0:
         "..."
 
         "The first row had nothing of value."
-
+        show lea default at right
+        with dissolve
         l "Not Good... There's nothing here."
 
-        l "I should continue checking."
-        $ chairCheckingLeaClassRoom += 1
+        l "I should continue searching."
+    elif floor1["LeaClassroom"]["chairChecking"] == 1:
+        "..."
+
+        "The last row had nothing of value."
+        show lea default at right
+        with dissolve
+        l "Nothing here."
+
+        l "I should continue searching."
+    elif floor1["LeaClassroom"]["chairChecking"] == 2:
+        "..."
+
+        "The fourth row had nothing of value."
+        show lea default at right
+        with dissolve
+        l "Nothing here."
+
+        l "I should continue searching."
+    elif floor1["LeaClassroom"]["chairChecking"] == 3:
+        $ floor1["puzzlePieces"]["Note1"] = True
+        "..."
+
+        "Lea found something of value."
+        show lea default at right
+        with dissolve
+        l "A note from a journal?"
+
+        "She reads the content, it gives her a chill down her spine."
+        show lea surprised at right
+        with dissolve
+        l "this is mine... How did this get here?"
+
+    else:
+        show lea default at right
+        with dissolve
+        l "I think I already searched the chairs enough."
     
+    if floor1["LeaClassroom"]["chairChecking"] < 4:
+        $ floor1["LeaClassroom"]["chairChecking"] += 1
+
     jump returnToClassroom
     
 
@@ -529,16 +609,26 @@ label teachersDeskLeaClassroom:
     scene black 
     with fade 
 
-    $ insideLeaClassRoom = True
+    $ floor1["LeaClassroom"]["insideClassRoom"] = True
 
-    ""
+    "Walking to the teacher's desk, the desk itself was empty, but Lea pulls the drawer open."
+    show lea default at right 
+    with dissolve
 
+    l "A rubik's cube? It's jumbled, someone must've confiscated it."
+    show lea smiling at right 
+
+    "Lea turns the cube a few times."
+    
+    l "That's a nice distraction."
+    
     jump returnToClassroom
 
 label ClassroomFloor1Room2:
     scene black 
     with fade 
-    if room2Found == False:
+
+    if floor1["Room2"]["isRoomFound"]== False:
         "Lea heads to the right side, twisting the knobs of each of the rooms."
 
         "Locked."
@@ -549,9 +639,12 @@ label ClassroomFloor1Room2:
 
         "One creaks open, the room is available."
 
-    $ room2Found = True
+    $ floor1["Room2"]["isRoomFound"]= True
 
-    "She carefully walks inside the door, no one was there to greet her. The chairs are tilted in such a way that it seemed like everyone left in a panic."
+    if floor1["Room2"]["insideClassRoom"] == False:
+        "She carefully walks inside the door, no one was there to greet her. The chairs are tilted in such a way that it seemed like everyone left in a panic."
+    else:
+        "..."
 
     menu: 
         "Search the chairs.":
@@ -563,17 +656,63 @@ label ClassroomFloor1Room2:
             with fade
             jump whiteboardRoom2 
         "Head back to the halways":
+            $ floor1["Room2"]["insideClassRoom"] = False
             scene black 
             with fade
             jump hallwayFloor1
 
 label chairsRoom2:
+    scene black
+    with fade
+
+    $ floor1["Room2"]["insideClassRoom"] = True
+
+    "Checking each chair, she spends her time looking for anything useful here."
+
+    if floor1["Room2"]["chairChecking"] == 0:
+        "..."
+
+        "The last row had nothing of value."
+        show lea default at right
+        with dissolve
+        l "Not Good... There's nothing here."
+
+        l "I should continue searching."
+    elif floor1["Room2"]["chairChecking"] == 1:
+        "..."
+
+        "The middle row had nothing of value."
+        show lea default at right
+        with dissolve
+        l "Nothing here."
+
+        l "I should continue searching."
+    elif floor1["Room2"]["chairChecking"] == 2:
+        $ floor1["puzzlePieces"]["Note2"] = True
+        "..."
+
+        "Lea found something of value."
+        show lea default at right
+        with dissolve
+        l "Its a note, and it looks like it's ripped from a journal."
+
+        "Lea reads the contents of the note."
+        show lea surprised at right
+        with dissolve
+        l "Why is this note in this room?"
+    else:
+        show lea default at right
+        with dissolve
+        l "I think I already searched the chairs enough."
+    
+    if floor1["Room2"]["chairChecking"] < 3:
+        $ floor1["Room2"]["chairChecking"] += 1
 
 label whiteboardRoom2:
 
 
 label ClassroomFloor1Room3:
-    if room3Found == False:
+    if floor1["Room3"]["isRoomFound"] == False:
         "Lea heads to the left side, twisting the knobs of each of the rooms."
 
         "Locked."
@@ -584,4 +723,25 @@ label ClassroomFloor1Room3:
 
         "One creaks open, the room is available."
 
-    $ room3Found = True
+    if floor1["Room3"]["insideClassRoom"] == False:
+        "She walks inside the classroom. It is just as barren as the halls outside."
+    else:
+        "..."
+
+    menu: 
+        "Search the chairs.":
+            scene black 
+            with fade
+            jump chairsRoom3 
+        "Search the whiteboard":
+            scene black 
+            with fade
+            jump whiteboardRoom3 
+        "Head back to the halways":
+            $ floor1["Room3"]["insideClassRoom"] = False
+            scene black 
+            with fade
+            jump hallwayFloor1
+
+    $ floor1["Room3"]["isRoomFound"] = True
+
