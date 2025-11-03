@@ -1,5 +1,5 @@
 ﻿# Character
-define l = Character("Lea", color="#910b7f")
+define l = Character("Lea", color="#910b9f")
 
 default floor1 = {
     "waterFountain" : {
@@ -74,6 +74,7 @@ label start:
     l "I must've slept for a long... long time."
     
     play sound "stumble.mp3" volume 0.5
+    $ renpy.pause(2.0)
     
     "She stood up and stumbled, catching herself on something nearby."
 
@@ -86,7 +87,7 @@ label start:
     menu:
         "Use the water fountain.": 
             play sound "audio/walking_heels_echo.mp3" volume 0.5 fadeout 1.5
-            $ renpy.pause(7.0)
+            $ renpy.pause(9.0)
             stop sound
             # water fountain sound cue
             #play sound "audio/water_fountain.mp3" volume 0.3
@@ -118,7 +119,7 @@ label returnToClassroom1st:
 
     l "It's not like anyone will be suspicious of me being out at night, but..."
     play sound "audio/sigh.mp3" volume 0.5
-    $ renpy.pause(0.2)
+    $ renpy.pause(1.0)
     "She sighed."
     
     l "I just really want to get home. My head is killing me."
@@ -132,7 +133,7 @@ label returnToClassroom1st:
     menu:
         "Head out, drink at the water fountain.":
             play sound "audio/walking_heels_echo.mp3" volume 0.5 fadeout 1.5
-            $ renpy.pause(7.0)
+            $ renpy.pause(9.0)
             stop sound
             scene black
             with fade
@@ -149,7 +150,7 @@ label returnToClassroom1st:
 
         "Head out to the hallway.":
             play sound "audio/walking_heels_echo.mp3" volume 0.5 fadeout 1.5
-            $ renpy.pause(7.0)
+            $ renpy.pause(9.0)
             stop sound
             jump hallway1st
 
@@ -256,6 +257,7 @@ label leftEntrance1:
     menu: 
         "Check the back door.":
             play sound "audio/footsteps_heels.mp3"
+            $ renpy.pause(9.0)
             scene black
             with fade
             jump rightEntrance2
@@ -284,6 +286,7 @@ label leftEntrance2:
     if floor1["waterFountain"]["doorKeyObtained"] == True:
         hide lea 
         "She remembers something. Reaching into her pockets, She takes out a key to a door."
+        #add key sound
         show lea worried at right
         l "Maybe there is something here that this key can open to."
 
@@ -300,6 +303,7 @@ label rightEntrance1:
     "Lea approaches the locked doors, it is chained and the knob was torn off."
 
     play sound "audio/chain_rattle.mp3"
+    $ renpy.pause(5.0)
     "She feels a rush of unease go through her."
     menu: 
         "Check the front door.":
@@ -354,7 +358,7 @@ label waterFountain1st:
             jump waterFountain2nd
         "Return to the classroom.":
             play sound "audio/walking_heels_echo.mp3" volume 0.5 fadeout 1.5
-            $ renpy.pause(7.0)
+            $ renpy.pause(9.0)
             stop sound
             if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
                 scene black 
@@ -374,9 +378,11 @@ label waterFountain2nd:
     play music "audio/quiet_hum.mp3" fadein 1.5
 
     play sound "audio/fountain_click.mp3"
+    $ renpy.pause(5.0)
     "She tries turning the water fountain on again, Lea hears the rushing of liquid, but nothing flows out."
 
     play sound "audio/drip_slow.mp3"
+    $ renpy.pause(5.0)
     "The faint echo of dripping pipes fills the hallway."
 
     menu:
@@ -406,12 +412,16 @@ label waterFountain3rd:
 
     # tension swell music
     play sound "audio/tension_swell.mp3" fadein 1.5
+    $ renpy.pause(9.0)
 
     play sound "audio/fountain_click.mp3"
+    $ renpy.pause(5.0)
     "In a desperate attempt, Lea turns the water fountain on aggressively, and black unidentifiable liquid pours out."
 
     play sound "audio/liquid_splash.mp3"
+    $ renpy.pause(3.0)
     play sound "audio/heartbeat_fast.mp3"
+    $ renpy.pause(3.0)
     scene HallwayBack
     with fade
 
@@ -428,7 +438,7 @@ label waterFountain3rd:
     menu:
         "Return to the classroom.":
             play sound "audio/walking_heels_echo.mp3" volume 0.5 fadeout 1.5
-            $ renpy.pause(7.0)
+            $ renpy.pause(9.0)
             stop sound
             if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
                 scene black 
@@ -445,6 +455,7 @@ label waterFountainInteracted:
 
     play music "audio/ambient_silence.mp3" fadein 2.0
     play sound "audio/drip_slow.mp3"
+    $ renpy.pause(3.0)
 
     if floor1["waterFountain"]["doorKeyObtained"] == True :
         "Lea looks over to the water fountain."
@@ -471,7 +482,7 @@ label waterFountainInteracted:
     menu: 
         "Return to the classroom.":
             play sound "audio/walking_heels_echo.mp3" volume 0.5 fadeout 1.5
-            $ renpy.pause(7.0)
+            $ renpy.pause(9.0)
             stop sound
             if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
                 scene black 
