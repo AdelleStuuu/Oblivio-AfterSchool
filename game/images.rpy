@@ -14,6 +14,9 @@ image chairUnzoomed:
 image lea default:
     "Lea/lea default.webp"
     zoom .5
+image lea headHurt:
+    "Lea/lea headHurt.webp"
+    zoom .5 
 image lea defaultZoomed:
     "Lea/lea default.webp"
 

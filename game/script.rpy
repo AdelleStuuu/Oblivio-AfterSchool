@@ -101,6 +101,8 @@ label start:
             $ fade_up_ambience()
             scene black
             with fade
+            pause 2
+            stop sound
             jump waterFountain1st
 
         "Ignore your instincts, stay in the classroom.":
@@ -386,7 +388,7 @@ label rightEntrance2:
     scene hallwayLocked
     with fade
 
-    "It is the door to the exit, but it's locked tight. Chained with a lock and the knob is ripped right off. Lea tried kicking it."
+    "It is the door to the exit, but it is locked tight. Chained with a lock and the knob is ripped right off. Lea tried kicking it."
 
     "Unfortunately, they aren't budging."
 
@@ -672,7 +674,38 @@ label floor1Hallways:
         "head right of the hallway.":
             scene black
             with fade
-            jump HallwayFloor2Right 
+            jump HallwayFloor1Right
+
+label HallwayFloor1Right:
+    "It is the door from earlier, it is still chained shut."
+
+    menu: 
+        "Try kicking it open.":
+            "Lea takes a few steps back, and then runs towards the door and gave it a good kick."
+
+            "..."
+
+            "The Door did not budge."
+
+            show lea default at right
+            with dissolve
+
+            l "It was worth the try."
+
+            l "I should just try finding a key instead."
+            menu:
+                "Go back to the middle of the hallway.":
+                    scene black with fade 
+                    jump floor1Hallways
+
+        "Go back to the middle of the Hallway.": 
+            scene black with fade 
+            jump floor1Hallways
+
+label HallwayFloor1Left:
+    ""
+
+### LEA CLASSROOM 
 
 label chairsLeaClassroom:
     scene black 
@@ -723,6 +756,9 @@ label chairsLeaClassroom:
         with dissolve
         l "this is mine... How did this get here?"
 
+        "*Obtained Note #3*"
+        $ floor1["puzzlePieces"]["Note3"] =True
+
     else:
         show lea default at right
         with dissolve
@@ -732,8 +768,6 @@ label chairsLeaClassroom:
         $ floor1["LeaClassroom"]["chairChecking"] += 1
 
     jump returnToClassroom
-    
-
 
 
 label teachersDeskLeaClassroom:
@@ -754,6 +788,8 @@ label teachersDeskLeaClassroom:
     l "That's a nice distraction."
     
     jump returnToClassroom
+
+### ROOM 2 CLASSROOM 
 
 label ClassroomFloor1Room2:
     scene black 
@@ -809,6 +845,7 @@ label chairsRoom2:
         l "Not Good... There's nothing here."
 
         l "I should continue searching."
+
     elif floor1["Room2"]["chairChecking"] == 1:
         "..."
 
@@ -818,6 +855,7 @@ label chairsRoom2:
         l "Nothing here."
 
         l "I should continue searching."
+
     elif floor1["Room2"]["chairChecking"] == 2:
         $ floor1["puzzlePieces"]["Note2"] = True
         "..."
@@ -831,6 +869,10 @@ label chairsRoom2:
         show lea surprised at right
         with dissolve
         l "Why is this note in this room?"
+
+        "*Obtained Note #1*"
+        $ floor1["puzzlePieces"]["Note1"] = True
+
     else:
         show lea default at right
         with dissolve
@@ -840,7 +882,30 @@ label chairsRoom2:
         $ floor1["Room2"]["chairChecking"] += 1
 
 label whiteboardRoom2:
+    scene Classroom1 with fade 
+     
+    $ floor1["Room2"]["insideClassRoom"] = True
 
+    "Lea approaches the whiteboard,she looks over the crevices."
+
+    "Her head moves to the right, and then left for anything useful there."
+
+    "..."
+
+    show lea default at right 
+    with dissolve
+
+    l "Markers, Chalks, and an eraser."
+
+    l "Nothing useful here."
+
+    "She walks back to the middle of the room"
+    scene black
+    with fade  
+
+    jump ClassroomFloor1Room2  
+
+### ROOM 3 CLASSROOM 
 
 label ClassroomFloor1Room3:
     if floor1["Room3"]["isRoomFound"] == False:
@@ -853,6 +918,8 @@ label ClassroomFloor1Room3:
         "Locked."
 
         "One creaks open, the room is available."
+    
+    $ floor1["Room3"]["isRoomFound"] = True
 
     if floor1["Room3"]["insideClassRoom"] == False:
         "She walks inside the classroom. It is just as barren as the halls outside."
@@ -874,4 +941,81 @@ label ClassroomFloor1Room3:
             with fade
             jump hallwayFloor1
 
-    $ floor1["Room3"]["isRoomFound"] = True
+label chairsRoom3:
+    scene black
+    with fade
+
+    $ floor1["Room3"]["insideClassRoom"] = True
+
+    "Checking each chair, she spends her time looking for anything useful here."
+
+    if floor1["Room3"]["chairChecking"] == 0:
+        "..."
+
+        "The last row had nothing of value."
+        show lea default at right
+        with dissolve
+        l "Not Good... There's nothing here."
+
+        l "I should continue searching."
+    elif floor1["Room3"]["chairChecking"] == 1:
+        "..."
+
+        "The middle row had nothing of value."
+        show lea default at right
+        with dissolve
+        l "Nothing here."
+
+        l "I should continue searching."
+    elif floor1["Room3"]["chairChecking"] == 2:
+        "..."
+        show lea default at right
+        with dissolve
+        
+        l "There nothing useful at the chairs,I should stop searching for now."
+    else:  
+        show lea default at right
+        with dissolve
+        l "I think I already searched the chairs enough."
+    
+    if floor1["Room3"]["chairChecking"] < 3:
+        $ floor1["Room3"]["chairChecking"] += 1
+    
+    jump ClassroomFloor1Room3
+
+label whiteboardRoom3:
+    scene black with fade
+
+    $ floor1["Room3"]["insideClassRoom"] = True
+
+    "Lea approaches the whiteboard,she looks over the crevices."
+
+    "Her head moves to the right, and then left for anything useful there."
+
+    "..."
+
+    show lea default at right 
+    with dissolve
+
+    l "Markers, Chalks, and an eraser."
+
+    show lea surprised at right 
+
+    l "..."
+
+    hide lea surprised
+    with dissolve
+
+    "She picks up a piece of folded paper on the crevice of the whiteboard."
+
+    "She opens it and reads the contents inside."
+
+    show lea worried at right
+    with dissolve
+
+    l "... This is from my journal. This is not supposed to be here."
+
+    "*Obtained Note #2*"
+    $ floor1["puzzlePieces"]["Note2"] = True
+
+    jump ClassroomFloor1Room3
