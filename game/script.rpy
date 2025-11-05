@@ -12,7 +12,7 @@ init python:
 default floor1 = {
     "waterFountain": {
         "FirstInteraction": False,
-        "SWatFounInteraction": False,
+        "secondInteraction": False,
         "waterFountainInteracted": False,
         "doorKeyObtained": False
     },
@@ -25,12 +25,12 @@ default floor1 = {
     "Room2": {
         "chairChecking": 0,
         "insideClassRoom": False,
-        "isRoomFonund": False
+        "isRoomFound": False
     },
     "Room3": {
         "chairChecking": 0,
         "insideClassRoom": False,
-        "isRoomFonund": False
+        "isRoomFound": False
     },
     "hallway": {
         "firstHallwayInteraction": False
@@ -46,6 +46,7 @@ default floor2 = { }
 
 label start:
     scene chairZoomed
+ 
     $ fade_down_ambience()
     play music "audio/night_ambience.mp3" fadein 2.0 volume 0.4
     with fade
@@ -56,7 +57,7 @@ label start:
     with dissolve
 
     $ fade_down_ambience()
-    play sound "audio/lightbulb_buzzing.mp3" volume 0.5 fadein 1.0 fadeout 2.0
+    play sound "audio/lightbulb_buzzing.mp3" volume 1 fadein 1.0 fadeout 2.0
     $ renpy.pause(2.0)
     stop sound
     $ fade_up_ambience()
@@ -69,7 +70,7 @@ label start:
     l "God... What time is it?"
 
     $ fade_down_ambience()
-    play sound "audio/phone_click.mp3" volume 0.5 fadein 1.0 fadeout 2.0
+    play sound "audio/phone_click.mp3" volume 1 fadein 1.0 fadeout 2.0
     $ renpy.pause(3.0)
     stop sound
     $ fade_up_ambience()
@@ -79,7 +80,7 @@ label start:
     l "I must've slept for a long... long time."
 
     $ fade_down_ambience()
-    play sound "audio/stumble.mp3" volume 0.5 fadein 1.0 fadeout 2.0
+    play sound "audio/stumble.mp3" volume 1 fadein 1.0 fadeout 2.0
     $ renpy.pause(2.0)
     stop sound
     $ fade_up_ambience()
@@ -95,7 +96,7 @@ label start:
     menu:
         "Use the water fountain.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5 fadein 1.0 fadeout 2
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 2
             $ renpy.pause(9.0)
             stop sound
             $ fade_up_ambience()
@@ -107,7 +108,7 @@ label start:
 
         "Ignore your instincts, stay in the classroom.":
             $ fade_down_ambience()
-            play sound "audio/door_open.mp3" volume 0.5 fadein 1.0 fadeout 2
+            play sound "audio/door_open.mp3" volume 1 fadein 1.0 fadeout 2
             $ renpy.pause(3.0)
             stop sound
             $ fade_up_ambience()
@@ -133,7 +134,7 @@ label returnToClassroom1st:
     l "It's not like anyone will be suspicious of me being out at night, but..."
 
     $ fade_down_ambience()
-    play sound "audio/sigh.mp3" volume 0.5 fadein 0.5 fadein 1.0 fadeout 2
+    play sound "audio/sigh.mp3" volume 1 fadein 1 fadein 1.0 fadeout 2
     $ renpy.pause(4.0)
     "She sighed."
     stop sound
@@ -158,7 +159,7 @@ label returnToClassroom1st:
     menu:
         "Head out, drink at the water fountain.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5 fadein 1.0 fadeout 1.5
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 1.5
             $ renpy.pause(9.0)
             stop sound
             $ fade_up_ambience()
@@ -167,7 +168,7 @@ label returnToClassroom1st:
             if floor1["waterFountain"]["waterFountainInteracted"] == True:
                 "Lea returns to the water fountain."
                 jump waterFountainInteracted
-            elif floor1["waterFountain"]["SsecondInteraction"] == True:
+            elif floor1["waterFountain"]["secondInteraction"] == True:
                 "Lea returns to the water fountain."
                 jump waterFountain3rd
             elif floor1["waterFountain"]["FirstInteraction"] == True:
@@ -177,7 +178,7 @@ label returnToClassroom1st:
 
         "Head out to the hallway.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5 fadein 1.0 fadeout 1.5
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 1.5
             $ renpy.pause(9.0)
             stop sound
             $ fade_up_ambience()
@@ -223,7 +224,7 @@ label returnToClassroom:
                 if floor1["waterFountain"]["waterFountainInteracted"] == True:
                     "Lea returns to the water fountain."
                     jump waterFountainInteracted
-                elif floor1["waterFountain"]["SsecondInteraction"] == True:
+                elif floor1["waterFountain"]["secondInteraction"] == True:
                     "Lea returns to the water fountain."
                     jump waterFountain3rd
                 elif floor1["waterFountain"]["FirstInteraction"] == True:
@@ -241,7 +242,7 @@ label returnToClassroom:
 # SCRIPTED SCENES ONLY
 label hallway1st:
     $ fade_down_ambience()
-    stop music fadeout 0.5
+    stop music fadeout 1
     $ fade_up_ambience()
     $ fade_down_ambience()
     play music "audio/night_ambience.mp3" fadein 1.5
@@ -345,7 +346,7 @@ label leftEntrance2:
         hide lea
         "She remembers something. Reaching into her pockets, she takes out a key to a door."
         $ fade_down_ambience()
-        play sound "audio/keys_jingle.mp3" fadeout 0.5
+        play sound "audio/keys_jingle.mp3" fadeout 1
         $ renpy.pause(1.0)
         stop sound
         $ fade_up_ambience()
@@ -402,7 +403,7 @@ label rightEntrance2:
         hide lea
         "She remembers something. Reaching into her pockets, she takes out a key to a door."
         $ fade_down_ambience()
-        play sound "audio/keys_jingle.mp3" fadeout 0.5
+        play sound "audio/keys_jingle.mp3" fadeout 1
         $ renpy.pause(1.0)
         stop sound
         $ fade_up_ambience()
@@ -422,7 +423,7 @@ label waterFountain1st:
     "Lea steps on the pressure plate that activates the water fountain, nothing happens."
 
     $ fade_down_ambience()
-    play sound "audio/metal_creaking.mp3" volume 0.5 fadein 1 fadeout 2
+    play sound "audio/metal_creaking.mp3" volume 1 fadein 1 fadeout 2
     $ renpy.pause(3)
     stop sound
     $ fade_up_ambience()
@@ -438,7 +439,7 @@ label waterFountain1st:
 
         "Return to the classroom.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5 fadein 1.0 fadeout 2
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 2
             $ renpy.pause(9.0)
             stop sound
             $ fade_up_ambience()
@@ -453,7 +454,7 @@ label waterFountain1st:
 
 
 label waterFountain2nd:
-    $ floor1["waterFountain"]["SsecondInteraction"] = True
+    $ floor1["waterFountain"]["secondInteraction"] = True
     scene waterfountain
     with fade
 
@@ -545,7 +546,7 @@ label waterFountain3rd:
     menu:
         "Return to the classroom.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5 fadein 1.0 fadeout 2
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 2
             stop sound
             $ fade_up_ambience()
             if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
@@ -583,7 +584,7 @@ label waterFountainInteracted:
         l "..."
     else:
         $ fade_down_ambience()
-        play sound "audio/ooze_drip.mp3" fadein 0.5 fadein 1.0 fadeout 2
+        play sound "audio/ooze_drip.mp3" fadein 1 fadein 1.0 fadeout 2
         $ renpy.pause(5.0)
         stop sound
         $ fade_up_ambience()
@@ -593,7 +594,7 @@ label waterFountainInteracted:
 
         "She hesitantly picks the key up."
         $ fade_down_ambience()
-        play sound "audio/keys_jingle.mp3" volume 1.0 fadeout 0.5
+        play sound "audio/keys_jingle.mp3" volume 1.0 fadeout 1
         $ renpy.pause(1.0)
         stop sound
         $ fade_up_ambience()
@@ -603,7 +604,7 @@ label waterFountainInteracted:
     menu:
         "Return to the classroom.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5 fadein 1.0 fadeout 2
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 2
             $ renpy.pause(9.0)
             stop sound
             $ fade_up_ambience()
@@ -642,7 +643,7 @@ label hallwayFloor1:
             if floor1["waterFountain"]["waterFountainInteracted"] == True:
                 "Lea returns to the water fountain."
                 jump waterFountainInteracted
-            elif floor1["waterFountain"]["SsecondInteraction"] == True:
+            elif floor1["waterFountain"]["secondInteraction"] == True:
                 "Lea returns to the water fountain."
                 jump waterFountain3rd
             elif floor1["waterFountain"]["FirstInteraction"] == True:
@@ -677,6 +678,11 @@ label floor1Hallways:
             jump HallwayFloor1Right
 
 label HallwayFloor1Right:
+    scene black
+    "Lea walks towards the hallway to the right."
+    scene hallwayLocked with fade
+    
+
     "It is the door from earlier, it is still chained shut."
 
     menu: 
@@ -700,10 +706,63 @@ label HallwayFloor1Right:
 
         "Go back to the middle of the Hallway.": 
             scene black with fade 
-            jump floor1Hallways
+            jump hallwayFloor1
 
 label HallwayFloor1Left:
-    ""
+    scene black 
+    "Lea walks towards the hallway to the left."
+    scene hallwayBarricaded with fade 
+
+    "It is the same barricaded door from earlier."
+    label backtoHallLeftChoice:
+    scene hallwayBarricaded with fade 
+    menu: 
+
+        "Look closer at the barricade.":
+
+            scene hallwayBarricadedZoomed 
+            show lea default at right 
+            with fade
+            "She takes a few steps closer at the barricade."
+
+            "The pile of chairs were stationary,but she swears she could hear whispers."
+
+            "It is as if the chairs are talking to each other."
+            show lea worried at right 
+            with dissolve
+            "..."
+
+            "No, They're trying to talk to her."
+            scene black with fade
+            jump backtoHallLeftChoice
+        "Look at the left, towards the bathroom":
+
+            "Lea looks over the bathroom, she has an uneasy feeling as she stares at the doorway."
+
+            menu:
+                "Read the notes." if floor1['puzzlePieces']['Note1'] or floor1['puzzlePieces']['Note2'] or floor1['puzzlePieces']['Note3']:
+                    menu:
+                        "Read the first note" if floor1['puzzlePieces']['Note1']:
+                            "Flavor Text"
+
+                        "Read the first note" if floor1['puzzlePieces']['Note2']:
+                            "Flavor Text"
+
+                        "Read the first note" if floor1['puzzlePieces']['Note3']:
+                            "Flavor Text"
+
+                "Open the door." if floor1['waterFountain']['doorKeyObtained']:
+                    "Flavor Text"
+                    jump insideGirlsBathroom
+                    
+                "Return to the left Hallway.":
+                    scene black with fade
+                    jump backtoHallLeftChoice
+        
+        "Return to the middle of the hallway.":
+            scene black with fade 
+            jump hallwayFloor1
+    
 
 ### LEA CLASSROOM 
 
