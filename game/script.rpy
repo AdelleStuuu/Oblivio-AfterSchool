@@ -8,10 +8,10 @@ define unk = Character("???", color="#444444e3")
 # Helper functions for ambience fading
 init python:
     def fade_down_ambience():
-        renpy.music.set_volume(0.15, delay=1.0, channel="music")
+        renpy.music.set_volume(0.3, delay=1.0, channel="music")
 
     def fade_up_ambience():
-        renpy.music.set_volume(0.4, delay=2.0, channel="music")
+        renpy.music.set_volume(0.8, delay=2.0, channel="music")
     
 default floor1 = {
     "waterFountain": {
