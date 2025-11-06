@@ -561,9 +561,11 @@ screen about():
             label "[config.name!t]"
             text _("Version [config.version!t]\n")
             
-            text "AdelleStuuu: StoryWriter"
-            text "Jellyfish: Graphics Design"
-            text "Mango: Sounds and Technicalities"
+            text "StoryWriter and Technicalities: AdelleStuuu"
+            text "Graphics and Design: Jellyfish"
+            text "Sounds and Technicalities: Mango"
+            text ""
+            text "Special Thanks: Jem, Daphidaph for helping in making this game possible!"
             ## gui.about is usually set in options.rpy.
             text ""
             if gui.about:

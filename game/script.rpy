@@ -206,60 +206,6 @@ label returnToClassroom1st:
             $ fade_up_ambience()
             jump hallway1st
 
-
-label returnToClassroom:
-    scene classRoom
-    with fade
-
-    if floor1["LeaClassroom"]["insideClassRoom"] == True:
-        "..."
-    else:
-        $ fade_down_ambience()
-        play sound "audio/door_open.mp3" fadein 1.0 fadeout 2
-        $ renpy.pause(3.0)
-        stop sound
-        $ fade_up_ambience()
-        "Lea enters the classroom. It's the same room she attends every school day."
-        "But it feels like everyone left in a hurry."
-        "They've been gone for a while already."
-
-    if floor1["hallway"]["firstHallwayInteraction"] == True:
-        menu:
-            "search the chairs.":
-                scene black
-                with fade
-                jump chairsLeaClassroom
-            "search the teacher's desk.":
-                scene black
-                with fade
-                jump teachersDeskLeaClassroom
-            "head back to the hallway.":
-                $ floor1["LeaClassroom"]["insideClassRoom"] = False
-                scene black
-                with fade
-                jump hallwayFloor1
-    else:
-        menu:
-            "Head out, head towards the water fountain.":
-                scene black
-                with fade
-                if floor1["waterFountain"]["waterFountainInteracted"] == True:
-                    "Lea returns to the water fountain."
-                    jump waterFountainInteracted
-                elif floor1["waterFountain"]["secondInteraction"] == True:
-                    "Lea returns to the water fountain."
-                    jump waterFountain3rd
-                elif floor1["waterFountain"]["FirstInteraction"] == True:
-                    jump waterFountain2nd
-                else:
-                    jump waterFountain1st
-            "Head out to the hallway.":
-                $ floor1["LeaClassroom"]["insideClassRoom"] = False
-                scene black
-                with fade
-                jump hallway1st
-
-
 # FIRST FLOOR HALLWAY
 # SCRIPTED SCENES ONLY
 label hallway1st:
@@ -954,6 +900,58 @@ label Run3:
     
 ### LEA CLASSROOM 
 
+label returnToClassroom:
+    scene classRoom
+    with fade
+
+    if floor1["LeaClassroom"]["insideClassRoom"] == True:
+        "..."
+    else:
+        $ fade_down_ambience()
+        play sound "audio/door_open.mp3" fadein 1.0 fadeout 2
+        $ renpy.pause(3.0)
+        stop sound
+        $ fade_up_ambience()
+        "Lea enters the classroom. It's the same room she attends every school day."
+        "But it feels like everyone left in a hurry."
+        "They've been gone for a while already."
+
+    if floor1["hallway"]["firstHallwayInteraction"] == True:
+        menu:
+            "search the chairs.":
+                scene black
+                with fade
+                jump chairsLeaClassroom
+            "search the teacher's desk.":
+                scene black
+                with fade
+                jump teachersDeskLeaClassroom
+            "head back to the hallway.":
+                $ floor1["LeaClassroom"]["insideClassRoom"] = False
+                scene black
+                with fade
+                jump hallwayFloor1
+    else:
+        menu:
+            "Head out, head towards the water fountain.":
+                scene black
+                with fade
+                if floor1["waterFountain"]["waterFountainInteracted"] == True:
+                    "Lea returns to the water fountain."
+                    jump waterFountainInteracted
+                elif floor1["waterFountain"]["secondInteraction"] == True:
+                    "Lea returns to the water fountain."
+                    jump waterFountain3rd
+                elif floor1["waterFountain"]["FirstInteraction"] == True:
+                    jump waterFountain2nd
+                else:
+                    jump waterFountain1st
+            "Head out to the hallway.":
+                $ floor1["LeaClassroom"]["insideClassRoom"] = False
+                scene black
+                with fade
+                jump hallway1st
+
 label chairsLeaClassroom:
     scene black 
     with fade 
@@ -968,7 +966,7 @@ label chairsLeaClassroom:
         "The first row had nothing of value."
         show lea default at right
         with dissolve
-        l "Not Good... There's nothing here."
+        l "Not good... There's nothing here."
 
         l "I should continue searching."
     elif floor1["LeaClassroom"]["chairChecking"] == 1:
@@ -1065,11 +1063,11 @@ label ClassroomFloor1Room2:
             scene black 
             with fade
             jump chairsRoom2 
-        "Search the whiteboard":
+        "Search the whiteboard.":
             scene black 
             with fade
             jump whiteboardRoom2 
-        "Head back to the halways":
+        "Head back to the hallways.":
             $ floor1["Room2"]["insideClassRoom"] = False
             scene black 
             with fade
@@ -1089,7 +1087,7 @@ label chairsRoom2:
         "The last row had nothing of value."
         show lea default at right
         with dissolve
-        l "Not Good... There's nothing here."
+        l "Not good... There's nothing here."
 
         l "I should continue searching."
 
@@ -1179,11 +1177,11 @@ label ClassroomFloor1Room3:
             scene black 
             with fade
             jump chairsRoom3 
-        "Search the whiteboard":
+        "Search the whiteboard..":
             scene black 
             with fade
             jump whiteboardRoom3 
-        "Head back to the halways":
+        "Head back to the hallways..":
             $ floor1["Room3"]["insideClassRoom"] = False
             scene black 
             with fade
@@ -1203,7 +1201,7 @@ label chairsRoom3:
         "The last row had nothing of value."
         show lea default at right
         with dissolve
-        l "Not Good... There's nothing here."
+        l "Not good... There's nothing here."
 
         l "I should continue searching."
 
