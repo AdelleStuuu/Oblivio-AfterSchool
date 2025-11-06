@@ -1,5 +1,9 @@
 ﻿# Character
 define l = Character("Lea", color="#910b9f")
+define n = Character("Note", color="#1900ffc0")
+define nl = Character("???", color="#241d86")
+define u = Character("Unity", color="#9f0b0b")
+define unk = Character("???", color="#444444e3")
 
 # Helper functions for ambience fading
 init python:
@@ -8,7 +12,7 @@ init python:
 
     def fade_up_ambience():
         renpy.music.set_volume(0.4, delay=2.0, channel="music")
-
+    
 default floor1 = {
     "waterFountain": {
         "FirstInteraction": False,
@@ -42,7 +46,23 @@ default floor1 = {
     }
 }
 
-default floor2 = { }
+default counters = {
+    "runningLives" : 3,
+    "Sanity" : 5
+}
+
+default persistent.endings = {
+    "endingAchieved" : False,
+    "UnityEnding" : False,
+    "Ending" : False
+}
+
+default floor2 = { 
+
+
+}
+
+
 
 label start:
     scene chairZoomed
@@ -85,6 +105,9 @@ label start:
     stop sound
     $ fade_up_ambience()
 
+    show lea headHurt at right
+    with dissolve
+
     "She stood up and stumbled, catching herself on something nearby."
 
     l "Right, I skipped lunch earlier."
@@ -97,11 +120,10 @@ label start:
         "Use the water fountain.":
             $ fade_down_ambience()
             play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 2
-            $ renpy.pause(9.0)
-            stop sound
-            $ fade_up_ambience()
             scene black
             with fade
+            stop sound
+            $ fade_up_ambience()
             pause 2
             stop sound
             jump waterFountain1st
@@ -120,7 +142,7 @@ label start:
 
 # CLASSROOM INTERACTIONS
 label returnToClassroom1st:
-    scene classRoom
+    scene Classroom1
     with fade
 
     if floor1["LeaClassroom"]["fromInsideClassroom"] == True:
@@ -479,13 +501,13 @@ label waterFountain2nd:
     menu:
         "Try again":
             scene black
+            with fade
             $ fade_down_ambience()
             play sound "audio/fountain_click.mp3" fadein 1.0 fadeout 2
             $ renpy.pause(4.0)
             stop sound
             stop music fadeout 1.0
             $ fade_up_ambience()
-            with fade
             jump waterFountain3rd
 
         "Return to the classroom.":
@@ -501,8 +523,9 @@ label waterFountain2nd:
 
 
 label waterFountain3rd:
+
     $ floor1["waterFountain"]["waterFountainInteracted"] = True
-    scene waterfountainOozeFlowing
+    scene waterFountainOozeFlowing
     with fade
 
     $ fade_down_ambience()
@@ -531,7 +554,7 @@ label waterFountain3rd:
     stop sound
     $ fade_up_ambience()
 
-    scene HallwayBack
+    scene hallway1stFloor
     with fade
 
     show lea surprised at right
@@ -560,7 +583,7 @@ label waterFountain3rd:
 
 
 label waterFountainInteracted:
-    scene waterFountainBlackStained
+    scene waterFountainOozeFlowing
     with fade
 
     $ fade_down_ambience()
@@ -702,7 +725,7 @@ label HallwayFloor1Right:
             menu:
                 "Go back to the middle of the hallway.":
                     scene black with fade 
-                    jump floor1Hallways
+                    jump hallwayFloor1
 
         "Go back to the middle of the Hallway.": 
             scene black with fade 
@@ -711,11 +734,11 @@ label HallwayFloor1Right:
 label HallwayFloor1Left:
     scene black 
     "Lea walks towards the hallway to the left."
-    scene hallwayBarricaded with fade 
+    scene LeftHallway with fade 
 
     "It is the same barricaded door from earlier."
     label backtoHallLeftChoice:
-    scene hallwayBarricaded with fade 
+    scene LeftHallway with fade 
     menu: 
 
         "Look closer at the barricade.":
@@ -743,17 +766,85 @@ label HallwayFloor1Left:
                 "Read the notes." if floor1['puzzlePieces']['Note1'] or floor1['puzzlePieces']['Note2'] or floor1['puzzlePieces']['Note3']:
                     menu:
                         "Read the first note" if floor1['puzzlePieces']['Note1']:
-                            "Flavor Text"
+                            "Lea opens the note and reads the content"
 
-                        "Read the first note" if floor1['puzzlePieces']['Note2']:
-                            "Flavor Text"
+                            n "Am I doing the Right choice?"
 
-                        "Read the first note" if floor1['puzzlePieces']['Note3']:
-                            "Flavor Text"
+                            n "Last week,I heard them talking about me when I was at the stalls. Everything they said weren't pretty in the slightest."
+
+                            n "Complaining."
+
+                            n "I wasn't dedicating enough time towards them."
+
+                            n "I value my own grades more than I value people."
+
+                            n "I am a lost cause."
+
+                            n "Am I?"
+
+                            n "Maybe I am not doing the Right thing."
+
+                            n "But even the thought that my grades getting lower than what they are now."
+
+                            n "I can't stop now."
+                            show lea default at right 
+                            with dissolve 
+                            l "..."
+
+                            l "There must be a reason why this was torn off from my journal."
+                            jump backtoHallLeftChoice
+
+                        "Read the second note" if floor1['puzzlePieces']['Note2']:
+                            "Lea opens the note and reads the content"
+
+                            n "I wonder what the others are Up to?"
+                            
+                            n "This project is difficult, I couldn't believe I just had to add all these extra things for no one other than myself."
+
+                            n "No, they call me a dean's lister for a reason."
+
+                            n "I am not doing this for myself. I just HAD to not submit anything lucklaster compared to my usual."
+
+                            n "Or else."
+
+                            n "Or else."
+
+                            n "Or else."
+
+                            n "Or else, they'll find out how unfit I am for this one"
+
+                            n "..."
+
+                            n "Am I even Up for this?"
+                            show lea worried at right 
+                            with dissolve 
+                            l"..."
+
+                            l"Why do I have to find my own journals here? Do they mean something?"
+                            jump backtoHallLeftChoice
+
+                        "Read the third note" if floor1['puzzlePieces']['Note3']:
+                            "Lea opens the note and reads the content"
+                            
+                            n "Is there anything Left of my former self?"
+
+                            n "I am a husk. My bags are big and I feel awful."
+
+                            n "These grades. They;re great."
+                            
+                            n "But it is at the expense of my own self."
+
+                            n "There is nothing Left for myself."
+                            show lea worried at right 
+                            with dissolve 
+                            l "..."
+
+                            l ""
+                            jump backtoHallLeftChoice
 
                 "Open the door." if floor1['waterFountain']['doorKeyObtained']:
                     "Flavor Text"
-                    jump insideGirlsBathroom
+                    jump preBossEncounter
                     
                 "Return to the left Hallway.":
                     scene black with fade
@@ -762,8 +853,105 @@ label HallwayFloor1Left:
         "Return to the middle of the hallway.":
             scene black with fade 
             jump hallwayFloor1
-    
 
+### BATHROOM 
+
+label preBossEncounter:
+    scene bathroom with fade 
+
+    "Lea looks over to the key, the door awaits infront of her."
+
+    "She takes the key,inserts it, and turns."
+
+    "The door opens, Lea walks inside."
+
+    "The bathroom is silent, the eerie feeling of someone watching is a feeling Lea couldn't bear."
+
+    "She flicked the switch to the room's lights, nothing."
+    show lea worried at right 
+    with dissolve
+    
+    l "I suppose the lights are killed here."
+
+    l "There must be something here if the water fountain gave me this key."
+
+    "Lea reaches her arms out, trying to feel what is infront of her."
+
+    "She feels Ooze on the door of the bathroom stalls. The decision of avoiding the stalls arrived almost immediately."
+
+    "..."
+
+    "Lea soon feels the sink, her arm stumbles over the something metallic."
+    show lea surprised at right
+    with dissolve
+    
+    l "Another key?"
+
+    l "Maybe this time it can open the lock."
+    scene black with fade 
+
+    "She walks out of the bathroom"
+
+    scene bathroom with fade 
+
+    l "Okay, now to open the door"
+
+    "Lea takes a few steps forward, until she heard something that halted her."
+
+    if persistent.endings["UnityEnding"] == False:
+        unk "Lea..."
+    else:
+        u "Lea..."
+
+    "The voice came from the bathrooms, it was the voice of one of her classmates."
+
+    "Specifically, a friend of hers."
+
+    if persistent.endings["UnityEnding"] == False:
+        unk "Lea... Let's stay together, please."
+    else:
+        u "Lea... Let's stay together, please."
+
+    l "Kate? is that you? Where are you? Were you hiding in the stalls?"
+
+    "Lea steps forward, but she stops almost immediately."
+
+    scene bathroomWithUnity with fade
+
+    if persistent.endings["UnityEnding"] == False:
+        unk "Lea... Let's stay together."
+    else:
+        u "Lea... Let's stay together."
+
+    show lea scared with dissolve
+
+    l "You're... You're not."
+
+    if persistent.endings["UnityEnding"] == False:
+        unk "You never go with us Lea. Stay with us."
+        unk "Stay with us."
+        unk "Stay with us."
+        unk "Stay with us!"
+
+    else:
+        u "You never go with us Lea. Stay with us."
+        u "Stay with us."
+        u "Stay with us."
+        u "Stay with us!"
+    
+    "Overwhelmed with the sudden urge to flee, she starts running."
+
+    scene black with fade 
+
+label Run:
+    ""
+
+label Run1:
+
+label Run2:
+
+label Run3:
+    
 ### LEA CLASSROOM 
 
 label chairsLeaClassroom:
@@ -967,6 +1155,7 @@ label whiteboardRoom2:
 ### ROOM 3 CLASSROOM 
 
 label ClassroomFloor1Room3:
+    scene Classroom1 
     if floor1["Room3"]["isRoomFound"] == False:
         "Lea heads to the left side, twisting the knobs of each of the rooms."
 
@@ -1017,6 +1206,7 @@ label chairsRoom3:
         l "Not Good... There's nothing here."
 
         l "I should continue searching."
+
     elif floor1["Room3"]["chairChecking"] == 1:
         "..."
 
@@ -1026,12 +1216,14 @@ label chairsRoom3:
         l "Nothing here."
 
         l "I should continue searching."
+
     elif floor1["Room3"]["chairChecking"] == 2:
         "..."
         show lea default at right
         with dissolve
         
         l "There nothing useful at the chairs,I should stop searching for now."
+
     else:  
         show lea default at right
         with dissolve

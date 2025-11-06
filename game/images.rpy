@@ -5,22 +5,54 @@
 # intro 
 image chairZoomed:
     "chairZoomed.webp"
-    zoom 2
 image chairUnzoomed:
     "chairUnzoomed.webp"
-    zoom 2
+
 
 # lea expressions
+#image legacyLea default:
+#    "Lea/lea default.webp"
+#    zoom .5
+#image legacyLea headHurt:
+#    "Lea/lea headHurt.webp"
+#    zoom .5 
+#image legacyLea defaultZoomed:
+#    "Lea/lea default.webp"
+
+transform yOffset:
+    yoffset 50
+
 image lea default:
     "Lea/lea default.webp"
+    yOffset
     zoom .5
 image lea headHurt:
     "Lea/lea headHurt.webp"
+    yOffset
     zoom .5 
-image lea defaultZoomed:
-    "Lea/lea default.webp"
+image lea smiling:
+    "Lea/lea smiling.webp"
+    yOffset
+    zoom .5 
+image lea worried:
+    "Lea/lea worried.webp"
+    yOffset
+    zoom .5 
+image lea scared:
+    "Lea/lea scared.webp"
+    yOffset
+    zoom .5 
 
 #hallways 
 image hallway1stFloor:
-    "hallwayFloor1.webp"
-    zoom 2
+    "hallway1stFloor.webp"
+image hallwayBarricadedZoomed:
+    "HallwayBarricaded.webp"
+image hallwayBarricaded:
+    "LeftHallway.webp"
+
+#water fountain
+image waterFountain:
+    "waterFountain.webp"
+image waterFountainOozeFlowing:
+    "waterFountainOozeFlowing.webp"
