@@ -42,14 +42,26 @@ image lea scared:
     "Lea/lea scared.webp"
     yOffset
     zoom .5 
+image lea surprised:
+    "Lea/lea surprised.webp"
+    yOffset
+    zoom .5
 
 #hallways 
 image hallway1stFloor:
     "hallway1stFloor.webp"
 image hallwayBarricadedZoomed:
     "HallwayBarricaded.webp"
+image LeftHallway:
+    "LeftHallway.webp"
 image hallwayBarricaded:
     "LeftHallway.webp"
+
+#rooms
+image Classroom1:
+    "Classroom1.webp"
+image Classroom2:
+    "Classroom2.webp"
 
 #water fountain
 image waterFountain:

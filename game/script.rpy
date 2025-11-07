@@ -54,7 +54,9 @@ default counters = {
 default persistent.endings = {
     "endingAchieved" : False,
     "UnityEnding" : False,
-    "Ending" : False
+    "FalseIdolEnding" : False,
+    "GoldenEnding" : False, 
+    "TrueEnding" : False
 }
 
 default floor2 = { 
@@ -211,59 +213,6 @@ label returnToClassroom1st:
             jump hallway1st
 
 
-label returnToClassroom:
-    scene classRoom
-    with fade
-
-    if floor1["LeaClassroom"]["insideClassRoom"] == True:
-        "..."
-    else:
-        $ fade_down_ambience()
-        play sound "audio/door_open.mp3" fadein 1.0 fadeout 2
-        $ renpy.pause(3.0)
-        stop sound
-        $ fade_up_ambience()
-        "Lea enters the classroom. It's the same room she attends every school day."
-        "But it feels like everyone left in a hurry."
-        "They've been gone for a while already."
-
-    if floor1["hallway"]["firstHallwayInteraction"] == True:
-        menu:
-            "search the chairs.":
-                scene black
-                with fade
-                jump chairsLeaClassroom
-            "search the teacher's desk.":
-                scene black
-                with fade
-                jump teachersDeskLeaClassroom
-            "head back to the hallway.":
-                $ floor1["LeaClassroom"]["insideClassRoom"] = False
-                scene black
-                with fade
-                jump hallwayFloor1
-    else:
-        menu:
-            "Head out, head towards the water fountain.":
-                scene black
-                with fade
-                if floor1["waterFountain"]["waterFountainInteracted"] == True:
-                    "Lea returns to the water fountain."
-                    jump waterFountainInteracted
-                elif floor1["waterFountain"]["secondInteraction"] == True:
-                    "Lea returns to the water fountain."
-                    jump waterFountain3rd
-                elif floor1["waterFountain"]["FirstInteraction"] == True:
-                    jump waterFountain2nd
-                else:
-                    jump waterFountain1st
-            "Head out to the hallway.":
-                $ floor1["LeaClassroom"]["insideClassRoom"] = False
-                scene black
-                with fade
-                jump hallway1st
-
-
 # FIRST FLOOR HALLWAY
 # SCRIPTED SCENES ONLY
 label hallway1st:
@@ -366,7 +315,7 @@ label leftEntrance2:
 
     "Stairs, stacked so high it towered over her. She tries to remove one, but they aren't budging."
 
-    show lea worried at right
+    show lea scared at right
     with fade
     l "No..."
     l "No!"
@@ -427,7 +376,7 @@ label rightEntrance2:
 
     "Unfortunately, they aren't budging."
 
-    show lea worried at right
+    show lea scared at right
     with fade
     l "No..."
     l "No!"
@@ -796,8 +745,7 @@ label HallwayFloor1Left:
             stop sound fadeout 2.0
             scene black with fade
             jump backtoHallLeftChoice
-
-        "Look at the left, towards the bathroom":
+        "Look at the left, towards the bathroom.":
 
             play sound "audio/drip_slow.mp3" fadein 1.5 volume 0.5
             "Lea looks over the bathroom, she has an uneasy feeling as she stares at the doorway."
@@ -821,10 +769,26 @@ label HallwayFloor1Left:
 
                         "Read the second note" if floor1['puzzlePieces']['Note2']:
                             play sound "audio/paper_rustle.mp3" volume 0.7
+                            
                             "Lea opens the note and reads the content"
+                            
                             n "I wonder what the others are Up to?"
-                            n "This project is difficult..."
+                            
                             stop sound
+                            
+                            n "This project is difficult, I couldn't believe I just had to add all these extra things for no one other than myself."
+
+                            n "No, they call me a dean's lister for a reason."
+
+                            n "I am not doing this for myself. I just HAD to not submit anything lucklaster compared to my usual."
+
+                            n "Or else."
+
+                            n "Or else, they'll find out how unfit I am for this one"
+
+                            n "..."
+
+                            n "Am I even Up for this?"
                             show lea worried at right 
                             with dissolve 
                             l"Why do I have to find my own journals here? Do they mean something?"
@@ -847,6 +811,35 @@ label HallwayFloor1Left:
                     stop sound
                     $ fade_up_ambience()
                     jump preBossEncounter
+
+                            n "I am a husk. My bags are big and I feel awful."
+
+                            n "These grades. They're great."
+                            
+                            n "But it is at the expense of my own self."
+
+                            n "There is nothing Left for myself."
+                            show lea worried at right 
+                            with dissolve 
+                            l "..."
+
+                            l "This may come to use later." 
+                            
+                            l "I just don't know how." 
+                            jump backtoHallLeftChoice
+
+                "Open the door." if floor1['waterFountain']['doorKeyObtained']:
+                    "Approaching the bathroom, key in hand, she is sort of doubting whether to go in or not."
+                    menu:
+                        "Go in regardless.":
+                            "Lea strangthen's her resolve."
+                            scene black with fade
+                            jump preBossEncounter
+                        "Change mind, head back.":
+                            show lea worried at right 
+                            l "I should search the floor first."
+                            jump backtoHallLeftChoice
+                    
                     
                 "Return to the left Hallway.":
                     scene black with fade
@@ -881,6 +874,7 @@ label preBossEncounter:
     "The door opens, Lea walks inside."
 
     play sound "audio/footsteps_tile.mp3" fadein 0.5 volume 0.7
+    scene black with fade
 
     "The bathroom is silent, the eerie feeling of someone watching is a feeling Lea couldn't bear."
 
@@ -969,15 +963,74 @@ label Run:
     $ fade_down_ambience()
     play music "audio/tense_silence.mp3" fadein 1.5
     $ fade_up_ambience()
-""
+    "demo end"
+    return
 
 label Run1:
+    "demo end"
+    return
 
 label Run2:
+    "demo end"
+    return
 
 label Run3:
-    
+    "demo end"
+    return
+
 ### LEA CLASSROOM 
+
+label returnToClassroom:
+    scene Classroom1
+    with fade
+
+    if floor1["LeaClassroom"]["insideClassRoom"] == True:
+        "..."
+    else:
+        $ fade_down_ambience()
+        play sound "audio/door_open.mp3" fadein 1.0 fadeout 2
+        $ renpy.pause(3.0)
+        stop sound
+        $ fade_up_ambience()
+        "Lea enters the classroom. It's the same room she attends every school day."
+        "But it feels like everyone left in a hurry."
+        "They've been gone for a while already."
+
+    if floor1["hallway"]["firstHallwayInteraction"] == True:
+        menu:
+            "search the chairs.":
+                scene black
+                with fade
+                jump chairsLeaClassroom
+            "search the teacher's desk.":
+                scene black
+                with fade
+                jump teachersDeskLeaClassroom
+            "head back to the hallway.":
+                $ floor1["LeaClassroom"]["insideClassRoom"] = False
+                scene black
+                with fade
+                jump hallwayFloor1
+    else:
+        menu:
+            "Head out, head towards the water fountain.":
+                scene black
+                with fade
+                if floor1["waterFountain"]["waterFountainInteracted"] == True:
+                    "Lea returns to the water fountain."
+                    jump waterFountainInteracted
+                elif floor1["waterFountain"]["secondInteraction"] == True:
+                    "Lea returns to the water fountain."
+                    jump waterFountain3rd
+                elif floor1["waterFountain"]["FirstInteraction"] == True:
+                    jump waterFountain2nd
+                else:
+                    jump waterFountain1st
+            "Head out to the hallway.":
+                $ floor1["LeaClassroom"]["insideClassRoom"] = False
+                scene black
+                with fade
+                jump hallway1st
 
 label chairsLeaClassroom:
     
@@ -1075,7 +1128,7 @@ label ClassroomFloor1Room2:
     $ fade_down_ambience()
     play music "audio/classroom_ambience.mp3" fadein 1.5 volume 0.4
     $ fade_up_ambience()
-    scene black with fade 
+    scene Classroom2 with fade
 
     if floor1["Room2"]["isRoomFound"] == False:
         play sound "audio/door_handle_jiggle.mp3" volume 0.6
@@ -1195,6 +1248,30 @@ label chairsRoom2:
 
     play sound "audio/footsteps_return.mp3" fadein 1.0 volume 0.5
     jump ClassroomFloor1Room2
+
+label whiteboardRoom2:
+    scene black with fade 
+     
+    $ floor1["Room2"]["insideClassRoom"] = True
+
+    "Lea approaches the whiteboard,she looks over the crevices."
+
+    "Her head moves to the right, and then left for anything useful there."
+
+    "..."
+
+    show lea default at right 
+    with dissolve
+
+    l "Markers, Chalks, and an eraser."
+
+    l "Nothing useful here."
+
+    "She walks back to the middle of the room"
+    scene black
+    with fade  
+
+    jump ClassroomFloor1Room2  
 
 ### ROOM 3 CLASSROOM 
 
