@@ -519,9 +519,11 @@ label waterFountain3rd:
     with fade
 
     show lea surprised at right
+    with dissolve
     "Lea stepped back, aghast by the sudden downpour."
 
     show lea default at right
+    with dissolve
     l "Maybe they turned off the filters at night. Still... that's... disturbing."
 
     stop sound fadeout 2.0
@@ -809,9 +811,11 @@ label HallwayFloor1Left:
                             n "But it is at the expense of my own self."
 
                             n "There is nothing Left for myself."
+
                             stop sound
                             show lea worried at right 
                             with dissolve 
+
                             l "..."
 
                             l "This may come to use later." 
@@ -839,6 +843,7 @@ label HallwayFloor1Left:
                             jump preBossEncounter
                         "Change mind, head back.":
                             show lea worried at right 
+                            with dissolve
                             l "I should search the floor first."
                             jump backtoHallLeftChoice
                     
