@@ -655,6 +655,28 @@ label hallwayFloor1:
             else:
                 jump waterFountain1st
 
+label floor1Classrooms:
+    menu:
+        "Return to Lea's Classroom.":
+            scene black with fade 
+            jump returnToClassroom
+        "Head to a classroom by the right.":
+            scene black with fade 
+            jump ClassroomFloor1Room3
+        "Head to a classroom by the left.":
+            scene black with fade 
+            jump ClassroomFloor1Room2
+
+label floor1Hallways:
+    menu: 
+        "Head left to the hallway.":
+            scene black with fade
+            jump HallwayFloor1Left
+            
+        "Head right of the hallway.":
+            scene black with fade
+            jump HallwayFloor1Right
+
 # --- HALLWAY RIGHT ---
 
 label HallwayFloor1Right:
