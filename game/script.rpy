@@ -40,6 +40,7 @@ default floor1 = {
         "firstHallwayInteraction": False
     },
     "puzzlePieces": {
+        "isNoteObtained" : False,   
         "Note1": False,
         "Note2": False,
         "Note3": False
@@ -1062,84 +1063,64 @@ label returnToClassroom:
                 jump hallway1st
 
 label chairsLeaClassroom:
-    
-    $ fade_down_ambience()
-    play music "audio/search_ambience.mp3" fadein 1.5 volume 0.4
+    scene black 
     with fade 
-    $ fade_up_ambience()
-    scene black with fade 
 
     $ floor1["LeaClassroom"]["insideClassRoom"] = True
 
-    $ fade_down_ambience()
-    play sound "audio/chair_scrape.mp3" fadein 1.0 volume 0.6
     "Checking each chair, she spends her time looking for anything useful here."
-    stop sound fadeout 1.5
-    $ fade_up_ambience()
 
     if floor1["LeaClassroom"]["chairChecking"] == 0:
-        play sound "audio/footsteps_tile_slow.mp3" fadein 0.5 volume 0.4
         "..."
-        stop sound fadeout 1.0
 
-        play sound "audio/wind_through_window.mp3" fadein 1.5 volume 0.3
         "The first row had nothing of value."
-        stop sound fadeout 2.0
-
         show lea default at right
         with dissolve
         l "Not Good... There's nothing here."
-        l "I should continue searching."
 
+        l "I should continue searching."
     elif floor1["LeaClassroom"]["chairChecking"] == 1:
-        play sound "audio/chair_leg_drag.mp3" volume 0.7
         "..."
-        stop sound fadeout 1.0
 
         "The last row had nothing of value."
         show lea default at right
         with dissolve
         l "Nothing here."
-        l "I should continue searching."
 
+        l "I should continue searching."
     elif floor1["LeaClassroom"]["chairChecking"] == 2:
-        play sound "audio/metal_clink_small.mp3" volume 0.6
         "..."
-        
-        stop sound fadeout 1.5
 
         "The fourth row had nothing of value."
-
         show lea default at right
         with dissolve
-
         l "Nothing here."
 
         l "I should continue searching."
-
     elif floor1["LeaClassroom"]["chairChecking"] == 3:
         $ floor1["puzzlePieces"]["Note1"] = True
-        play sound "audio/paper_rustle.mp3" fadein 1.0 volume 0.7
         "..."
-        stop sound fadeout 1.0
 
         "Lea found something of value."
         show lea default at right
         with dissolve
         l "A note from a journal?"
 
-        play sound "audio/whisper_echo_note.mp3" fadein 1.0 volume 0.4
         "She reads the content, it gives her a chill down her spine."
-        stop sound fadeout 2.0
-
         show lea surprised at right
         with dissolve
-        l "This is mine... How did this get here?"
+        if floor1["puzzlePieces"]["isNoteObtained"] == False:
+            l "this is mine... How did this get here?"
 
-        play sound "audio/item_pickup_soft.mp3" volume 0.8
-        "*Obtained Note #3*"
+            "*Obtained Note #3*"
+            $ floor1["puzzlePieces"]["isNoteObtained"] = True
+        else:
+            show lea scared at right 
+            with dissolve
+            l "This is not funny..."
+
+            l "Why is a ripped page of my journal in this room?"
         $ floor1["puzzlePieces"]["Note3"] = True
-        stop sound fadeout 1.5
 
     else:
         show lea default at right
@@ -1149,39 +1130,49 @@ label chairsLeaClassroom:
     if floor1["LeaClassroom"]["chairChecking"] < 4:
         $ floor1["LeaClassroom"]["chairChecking"] += 1
 
-    play sound "audio/footsteps_return.mp3" fadein 1.0 volume 0.4
     jump returnToClassroom
 
-label ClassroomFloor1Room2:
+
+label teachersDeskLeaClassroom:
+    scene black 
+    with fade 
+
+    $ floor1["LeaClassroom"]["insideClassRoom"] = True
+
+    "Walking to the teacher's desk, the desk itself was empty, but Lea pulls the drawer open."
+    show lea default at right 
+    with dissolve
+
+    l "A rubik's cube? It's jumbled, someone must've confiscated it."
+    show lea smiling at right 
+
+    "Lea turns the cube a few times."
     
-    $ fade_down_ambience()
-    play music "audio/classroom_ambience.mp3" fadein 1.5 volume 0.4
-    $ fade_up_ambience()
-    scene Classroom2 with fade
+    l "That's a nice distraction."
+    
+    jump returnToClassroom
 
-    if floor1["Room2"]["isRoomFound"] == False:
-        play sound "audio/door_handle_jiggle.mp3" volume 0.6
+### ROOM 2 CLASSROOM 
+
+label ClassroomFloor1Room2:
+    scene black 
+    with fade 
+
+    if floor1["Room2"]["isRoomFound"]== False:
         "Lea heads to the right side, twisting the knobs of each of the rooms."
-        stop sound fadeout 1.0
 
-        play sound "audio/door_knob_fail.mp3" volume 0.5
         "Locked."
-        stop sound fadeout 0.5
 
-        play sound "audio/door_knob_fail.mp3" volume 0.5
         "Locked."
-        stop sound fadeout 0.5
 
-        play sound "audio/door_creak_open.mp3" fadein 1.0 volume 0.8
+        "Locked."
+
         "One creaks open, the room is available."
-        stop sound fadeout 1.5
 
-    $ floor1["Room2"]["isRoomFound"] = True
+    $ floor1["Room2"]["isRoomFound"]= True
 
     if floor1["Room2"]["insideClassRoom"] == False:
-        play sound "audio/footsteps_tile_slow.mp3" volume 0.5
         "She carefully walks inside the door, no one was there to greet her. The chairs are tilted in such a way that it seemed like everyone left in a panic."
-        stop sound fadeout 2.0
     else:
         "..."
 
@@ -1194,78 +1185,67 @@ label ClassroomFloor1Room2:
             scene black 
             with fade
             jump whiteboardRoom2 
-        "Head back to the hallways":
+        "Head back to the halways":
             $ floor1["Room2"]["insideClassRoom"] = False
             scene black 
             with fade
-            play sound "audio/footsteps_return.mp3" fadein 0.8 volume 0.5
             jump hallwayFloor1
 
-
 label chairsRoom2:
-    
-    $ fade_down_ambience()
-    play music "audio/search_ambience.mp3" fadein 1.5 volume 0.4
-    $ fade_up_ambience()
-    scene black with fade
+    scene black
+    with fade
 
     $ floor1["Room2"]["insideClassRoom"] = True
 
-    $ fade_down_ambience()
-    play sound "audio/chair_scrape.mp3" fadein 1.0 volume 0.7
     "Checking each chair, she spends her time looking for anything useful here."
-    stop sound fadeout 1.5
-    $ fade_up_ambience()
 
     if floor1["Room2"]["chairChecking"] == 0:
-        play sound "audio/footsteps_tile_slow.mp3" fadein 0.5 volume 0.4
         "..."
-        stop sound fadeout 1.0
 
-        play sound "audio/wind_through_window.mp3" fadein 1.5 volume 0.3
         "The last row had nothing of value."
-        stop sound fadeout 2.0
-
         show lea default at right
         with dissolve
-
         l "Not Good... There's nothing here."
 
         l "I should continue searching."
 
     elif floor1["Room2"]["chairChecking"] == 1:
-        play sound "audio/chair_leg_drag.mp3" volume 0.6
         "..."
-        stop sound fadeout 1.0
 
         "The middle row had nothing of value."
         show lea default at right
         with dissolve
         l "Nothing here."
+
         l "I should continue searching."
 
     elif floor1["Room2"]["chairChecking"] == 2:
-        play sound "audio/paper_rustle.mp3" fadein 1.0 volume 0.7
+        $ floor1["puzzlePieces"]["Note2"] = True
         "..."
-        stop sound fadeout 1.0
 
         "Lea found something of value."
         show lea default at right
         with dissolve
-        l "It's a note, and it looks like it's ripped from a journal."
+        if floor1["puzzlePieces"]["isNoteObtained"] == False:
+            l "Its a note, and it looks like it's ripped from a journal."
 
-        play sound "audio/whisper_echo_note.mp3" fadein 1.0 volume 0.4
-        "Lea reads the contents of the note."
-        stop sound fadeout 2.0
+            "Lea reads the contents of the note."
+            show lea surprised at right
+            with dissolve
+            l "Why is this note in this room?"
+            $ floor1["puzzlePieces"]["isNoteObtained"] = True
+            "*Obtained Note #1*"
+        else:
+            l "It looks like I found a note."
+            show lea surprised at right
+            with dissolve
+            l "..."
+            show lea worried at right 
+            with dissolve
+            "Another note from my journal, how did this get her in the first place?"
 
-        show lea surprised at right
-        with dissolve
-        l "Why is this note in this room?"
-
-        play sound "audio/item_pickup_soft.mp3" volume 0.8
-        "*Obtained Note #1*"
+            "*Obtained Note #1*"
         $ floor1["puzzlePieces"]["Note1"] = True
-        stop sound fadeout 1.5
 
     else:
         show lea default at right
@@ -1275,11 +1255,8 @@ label chairsRoom2:
     if floor1["Room2"]["chairChecking"] < 3:
         $ floor1["Room2"]["chairChecking"] += 1
 
-    play sound "audio/footsteps_return.mp3" fadein 1.0 volume 0.5
-    jump ClassroomFloor1Room2
-
 label whiteboardRoom2:
-    scene black with fade 
+    scene Classroom1 with fade 
      
     $ floor1["Room2"]["insideClassRoom"] = True
 
@@ -1305,35 +1282,21 @@ label whiteboardRoom2:
 ### ROOM 3 CLASSROOM 
 
 label ClassroomFloor1Room3:
-    
-    $ fade_down_ambience()
-    play music "audio/classroom_ambience_low.mp3" fadein 1.5 volume 0.4
-    $ fade_up_ambience()
-    scene black with fade
-
     if floor1["Room3"]["isRoomFound"] == False:
-        play sound "audio/door_handle_jiggle.mp3" volume 0.6
         "Lea heads to the left side, twisting the knobs of each of the rooms."
-        stop sound fadeout 1.0
 
-        play sound "audio/door_knob_fail.mp3" volume 0.5
         "Locked."
-        stop sound fadeout 0.5
 
-        play sound "audio/door_knob_fail.mp3" volume 0.5
         "Locked."
-        stop sound fadeout 0.5
 
-        play sound "audio/door_creak_open_slow.mp3" fadein 1.0 volume 0.8
-        "The third door creaks open, the sound echoes faintly down the hallway."
-        stop sound fadeout 1.5
+        "Locked."
 
+        "One creaks open, the room is available."
+    
     $ floor1["Room3"]["isRoomFound"] = True
 
     if floor1["Room3"]["insideClassRoom"] == False:
-        play sound "audio/footsteps_tile_slow.mp3" volume 0.4
-        "She walks inside, the dim light from the hallway barely touches the center of the room."
-        stop sound fadeout 2.0
+        "She walks inside the classroom. It is just as barren as the halls outside."
     else:
         "..."
 
@@ -1341,178 +1304,102 @@ label ClassroomFloor1Room3:
         "Search the chairs.":
             scene black 
             with fade
-            jump chairsRoom3
+            jump chairsRoom3 
         "Search the whiteboard":
             scene black 
             with fade
-            jump whiteboardRoom3
-        "Head back to the hallways":
+            jump whiteboardRoom3 
+        "Head back to the halways":
             $ floor1["Room3"]["insideClassRoom"] = False
             scene black 
             with fade
-            play sound "audio/footsteps_return.mp3" fadein 0.8 volume 0.5
             jump hallwayFloor1
 
 label chairsRoom3:
+    scene black
+    with fade
 
-    $ fade_down_ambience()
-    play music "audio/search_ambience_deep.mp3" fadein 1.5 volume 0.4
-    $ fade_up_ambience()
+    $ floor1["Room3"]["insideClassRoom"] = True
+
+    "Checking each chair, she spends her time looking for anything useful here."
+
+    if floor1["Room3"]["chairChecking"] == 0:
+        "..."
+
+        "The last row had nothing of value."
+        show lea default at right
+        with dissolve
+        l "Not Good... There's nothing here."
+
+        l "I should continue searching."  
+    elif floor1["Room3"]["chairChecking"] == 1:
+        "..."
+
+        "The middle row had nothing of value."
+        show lea default at right
+        with dissolve
+        l "Nothing here."
+
+        l "I should continue searching."
+    elif floor1["Room3"]["chairChecking"] == 2:
+        "..."
+        show lea default at right
+        with dissolve
+        
+        l "There nothing useful at the chairs,I should stop searching for now."
+    else:  
+        show lea default at right
+        with dissolve
+        l "I think I already searched the chairs enough."
+    
+    if floor1["Room3"]["chairChecking"] < 3:
+        $ floor1["Room3"]["chairChecking"] += 1
+    
+    jump ClassroomFloor1Room3
+
+label whiteboardRoom3:
     scene black with fade
 
     $ floor1["Room3"]["insideClassRoom"] = True
 
-    $ fade_down_ambience()
-    play sound "audio/chair_scrape_hollow.mp3" fadein 1.0 volume 0.6
-    "Checking each chair, she carefully examines them one by one."
-    stop sound fadeout 1.5
-    $ fade_up_ambience()
+    "Lea approaches the whiteboard,she looks over the crevices."
 
-    if floor1["Room3"]["chairChecking"] == 0:
-        play sound "audio/footsteps_tile_slow.mp3" fadein 0.5 volume 0.4
-        "..."
-        stop sound fadeout 1.0
+    "Her head moves to the right, and then left for anything useful there."
 
-        play sound "audio/clock_tick_distant.mp3" fadein 1.5 volume 0.3
-        "Nothing under the first row of chairs—just dust and dried stains."
-        stop sound fadeout 2.0
+    "..."
 
-        show lea default at right
-        with dissolve
-        l "It feels... wrong here."
-        l "But I need to keep looking."
+    show lea default at right 
+    with dissolve
 
-    elif floor1["Room3"]["chairChecking"] == 1:
-        play sound "audio/chair_leg_drag.mp3" volume 0.6
-        "..."
-        stop sound fadeout 1.0
+    l "Markers, Chalks, and an eraser."
 
-        play sound "audio/whisper_brief.mp3" fadein 0.5 volume 0.3
-        "As she moved the next chair, she thought she heard something whisper her name."
-        stop sound fadeout 1.5
+    show lea surprised at right
+    with dissolve 
 
-        show lea scared at right
-        with dissolve
-        l "No... That was just... my imagination."
-        l "Keep it together, Lea."
+    l "..."
 
-    elif floor1["Room3"]["chairChecking"] == 2:
-        play sound "audio/paper_rustle.mp3" fadein 1.0 volume 0.7
-        "..."
-        stop sound fadeout 1.0
+    hide lea surprised
+    with dissolve
 
-        play sound "audio/low_rumble.mp3" fadein 1.5 volume 0.4
+    "She picks up a piece of folded paper on the crevice of the whiteboard."
 
-        "Something catches her attention — a folded piece of paper under a chair leg."
+    "She opens it and reads the contents inside."
 
-        stop sound fadeout 2.0
+    show lea worried at right
+    with dissolve
+    if floor1["puzzlePieces"]["isNoteObtained"] == False:
+        l "... This is from my journal. This is not supposed to be here."
+        $ floor1["puzzlePieces"]["isNoteObtained"] = True
+        "*Obtained Note #2*"
+       
+    else:
+        l "This note..."
 
-        show lea default at right
+        l "this is also from my journal."
 
-        with dissolve
-
-        l "It’s another journal note..."
-
-
-        play sound "audio/whisper_echo_note.mp3" fadein 1.0 volume 0.4
-
-        "Her hands tremble as she reads it — fragments of her handwriting, but she doesn’t remember writing them."
-
-        stop sound fadeout 2.0
-
-        show lea surprised at right
-
-        with dissolve
-
-        l "Why... does it mention the music room?"
-
-        play sound "audio/item_pickup_soft.mp3" volume 0.8
+        l "Why are torn pieces of my journal appearing here?"
 
         "*Obtained Note #2*"
+    $ floor1["puzzlePieces"]["Note2"] = True
 
-        $ floor1["puzzlePieces"]["Note2"] = True
-
-        stop sound fadeout 1.5
-
-    elif floor1["Room3"]["chairChecking"] == 3:
-
-        play sound "audio/metal_chair_drop.mp3" volume 0.7
-
-        "..."
-
-        stop sound fadeout 1.0
-
-        play sound "audio/wind_through_window.mp3" fadein 1.5 volume 0.3
-
-        "The final row yields nothing new — only silence, heavy and cold."
-
-        stop sound fadeout 2.0
-
-        show lea default at right
-
-        with dissolve
-
-        l "That’s all of them. Just more emptiness."
-
-        l "This place... doesn’t want me to remember."
-
-    else:
-        show lea default at right
-
-        with dissolve
-
-        l "I’ve already checked every chair in this room."
-
-    if floor1["Room3"]["chairChecking"] < 4:
-
-        $ floor1["Room3"]["chairChecking"] += 1
-
-    play sound "audio/footsteps_return.mp3" fadein 1.0 volume 0.5
-
-    jump ClassroomFloor1Room3
-
-label whiteboardRoom3:
-
-    $ fade_down_ambience()
-    play music "audio/tension_low_loop.mp3" fadein 2.0 volume 0.35
-    $ fade_up_ambience()
-
-    scene black with fade
-
-    play sound "audio/chalk_drag.mp3" fadein 1.0 volume 0.6
-
-    "The whiteboard is covered in messy writing — words scratched over one another, impossible to read."
-
-    stop sound fadeout 1.5
-
-    show lea default at right
-
-    with dissolve
-
-    l "Some of the words are mine... I think."
-
-    l "‘Don’t listen to them.’ ‘Stay awake.’"
-
-    play sound "audio/whisper_reverse.mp3" fadein 1.5 volume 0.3
-
-    "The more she stares, the more the letters seem to shift and crawl across the surface."
-
-    stop sound fadeout 2.5
-
-    show lea scared at right
-    with dissolve
-
-    l "No... It’s not real."
-
-    play sound "audio/glass_tap_soft.mp3" volume 0.4
-
-    "Her reflection looks back, but its lips are still moving."
-    stop sound fadeout 2.0
-
-    show lea default at right
-    with dissolve
-
-    l "Enough. I need to move on."
-
-    play sound "audio/footsteps_return.mp3" fadein 1.0 volume 0.5
     jump ClassroomFloor1Room3
