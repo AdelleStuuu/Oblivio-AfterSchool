@@ -795,22 +795,12 @@ label HallwayFloor1Left:
                             jump backtoHallLeftChoice
 
                         "Read the third note" if floor1['puzzlePieces']['Note3']:
+                            
                             play sound "audio/paper_rustle.mp3" volume 0.7
+                            
                             "Lea opens the note and reads the content"
-                            n "Is there anything Left of my former self?"
-                            stop sound
-                            show lea worried at right 
-                            with dissolve 
-                            l "..."
-                            jump backtoHallLeftChoice
 
-                "Open the door." if floor1['waterFountain']['doorKeyObtained']:
-                    $ fade_down_ambience()
-                    play sound "audio/key_unlock.mp3" fadein 1.0 volume 0.8
-                    "Flavor Text"
-                    stop sound
-                    $ fade_up_ambience()
-                    jump preBossEncounter
+                            n "Is there anything Left of my former self?"
 
                             n "I am a husk. My bags are big and I feel awful."
 
@@ -819,6 +809,7 @@ label HallwayFloor1Left:
                             n "But it is at the expense of my own self."
 
                             n "There is nothing Left for myself."
+                            stop sound
                             show lea worried at right 
                             with dissolve 
                             l "..."
@@ -827,13 +818,24 @@ label HallwayFloor1Left:
                             
                             l "I just don't know how." 
                             jump backtoHallLeftChoice
-
+        
                 "Open the door." if floor1['waterFountain']['doorKeyObtained']:
                     "Approaching the bathroom, key in hand, she is sort of doubting whether to go in or not."
                     menu:
                         "Go in regardless.":
+                             
                             "Lea strangthen's her resolve."
                             scene black with fade
+
+                            $ fade_down_ambience()
+
+                            play sound "audio/key_unlock.mp3" fadein 1.0 volume 0.8
+                            "Flavor Text"
+
+                            stop sound
+
+                            $ fade_up_ambience()
+
                             jump preBossEncounter
                         "Change mind, head back.":
                             show lea worried at right 
