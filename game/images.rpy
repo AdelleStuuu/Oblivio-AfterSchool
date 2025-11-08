@@ -47,15 +47,43 @@ image lea surprised:
     yOffset
     zoom .5
 
+image notLea:
+    "Lea/notLea.webp"
+    zoom 2
+    yoffset 700
+
+image ShatteredLea:
+    "Endings/Shattered.webp"
+    yoffset 800
+    zoom 2
+image UnifiedLea:
+    "Endings/Unified.webp"
+    yoffset 1500
+    zoom 1.8
+
+#items
+image bathroomKey:
+    "Items/DoorKey.webp"
+image note:
+    "Items/note.webp"
+
 #hallways 
 image hallway1stFloor:
     "hallway1stFloor.webp"
+image HallwayBack:
+    "hallway1stFloor.webp"
+image hallway2ndFloor:
+    "hallway2ndFloor.webp"
+image HallwayStalking:
+    "HallwayStalking.webp"
 image hallwayBarricadedZoomed:
     "HallwayBarricaded.webp"
 image LeftHallway:
     "LeftHallway.webp"
 image hallwayBarricaded:
     "LeftHallway.webp"
+image hallwayLocked:
+    "hallwayLocked.webp"
 
 #rooms
 image Classroom1:

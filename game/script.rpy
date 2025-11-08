@@ -1,7 +1,18 @@
-﻿# Character
+﻿define persistent.endings = {
+    "endingAchieved" : False,
+    "UnityEnding" : False,
+    "FalseIdolEnding" : False,
+    "GoldenEnding" : False, 
+    "FalseEnding": False,
+    "TrueEnding" : False
+}
+
+define isDemo = False
+
+# Character
 define l = Character("Lea", color="#910b9f")
 define n = Character("Note", color="#1900ffc0")
-define nl = Character("???", color="#241d86")
+define st = Character("Shatter", color="#241d86")
 define u = Character("Unity", color="#9f0b0b")
 define unk = Character("???", color="#444444e3")
 
@@ -48,27 +59,38 @@ default floor1 = {
 }
 
 default counters = {
-    "runningLives" : 3,
-    "Sanity" : 5
+    "floor1" : {
+        "runningLives" : 3,
+        "noteCount" : 0
+    },
+    "floor2" : {
+        "Sanity" : 5,
+        "ComputersVisited" : 0
+    }
+    
 }
-
-default persistent.endings = {
-    "endingAchieved" : False,
-    "UnityEnding" : False,
-    "FalseIdolEnding" : False,
-    "GoldenEnding" : False, 
-    "TrueEnding" : False
-}
-
-default floor2 = { 
-
-
-}
-
-
 
 label start:
-    scene chairZoomed
+    if persistent.endings["endingAchieved"] == True:
+        scene black with fade
+        window hide
+        centered "Lea's body is still here."
+
+        centered "It tries to remember."
+
+        centered "It wanted to know what happened."
+
+        menu:
+            "Check memories.":
+                jump memoryCheck
+            "Continue on.":
+                jump gameStart
+    else:
+        jump gameStart
+    
+label gameStart:
+    window show 
+    scene chairZoomed 
  
     $ fade_down_ambience()
     play music "audio/night_ambience.mp3" fadein 2.0 volume 0.4
@@ -335,6 +357,7 @@ label leftEntrance2:
 
     menu:
         "Return to the middle of the hallway.":
+            scene black with fade
             jump hallwayFloor1
 
 
@@ -396,6 +419,7 @@ label rightEntrance2:
 
     menu:
         "Return to the middle of the hallway.":
+            scene black with fade 
             jump hallwayFloor1
 
 
@@ -547,8 +571,7 @@ label waterFountain3rd:
 
 
 label waterFountainInteracted:
-    scene waterFountainOozeFlowing
-    with fade
+    
 
     $ fade_down_ambience()
     play music "audio/ambient_silence.mp3" fadein 2.0
@@ -561,6 +584,8 @@ label waterFountainInteracted:
     $ fade_up_ambience()
 
     if floor1["waterFountain"]["doorKeyObtained"] == True:
+        scene waterFountain 
+        with fade 
         "Lea looks over to the water fountain."
         "The black ooze is gone."
         "Its stains are left as a gentle reminder to not drink from it."
@@ -570,6 +595,8 @@ label waterFountainInteracted:
         with fade
         l "..."
     else:
+        scene waterFountainOozeFlowing
+        with fade
         $ fade_down_ambience()
         play sound "audio/ooze_drip.mp3" fadein 1 fadein 1.0 fadeout 2
         $ renpy.pause(5.0)
@@ -585,6 +612,7 @@ label waterFountainInteracted:
         $ renpy.pause(1.0)
         stop sound
         $ fade_up_ambience()
+        show bathroomKey with dissolve
         "*You obtained a Door Key.*"
         $ floor1["waterFountain"]["doorKeyObtained"] = True
 
@@ -603,9 +631,9 @@ label waterFountainInteracted:
                 scene black
                 with fade
                 jump returnToClassroom1st
+
 ### HALLWAY INTERACTIONS 
 ### ADVENTURE 
-### VINCE TO NOT TAMPER FIRST PLEASE
 
 label hallwayFloor1:
     
@@ -781,6 +809,7 @@ label HallwayFloor1Left:
                     play sound "audio/page_flip.mp3" volume 0.6
                     menu:
                         "Read the first note" if floor1['puzzlePieces']['Note1']:
+                            show note with dissolve
                             "Lea opens the note and reads the content"
                             play sound "audio/paper_rustle.mp3" volume 0.7
                             n "Am I doing the Right choice?"
@@ -793,6 +822,7 @@ label HallwayFloor1Left:
                             jump backtoHallLeftChoice
 
                         "Read the second note" if floor1['puzzlePieces']['Note2']:
+                            show note with dissolve
                             play sound "audio/paper_rustle.mp3" volume 0.7
                             
                             "Lea opens the note and reads the content"
@@ -820,6 +850,7 @@ label HallwayFloor1Left:
                             jump backtoHallLeftChoice
 
                         "Read the third note" if floor1['puzzlePieces']['Note3']:
+                            show note with dissolve
                             
                             play sound "audio/paper_rustle.mp3" volume 0.7
                             
@@ -857,7 +888,6 @@ label HallwayFloor1Left:
                             $ fade_down_ambience()
 
                             play sound "audio/key_unlock.mp3" fadein 1.0 volume 0.8
-                            "Flavor Text"
 
                             stop sound
 
@@ -972,7 +1002,8 @@ label preBossEncounter:
         u "Lea... Let's stay together."
     stop sound fadeout 1.0
 
-    show lea scared with dissolve
+    show lea scared at right 
+    with dissolve
     l "You're... You're not."
 
     play sound "audio/static_rise.mp3" fadein 2.0 volume 0.7
@@ -989,24 +1020,208 @@ label preBossEncounter:
     stop sound fadeout 2.0
 
 label Run:
-    
+    scene hallway1stFloor with fade 
+    show lea scared at right 
+    with dissolve
     $ fade_down_ambience()
     play music "audio/tense_silence.mp3" fadein 1.5
     $ fade_up_ambience()
-    "demo end"
-    return
+
+    if counters["floor1"]["runningLives"] < 3:
+        "Something isn't right."
+
+        "She feels like she's back from the start."
+
+    if counters["floor1"]["runningLives"] == 3:
+        "Hearing the sound of Ooze splasing, she hears the monster from behind trying to catch up to her."
+
+        "She comes across the hallway, it holds multiple paths."
+
+    elif counters["floor1"]["runningLives"] == 2:
+        "Lea hears the faint sounds of the abomination's multiple feet clasping as it pursues her."
+
+        "The distorted voice of multiple people ring across the hallway"
+        if persistent.endings["UnityEnding"] == False: 
+            
+            unk "Lea! Don't leave us!"
+        else:
+            u "Lea! Don't leave us!"
+
+    elif counters["floor1"]["runningLives"] == 1:
+        "It's gaining ground."
+
+        "She could hear the individual multiple steps, along with the Ooze."
+
+        "It's Near."
+    else:
+        scene black with fade
+        "Lea feels something grab her."
+        jump UnityEnding
+    
+    "Where should she go?"
+    menu:
+        "Head Up.":
+            $ counters["floor1"]["runningLives"] -= 1
+            scene black with fade
+            "She proceeds forward."
+            jump Run
+        "Head Right.":
+            scene black with fade
+            "She makes a turn to the right."
+            jump Run1 
+        "Head Left.":
+            $ counters["floor1"]["runningLives"] -= 1
+            scene black with fade
+            "She makes a turn to the left."
+            jump Run
+    
 
 label Run1:
-    "demo end"
-    return
+    scene hallway2ndFloor 
+    with fade 
+    if counters["floor1"]["runningLives"] == 3:
+        show lea surprised at right
+        with fade
+        "She opens a classroom to the right. For a moment, she thought she messed up."
+
+        "But in the other end was another hallway. She hears the monster from behind."
+
+        "Lea continues sprinting"
+    else:
+        show lea scared at right
+        with fade 
+        "Lea remembers to take a right turn."
+
+        "She hears the abomination behind her."
+
+        "Wasting no time, she continues sprinting."
+        
+    "Where should she go?"
+    menu:
+        "Head Up.":
+            scene black with fade
+            "She proceeds forward."
+            jump Run2
+        "Head Right.":
+            $ counters["floor1"]["runningLives"] -= 1
+            scene black with fade
+            "She makes a turn to the right."
+            jump Run 
+        "Head Left.":
+            $ counters["floor1"]["runningLives"] -= 1
+            scene black with fade
+            "She makes a turn to the left."
+            jump Run
 
 label Run2:
-    "demo end"
-    return
+    scene hallway1stFloor with fade 
+    if counters["floor1"]["runningLives"] == 3:
+        show lea worried at right
+        "The hallways felt endless, yet she pursues further."
+    else:
+        show lea worried at right
+        "She feels the corridor extend continously."
 
-label Run3:
-    "demo end"
-    return
+        "She's nearly out of here."
+
+    "A distored set of voices rings behind her"
+    
+    if persistent.endings["UnityEnding"] == False:
+        unk "Lea!"
+
+        unk "Stay with us!"
+
+        unk "Don't leave us again!"
+    else:
+        u "Lea!"
+
+        u "Stay with us!"
+
+        u "Don't leave us again!"
+    
+    "Where should she go?"
+    menu:
+        "Head Up.":
+            $ counters["floor1"]["runningLives"] -= 1
+            scene black with fade
+            "She proceeds forward."
+            jump Run
+        "Head Right.":
+            $ counters["floor1"]["runningLives"] -= 1
+            scene black with fade
+            "She makes a turn to the right."
+            jump Run 
+        "Head Left.":
+            scene black with fade
+            "She makes a turn to the left."
+            jump Escape
+
+label Escape: 
+    scene hallwayLocked with fade
+    
+    "There she ran, what greets her was the locked door."
+
+    "Wasting no time, she held the key and turns the lock."
+    scene black with fade
+    window hide
+    centered "It opens. Hurriedly, she runs inside the other room and closes the door"
+
+    centered "As soon as does so, she finds that the chains closes itself."
+
+    centered "She heards banging and incessant wailing from the other side"
+    window show 
+
+    l "The door is locked here aswell. Maybe the third floor has their doors open."
+
+    l "..."
+
+    l "I should head up now, who knows how long that door can last."
+
+    jump floor2 
+
+label UnityEnding:
+    scene black 
+    show UnifiedLea
+    with fade
+    with vpunch
+    $ persistent.endings["UnityEnding"] = True 
+    
+    window hide 
+    centered "Lea struggles to break free."   
+
+    centered "It's futile, the ooze, the multiple arms grabbing into her."  
+
+    centered "She slowly watches in horror as everything slowly falls into a gooey sight."  
+    window show 
+    if persistent.endings["UnityEnding"] == False: 
+        unk "Finally..." 
+
+        unk "We caught up..."
+
+        unk "Together Lea."
+
+        unk "We stay together."
+    else:
+        u "Finally..."
+
+        u "We caught up..."
+
+        u "Together Lea."
+
+        u "We stay together."
+    window hide
+    if persistent.endings["endingAchieved"] == False:
+        $ persistent.endings["endingAchieved"] = True 
+        centered "..." 
+
+        centered "Lea is not done yet." 
+
+        centered "She needs to find out."
+
+        centered "She needs to get out." 
+    centered "*Unity Ending, Reached.*" 
+    return 
+    
 
 ### LEA CLASSROOM 
 
@@ -1120,6 +1335,8 @@ label chairsLeaClassroom:
             l "This is not funny..."
 
             l "Why is a ripped page of my journal in this room?"
+            "*Obtained Note #3*"
+        $ counters["floor1"]["noteCount"] += 1
         $ floor1["puzzlePieces"]["Note3"] = True
 
     else:
@@ -1145,6 +1362,7 @@ label teachersDeskLeaClassroom:
 
     l "A rubik's cube? It's jumbled, someone must've confiscated it."
     show lea smiling at right 
+    with dissolve
 
     "Lea turns the cube a few times."
     
@@ -1155,8 +1373,7 @@ label teachersDeskLeaClassroom:
 ### ROOM 2 CLASSROOM 
 
 label ClassroomFloor1Room2:
-    scene black 
-    with fade 
+    scene Classroom1 with fade
 
     if floor1["Room2"]["isRoomFound"]== False:
         "Lea heads to the right side, twisting the knobs of each of the rooms."
@@ -1192,8 +1409,7 @@ label ClassroomFloor1Room2:
             jump hallwayFloor1
 
 label chairsRoom2:
-    scene black
-    with fade
+    scene black with fade
 
     $ floor1["Room2"]["insideClassRoom"] = True
 
@@ -1245,6 +1461,7 @@ label chairsRoom2:
             "Another note from my journal, how did this get her in the first place?"
 
             "*Obtained Note #1*"
+        $ counters["floor1"]["noteCount"] += 1
         $ floor1["puzzlePieces"]["Note1"] = True
 
     else:
@@ -1255,8 +1472,10 @@ label chairsRoom2:
     if floor1["Room2"]["chairChecking"] < 3:
         $ floor1["Room2"]["chairChecking"] += 1
 
+    jump ClassroomFloor1Room2
+
 label whiteboardRoom2:
-    scene Classroom1 with fade 
+    scene black with fade 
      
     $ floor1["Room2"]["insideClassRoom"] = True
 
@@ -1316,7 +1535,7 @@ label ClassroomFloor1Room3:
             jump hallwayFloor1
 
 label chairsRoom3:
-    scene black
+    scene Classroom2
     with fade
 
     $ floor1["Room3"]["insideClassRoom"] = True
@@ -1400,6 +1619,652 @@ label whiteboardRoom3:
         l "Why are torn pieces of my journal appearing here?"
 
         "*Obtained Note #2*"
+    $ counters["floor1"]["noteCount"] += 1
     $ floor1["puzzlePieces"]["Note2"] = True
 
     jump ClassroomFloor1Room3
+
+### FLOOR 2
+### VINCE TO NOT TAMPER FIRST PLEASE
+
+default floor2 = { 
+    "hallway" : {
+        "isFirstVisit" : True
+    },
+    "Shatter" : {
+        "JumpscareInterval" : [3,5,2,7],
+        "Interactions" : 0,
+        "isJumpscared" : False
+    },
+    "laboratories" : {
+        "comlab1FirstVisit" : True,
+        "comlab2FirstVisit" : True,
+        "comlab3FirstVisit" : True
+    },
+    "vault" : {
+        "isFirstInteraction" : True,
+        "Attempts" : {
+            "Succeed1" : False,
+            "Succeed2" : False,
+            "Succeed3" : False
+        },
+        "AnswerKeys" : {
+            "Key1" : "55",
+            "Key2" : "34",
+            "Key3" : "12"
+        }
+    }
+}
+
+define i = 0
+define keyAttempt = ""
+
+label floor2:
+    label hallwayCutscene:
+        if isDemo == True:
+            "Demo End"
+            return 
+
+        scene hallway2ndFloor with fade 
+
+        if counters["floor1"]["noteCount"] == 3:
+            show lea default at right 
+            with dissolve
+            l "Im glad, those journal entries came in handy."
+
+            l "I better keep my eyes peeled for this point onward."
+        elif counters["floor1"]["noteCount"] == 0:
+            show lea worried at right 
+            with dissolve
+            l "I got lucky there."
+
+            l "What am I even supposed to do there?"
+        else:
+            show lea surprised at right
+            with dissolve
+            l "So that's what those notes are for."
+
+            l "I should've searched more."
+        hide lea with fade
+
+        "Lea explores the floor, its the floor full of computer laboratories."
+
+        "As she walks, she was greeted with rows upon rows of computers."
+
+        "Some, open. Most, Closed."
+
+        "She turns to the other end of the hallway."
+
+        scene hallwayLocked with fade 
+
+        show lea default at right 
+        with dissolve
+
+        l "Just as I thought."
+
+        "She's greeted to another locked door."
+
+        l "It's also locked."
+
+        show lea scared at right 
+        with dissolve
+
+        "Just then, Lea feels like something is staring at her from behind."
+
+        "She may not be alone here after all..."
+
+    label hallway2:
+        if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
+            scene HallwayStalking
+        else:
+            scene hallway2ndFloor
+        if floor2["hallway"]["isFirstVisit"]:
+            $ floor2["hallway"]["isFirstVisit"] = False
+            "Being in the hallway, Lea begins her search."
+
+            "The air is tense, its silent."
+
+            "But someone's already been here."
+
+            "Multiple times."
+            if persistent.endings["UnityEnding"]:
+                "Unlike Unity, whatever is up here is already loose."
+
+                "Waiting for Lea to drop her guard"
+            else:
+                "Unlike whatever was down there, what's in this floor is already loose."
+
+                "It stalks Lea, waiting."
+
+                "It wants her guard down."
+        else:
+            if counters["floor2"]["Sanity"] == 5:
+                "Lea stands between the hallway."
+
+                "She feels its eyes, watching her."
+
+                "She is determined to see this through"
+            elif counters["floor2"]["Sanity"] >= 3:
+                "Lea stands between the hallway."
+
+                "She feels its eyes, watching her."
+
+                "Doubts starts to set into her mind."
+
+                "Was she actually capable to escape the first floor?"
+
+                "Or was it just a stroke of luck?"
+
+                "Doubts aside, she continues on."
+            elif counters["floor2"]["Sanity"] >= 1:
+                "Lea stands between the hallway."
+
+                "It's stalking her, They're enjoying this."
+
+                "She couldn't do this."
+
+                "She has never been capable."
+
+                "This is the end of her."
+            else:
+                "Lea's legs felt weak, she falls to the ground."
+                jump ShatterEnding 
+        
+        menu: 
+            "Look at the nearby vault.":
+                scene black with fade 
+                jump vault 
+            "Look at the computer labs.":
+                menu:
+                    "Head to the first 3":
+                        scene black with fade 
+                        jump comlab1
+                    "Head to the middle":
+                        scene black with fade 
+                        jump comlab2
+                    "Look at the last batch":
+                        scene black with fade 
+                        jump comlab3
+            "Calm Lea's resolve." if floor2['Shatter']['isJumpscared']:
+                scene black with fade 
+                "Lea takes her time."
+
+                "She breathes in."
+
+                "She breathes out."
+                if counters["floor2"]["Sanity"] == 5:
+                    $ counters["floor2"]["Sanity"] -= 1 
+                    if persistent.endings["FalseIdolEnding"]:
+                        st"... That will not work on me.{nw}"
+                    else:
+                        unk"... That will not work on me.{nw}"
+                    jump jumpscare
+                elif counters["floor2"]["Sanity"] == 4:
+                    "Lea nods, the urge for her to see this through stregthens."
+
+                    $ counters["floor2"]["Sanity"] += 1
+                else:
+                    "Lea tries to give herself positive thoughts."
+                    
+                    "she knows she needs to get out of here."
+
+                    $ counters["floor2"]["Sanity"] += 2
+                jump hallway2
+
+    label ShatterEnding:
+        $ persistent.endings["FalseIdolEnding"] = True
+        scene black with fade 
+        show ShatteredLea 
+        window hide
+        
+        centered "Lea feels hopeless."
+
+        centered "She feels like she will never escape here."
+
+        centered "She's trapped."
+
+        centered "The days of pretending to be a studious student caught up to her."
+
+        window show 
+        if persistent.endings["FalseIdolEnding"]:
+            st "A disgrace."
+
+            st "You don't deserve your merit."
+
+            st "Come."
+
+            st "You will break as I would."
+        else:
+            unk "A disgrace."
+
+            unk "You don't deserve your merit."
+
+            unk "Come."
+
+            unk "You will break as I would."
+        window hide
+        if persistent.endings["endingAchieved"] == False:
+            $ persistent.endings["endingAchieved"] = True 
+            centered "..." 
+
+            centered "Lea is not done yet." 
+
+            centered "She needs to find out."
+
+            centered "She needs to get out." 
+        $ persistent.endings["FalseIdolEnding"] = True
+        centered "*Shattered Ending, Reached.*" 
+        return
+
+### VAULT
+    
+    label vault:
+        scene vault with fade
+        if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
+            jump jumpscare 
+        else:
+            $ floor2["Shatter"]["Interactions"] += 1
+
+        if floor2["vault"]["isFirstInteraction"]:
+            $ floor2["vault"]["isFirstInteraction"] = False
+            "Lea approaches the abandoned safe nearby the locked door."
+
+            "She looks around for anything useful."
+
+            "Above the safe was something that caught her eye"
+
+            show lea default at right 
+            with dissolve
+
+            l "A plaque?"
+
+            "There are a bunch of numbers on it"
+
+            $ _history = False
+
+            """
+            12,32,36,55,29,86,45,19\n
+            45,34,65,76,23,54,78,98\n
+            75,45,67,66,23,34,12,76
+            """
+
+            $ _history = True
+
+            l "I wonder what that means"
+        else:
+            "Lea appeaoches the vault, it stays there."
+
+            "Something watches her intently."
+
+            "Much, more intently."
+        label vaultChoice:
+        menu:
+            "Check the plaque.":
+                if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
+                    jump jumpscare 
+                else:
+                    $ floor2["Shatter"]["Interactions"] += 1
+                "Lea looks above the vault."
+
+                $ _history = False
+
+                """
+                12,32,36,55,29,86,45,19\n
+                45,34,65,76,23,54,78,98\n
+                75,45,67,66,23,34,12,76
+                """
+
+                $ _history = True
+
+                l "I wonder what that means."
+                
+                jump vaultChoice 
+            "Attempt to open the vault.":
+                scene black with fade 
+                jump vaultAttempt
+            "Leave, back to the hallway.":
+                scene black with fade 
+                jump hallway2
+
+    label vaultAttempt:
+        scene vault with fade
+
+        "Lea leans over to the lock and starts twistnig the lock"
+        label insertAttempt:
+            menu:
+                "try opening the lock.":
+                    $ keyAttempt = renpy.input("Enter key combination: ", "", length=15, exclude=" +=,.?!<>{}[]").strip() or ""
+                "look at the vault again.":
+                    jump vault
+
+        
+        if floor2["vault"]["Attempts"]["Succeed1"] == False:
+            if keyAttempt == floor2["vault"]["AnswerKeys"]["Key1"]:
+                "The vault makes a ticking sound."
+
+                l "It worked. Next number."
+                $ floor2["vault"]["Attempts"]["Succeed1"] = True
+                jump insertAttempt
+            else:
+                jump failedAttempt
+
+        elif floor2["vault"]["Attempts"]["Succeed2"] == False and floor2["vault"]["Attempts"]["Succeed1"] == True:
+            if keyAttempt == floor2["vault"]["AnswerKeys"]["Key2"]:
+                "The vault makes a ticking sound."
+
+                l "It worked. Off to the last number."
+                $ floor2["vault"]["Attempts"]["Succeed2"] = True
+                jump insertAttempt
+            else:
+                jump failedAttempt
+
+        elif floor2["vault"]["Attempts"]["Succeed3"] == False and floor2["vault"]["Attempts"]["Succeed2"] == True:
+            if keyAttempt == floor2["vault"]["AnswerKeys"]["Key3"]:
+                "The vault makes a ticking sound."
+
+                l "It's Open, Finally."
+                $ floor2["vault"]["Attempts"]["Succeed3"] = True
+                jump openVault
+            else:
+                jump failedAttempt
+        else:
+            jump failedAttempt
+
+        label failedAttempt:
+            $ floor2["vault"]["Attempts"]["Succeed3"] = False
+            $ floor2["vault"]["Attempts"]["Succeed2"] = False
+            $ floor2["vault"]["Attempts"]["Succeed1"] = False
+
+            if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
+                jump jumpscare 
+            else:
+                $ floor2["Shatter"]["Interactions"] += 1
+            
+            "Lea hears the vault reset"
+
+            show lea default at right 
+            with dissolve
+            l "Damn it, I have to try again."
+            if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i-1]:
+                "She feels something... Someone, linger behind her."
+            hide lea
+            jump insertAttempt
+        
+    label openVault:
+        scene vault with fade
+
+        "Lea turns the knob open and checks the content."
+
+        "For such a big vault, there is only one item inside."
+
+        l "The key."
+
+        "Lea takes a hold of it and walks towards the locked door."
+
+        scene hallwayLocked 
+        show lea default at right 
+        with fade
+
+        "She looks over to the door, and she wasted no time."
+
+        "She puts the key into the lock and turns."
+
+        "The lock goes off, the chains loosens."
+
+        "She takes a step into the stairs of the next floor."
+
+        scene black with fade
+
+        if counters["floor2"]["ComputersVisited"] == 3:
+            if persistent.endings["FalseIdolEnding"]:
+                st "Pathetic."
+
+                st "You are utterly pathetic."
+
+                st "How much more are you going to play knight?"
+
+                st "You are ruined whether you stay or leave."
+
+                st "It is only a matter of time."
+
+                st "Until people learn who you really are." 
+            else:
+                unk "Pathetic."
+
+                unk "You are utterly pathetic."
+
+                unk "How much more are you going to play knight?"
+
+                unk "You are ruined whether you stay or leave."
+
+                unk "It is only a matter of time."
+
+                unk "Until people learn who you really are." 
+            
+            show lea worried at right 
+            with dissolve 
+        elif counters["floor2"]["ComputersVisited"] >= 1:
+            if persistent.endings["FalseIdolEnding"]:
+                st "I've seen better."
+
+                st "I have experienced better."
+
+                st "How long will you keep this facade?"
+
+                st "Everyone but you will never know how truly competent you are."
+
+                st "And you're not."
+            else:
+                unk "I've seen better."
+
+                unk "I have experienced better."
+
+                unk "How long will you keep this facade?"
+
+                unk "Everyone but you will never know how truly competent you are."
+
+                unk "And you're not."
+            show lea worried at right 
+            with dissolve
+        else:
+            if persistent.endings["FalseIdolEnding"]:
+                st "Impressive."
+
+                st "You managed to finish it all in one gaze."
+
+                st "I may have misjudged you."
+
+                st "You are worthy of your peer's praises."
+            else:
+                unk "Impressive."
+
+                unk "You managed to finish it all in one gaze."
+
+                unk "I may have misjudged you."
+
+                unk "You are worthy of your peer's praises."
+            show lea smiling at right 
+            with dissolve
+        
+        "Lea continues walking towards the door."
+        
+        "The chains returning as soon as she stepped inside."
+
+        l "One final floor, to the emergency exit outside."
+
+        scene black with fade
+        jump floor3 
+                
+
+        
+
+
+### LABORATORY
+
+    label comlab1:
+        scene black with fade
+
+        if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
+            jump jumpscare 
+        else:
+            $ floor2["Shatter"]["Interactions"] += 1
+
+        if floor2["laboratories"]["comlab1FirstVisit"]:
+            $ counters["floor2"]["ComputersVisited"] += 1
+            "Lea heads towards the set of comlabs."
+
+            "She remembers some of them were turned on."
+
+            "After a bit of searching, she does find it."
+
+            "The lone flickering computer in a flurry of dead desktops."
+        else:
+            "She heads towards the nearest computer."
+
+            "It's on, displaying something"
+        "It's buzzing."
+
+        $ _history = False
+
+        "7."
+
+        "7."
+
+        "7."
+
+        $ _history = True
+
+        show lea default at right 
+        
+        l "I wonder what those mean"
+
+        menu:
+            "Return.":
+                scene black with fade 
+                jump hallway2 
+
+    label comlab2:
+        scene black with fade
+
+        if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
+            jump jumpscare 
+        else:
+            $ floor2["Shatter"]["Interactions"] += 1
+
+        if floor2["laboratories"]["comlab2FirstVisit"]:
+            $ counters["floor2"]["ComputersVisited"] += 1
+            "Lea heads towards the set of comlabs."
+
+            "She remembers some of them were turned on."
+
+            "After a bit of searching, she does find it."
+
+            "The lone flickering computer in a flurry of dead desktops."
+        else:
+            "The"
+        "It's buzzing."
+
+        $ _history = False
+
+        "4."
+
+        $ _history = True
+
+        show lea default at right 
+        
+        l "I wonder what those mean"
+
+        menu:
+            "Return.":
+                scene black with fade 
+                jump hallway2 
+
+    label comlab3:
+        scene black with fade
+
+        if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
+            jump jumpscare 
+        else:
+            $ floor2["Shatter"]["Interactions"] += 1
+
+        if floor2["laboratories"]["comlab3FirstVisit"]:
+            $ counters["floor2"]["ComputersVisited"] += 1
+            "Lea heads towards the set of comlabs."
+
+            "She remembers some of them were turned on."
+
+            "After a bit of searching, she does find it."
+
+            "The lone flickering computer in a flurry of dead desktops."
+        else:
+            "Lea walks to the furthest desktop in the hallway."
+
+            "she puts her head towards the transparent window"
+        "It's buzzing."
+
+        $ _history = False
+
+        "2."
+        
+        "2."
+
+        $ _history = True
+
+        show lea default at right 
+
+        l "I wonder what those mean"
+
+        menu:
+            "Return.":
+                scene black with fade 
+                jump hallway2  
+
+    label jumpscare:
+        scene black 
+        show notLea
+        if i == 3:
+            $ i = 0
+        else:
+            $ i += 1
+        
+        $ floor2["Shatter"]["Interactions"] = 0
+        $ counters["floor2"]["Sanity"] -= 1
+        $ floor2["Shatter"]["isJumpscared"] = True 
+
+
+        $ renpy.pause(1)
+
+        scene hallway2ndFloor 
+        show lea scared at right 
+        with vpunch
+        "Lea is back at the hallway."
+
+        "Her heart pumping."
+
+        "Seeds of doubt starts to sow inside her."
+        jump hallway2 
+
+
+
+label memoryCheck:
+    scene black with fade 
+    if persistent.endings['UnityEnding'] or persistent.endings['FalseIdolEnding']:
+        menu: 
+            "Learn what happened in the bathroom." if persistent.endings['UnityEnding'] == True:
+                jump memoryBathroom
+            "Learn what happened during midterms." if persistent.endings['FalseIdolEnding'] == True:
+                jump memoryMidterm
+            "next page." if persistent.endings['UnityEnding'] or persistent.endings['FalseIdolEnding'] == True:
+                jump memoryNext
+    
+    label memoryNext:
+        if persistent.endings['GoldenEnding'] or persistent.endings['FalseEnding'] == True:
+            menu:
+                "Learn what happened at her room." if persistent.endings['GoldenEnding'] == True:
+                    jump memoryRoom
+                "Learn what happened at home." if persistent.endings['FalseEnding'] == True:
+                    jump memoryHome
+                "Head back.":
+                    jump gameStart
+        else:
+            jump memoryCheck
