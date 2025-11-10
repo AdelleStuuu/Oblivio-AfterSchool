@@ -738,7 +738,7 @@ label HallwayFloor1Right:
             play sound "audio/door_kick_thud.mp3" volume 1.0
             "..."
             $ renpy.pause(1.5)
-            "The Door did not budge."
+            "The door did not budge."
             stop sound fadeout 1.0
             $ fade_up_ambience()
 
@@ -1746,7 +1746,7 @@ label ClassroomFloor1Room3:
             with fade
             jump chairsRoom3 
             $ fade_up_ambience()
-        "Search the whiteboard":
+        "Search the whiteboard.":
             $ fade_down_ambience()
             play sound "audio/drawer.mp3" volume 1
             scene black 
@@ -1754,7 +1754,7 @@ label ClassroomFloor1Room3:
             jump whiteboardRoom3 
             stop sound fadeout 2.0
             $ fade_up_ambience()
-        "Head back to the halways":
+        "Head back to the hallways.":
             $ floor1["Room3"]["insideClassRoom"] = False
             $ fade_down_ambience()
             play sound "audio/walking_heels_echo.mp3" volume 0.5
