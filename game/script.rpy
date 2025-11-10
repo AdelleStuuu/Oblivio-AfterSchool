@@ -91,7 +91,7 @@ label start:
 label gameStart:
     window show 
     scene chairZoomed 
- 
+
     $ fade_down_ambience()
     play music "audio/night_ambience.mp3" fadein 2.0 volume 0.4
     with fade
@@ -1909,6 +1909,9 @@ define i = 0
 define keyAttempt = ""
 
 label floor2:
+    $ fade_down_ambience()
+    play music "audio/floor2.mp3"
+    $ fade_up_ambience()
     label hallwayCutscene:
         if isDemo == True:
             "Demo End"
@@ -1937,9 +1940,11 @@ label floor2:
         hide lea with fade
 
         "Lea explores the floor, its the floor full of computer laboratories."
-
+        $ fade_down_ambience()
+        play sound "audio/walking_heels_echo.mp3" 
         "As she walks, she was greeted with rows upon rows of computers."
-
+        stop sound
+        $ fade_up_ambience()
         "Some, open. Most, Closed."
 
         "She turns to the other end of the hallway."
@@ -1957,20 +1962,25 @@ label floor2:
 
         show lea scared at right 
         with dissolve
-
+    stop music
         "Just then, Lea feels like something is staring at her from behind."
 
         "She may not be alone here after all..."
-
+    
     label hallway2:
+        $ fade_down_ambience()
+        play music "audio/church_bells_thingy.mp3"
+        $ fade_up_ambience()
         if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
             scene HallwayStalking
         else:
             scene hallway2ndFloor
         if floor2["hallway"]["isFirstVisit"]:
             $ floor2["hallway"]["isFirstVisit"] = False
+        $ fade_down_ambience()
+            play sound "audio/walking_heels_echo.mp3" volume 1
             "Being in the hallway, Lea begins her search."
-
+            stop sound
             "The air is tense, its silent."
 
             "But someone's already been here."
@@ -1981,6 +1991,7 @@ label floor2:
 
                 "Waiting for Lea to drop her guard"
             else:
+                
                 "Unlike whatever was down there, what's in this floor is already loose."
 
                 "It stalks Lea, waiting."
@@ -1999,7 +2010,7 @@ label floor2:
                 "She feels its eyes, watching her."
 
                 "Doubts starts to set into her mind."
-
+                play sound "audio/girl_laugh.mp3" volume 0.5
                 "Was she actually capable to escape the first floor?"
 
                 "Or was it just a stroke of luck?"
@@ -2007,19 +2018,24 @@ label floor2:
                 "Doubts aside, she continues on."
             elif counters["floor2"]["Sanity"] >= 1:
                 "Lea stands between the hallway."
-
+                
+                play sound "audio/girl_laugh.mp3" volume 0.5
                 "It's stalking her, They're enjoying this."
-
+                stop sound
                 "She couldn't do this."
 
                 "She has never been capable."
 
                 "This is the end of her."
+            
             else:
+                play sound "audio/stumble.mp3" volume 1
                 "Lea's legs felt weak, she falls to the ground."
+                stop sound
                 jump ShatterEnding 
         
-        menu: 
+        menu:
+        $ fade_up_ambience()
             "Look at the nearby vault.":
                 scene black with fade 
                 jump vault 
@@ -2061,11 +2077,13 @@ label floor2:
                 jump hallway2
 
     label ShatterEnding:
+        $ fade_down_ambience()
+        play music "audio/dark_ambience.mp3" volume 1 
         $ persistent.endings["FalseIdolEnding"] = True
         scene black with fade 
         show ShatteredLea 
         window hide
-        
+        $ fade_up_ambience()
         centered "Lea feels hopeless."
 
         centered "She feels like she will never escape here."
@@ -2073,7 +2091,7 @@ label floor2:
         centered "She's trapped."
 
         centered "The days of pretending to be a studious student caught up to her."
-
+        $ fade_down_ambience()
         window show 
         if persistent.endings["FalseIdolEnding"]:
             st "A disgrace."
@@ -2091,9 +2109,11 @@ label floor2:
             unk "Come."
 
             unk "You will break as I would."
+        $ fade_up_ambience()
         window hide
         if persistent.endings["endingAchieved"] == False:
-            $ persistent.endings["endingAchieved"] = True 
+        $ fade_down_ambience()
+            $ persistent.endings["endingAchieved"] = True
             centered "..." 
 
             centered "Lea is not done yet." 
@@ -2102,6 +2122,7 @@ label floor2:
 
             centered "She needs to get out." 
         $ persistent.endings["FalseIdolEnding"] = True
+        $ fade_up_ambience()
         centered "*Shattered Ending, Reached.*" 
         return
 
@@ -2177,7 +2198,9 @@ label floor2:
 
     label vaultAttempt:
         scene vault with fade
-
+        $ fade_down_ambience()
+        play music "audio/hallway_tension2.mp3" volume 1 
+        $ fade_up_ambience()
         "Lea leans over to the lock and starts twistnig the lock"
         label insertAttempt:
             menu:
@@ -2240,28 +2263,34 @@ label floor2:
             jump insertAttempt
         
     label openVault:
+        $ fade_down_ambience()
+        play music "audio/ambient_silence.mp3" volume 1 fadein 1.0
+        $ fade_up_ambience()
         scene vault with fade
-
+        $ fade_down_ambience()
         "Lea turns the knob open and checks the content."
-
+        play sound "audio/vault.mp3" volume 1 fadein 1.0
+        
         "For such a big vault, there is only one item inside."
-
+        stop sound fadeout 2.0
         l "The key."
 
         "Lea takes a hold of it and walks towards the locked door."
-
-        scene hallwayLocked 
+        play sound "audio/waling_heels_echo.mp3" volume 1 fadein 1.0
+        scene hallwayLocked
+        stop sound fadeout 2.0
+        
         show lea default at right 
         with fade
 
         "She looks over to the door, and she wasted no time."
 
         "She puts the key into the lock and turns."
-
+        play sound "audio/door_open.mp3" volume 1 fadein 1.0
         "The lock goes off, the chains loosens."
-
+        stop sound fadeout 2.0
         "She takes a step into the stairs of the next floor."
-
+        $ fade_up_ambience()
         scene black with fade
 
         if counters["floor2"]["ComputersVisited"] == 3:
@@ -2336,9 +2365,9 @@ label floor2:
             with dissolve
         
         "Lea continues walking towards the door."
-        
+        play sound "audio/chain_rattle.mp3" volume 1 fadein 1.0
         "The chains returning as soon as she stepped inside."
-
+        stop sound fadeout 2
         l "One final floor, to the emergency exit outside."
 
         scene black with fade
@@ -2352,7 +2381,9 @@ label floor2:
 
     label comlab1:
         scene black with fade
-
+        $ fade_down_ambience()
+        play music "audio/ambient_silence.mp3" volume 1 fadein 1.0
+        $ fade_up_ambience()
         if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
             jump jumpscare 
         else:
@@ -2366,13 +2397,20 @@ label floor2:
 
             "After a bit of searching, she does find it."
 
+            $ fade_down_ambience()
+            play sound "audio/computer_flick.mp3" volume 1 fadein 1.0
             "The lone flickering computer in a flurry of dead desktops."
+            $ fade_up_ambience()
+            stop sound fadeout 2.0
         else:
             "She heads towards the nearest computer."
 
             "It's on, displaying something"
+        $ fade_down_ambience()
+        play sound "audio/lightbulb_buzzing.mp3" volume 1 fadein 1.0
         "It's buzzing."
-
+        stop sound fadeout 2.0
+        $ fade_up_ambience()
         $ _history = False
 
         "7."
@@ -2394,7 +2432,9 @@ label floor2:
 
     label comlab2:
         scene black with fade
-
+        $ fade_down_ambience()
+        play music "audio/ambient_silence.mp3" volume 1 fadein 1.0
+        $ fade_up_ambience()
         if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
             jump jumpscare 
         else:
@@ -2408,10 +2448,16 @@ label floor2:
 
             "After a bit of searching, she does find it."
 
+            $ fade_down_ambience()
+            play sound "audio/computer_flick.mp3" volume 1 fadein 1.0
             "The lone flickering computer in a flurry of dead desktops."
+            stop sound fadeout 2.0
         else:
             "The"
+        $ fade_down_ambience()
+        play sound "audio/lightbulb_buzzing.mp3" volume 1 fadein 1.0
         "It's buzzing."
+        stop sound fadeout 2.0
 
         $ _history = False
 
@@ -2430,7 +2476,9 @@ label floor2:
 
     label comlab3:
         scene black with fade
-
+        $ fade_down_ambience()
+        play music "audio/ambient_silence.mp3" volume 1 fadein 1.0
+        $ fade_up_ambience()
         if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
             jump jumpscare 
         else:
@@ -2443,13 +2491,18 @@ label floor2:
             "She remembers some of them were turned on."
 
             "After a bit of searching, she does find it."
-
+            $ fade_down_ambience()
+            play sound "audio/computer_flick.mp3" volume 1 fadein 1.0
             "The lone flickering computer in a flurry of dead desktops."
+            stop sound fadeout 2.0
         else:
             "Lea walks to the furthest desktop in the hallway."
 
             "she puts her head towards the transparent window"
+        $ fade_down_ambience()
+        play sound "audio/lightbulb_buzzing.mp3" volume 1 fadein 1.0
         "It's buzzing."
+        stop sound fadeout 2.0
 
         $ _history = False
 
@@ -2471,6 +2524,7 @@ label floor2:
     label jumpscare:
         scene black 
         show notLea
+        play sound "audio/jumpscare_sting.mp3" 
         if i == 3:
             $ i = 0
         else:
