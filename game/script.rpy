@@ -1962,11 +1962,11 @@ label floor2:
 
         show lea scared at right 
         with dissolve
-    stop music
+    $ fade_down_ambience()
         "Just then, Lea feels like something is staring at her from behind."
 
         "She may not be alone here after all..."
-    
+    $ fade_up_ambience()
     label hallway2:
         $ fade_down_ambience()
         play music "audio/church_bells_thingy.mp3"
@@ -1977,7 +1977,7 @@ label floor2:
             scene hallway2ndFloor
         if floor2["hallway"]["isFirstVisit"]:
             $ floor2["hallway"]["isFirstVisit"] = False
-        $ fade_down_ambience()
+            $ fade_down_ambience()
             play sound "audio/walking_heels_echo.mp3" volume 1
             "Being in the hallway, Lea begins her search."
             stop sound
@@ -2032,9 +2032,12 @@ label floor2:
                 play sound "audio/stumble.mp3" volume 1
                 "Lea's legs felt weak, she falls to the ground."
                 stop sound
+                $ fade_up_ambience()
                 jump ShatterEnding 
         
         menu:
+        $ fade_down_ambience()
+        play music "audio/church_bells_thingy.mp3"
         $ fade_up_ambience()
             "Look at the nearby vault.":
                 scene black with fade 
