@@ -2661,7 +2661,7 @@ label floor3:
             "Walk towards the statue.":
                 jump statueInteraction
     
-    label libary:
+    label library:
         scene library with fade
         if floor3["library"]["isFirstInteraction"]:
             $ floor3["library"]["isFirstInteraction"] = False
@@ -2872,7 +2872,7 @@ label floor3:
                         l "That's a lengthy read."
 
                         scene black with fade
-                        jump libary 
+                        jump library 
             "Head outside":
                 $ floor3["library"]["isInsideLibrary"] = False
                 "Lea walks outside the libary, the sounds of wooden flooring transitioning to stone."
@@ -3194,12 +3194,21 @@ label floor3:
                     with dissolve
 
                     l "It's... Over?"
-
-                    if persistent.endings["GoldenEnding"]:
-                        au "You have passed, return home."
+                    if floor3["notes"]["notesSeen"] >= 4 and floor3["notes"]["sources"]["tech"] and floor3["notes"]["sources"]["history"]:
+                        if persistent.endings["GoldenEnding"]:
+                            au "You have passed, return home."
+                        else:
+                            unk "You have passed, return home."
+                    elif floor3["notes"]["notesSeen"] == 0 and floor3["notes"]["sources"]["tech"] == False  and floor3["notes"]["sources"]["history"] == False:
+                        if persistent.endings["GoldenEnding"]:
+                            au "You have proven your capabilities in a very astonishing way, return home."
+                        else:
+                            unk "You have proven your capabilities in a very astonishing way, return home."
                     else:
-                        unk "You have passed, return home."
-                    
+                        if persistent.endings["GoldenEnding"]:
+                            au "Your effort are sufficient, return home."
+                        else:
+                            unk "Your effort are sufficient, return home."
                     show lea smiling at right 
                     with dissolve
 
