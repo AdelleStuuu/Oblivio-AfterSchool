@@ -104,6 +104,8 @@ image BathroomOutside:
     "BathroomOutside2.webp"
 image BathroomUnity:
     "BathroomUnity.webp"
+image Library:
+    "Library.webp"
 
 #water fountain
 image waterFountain:
@@ -111,3 +113,8 @@ image waterFountain:
 image waterFountainOozeFlowing:
     "waterFountainOozeFlowing.webp"
 
+#hospital 
+image Hospital1:
+    "Hospital1.webp"
+image Hospital2:
+    "Hospital2.webp"
