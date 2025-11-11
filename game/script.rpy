@@ -15,6 +15,7 @@ define n = Character("Note", color="#1900ffc0")
 define st = Character("Shatter", color="#241d86")
 define u = Character("Unity", color="#9f0b0b")
 define unk = Character("???", color="#444444e3")
+define au = Character("Aurum", color="#d4c74ae3") 
 
 # Helper functions for ambience fading
 init python:
@@ -803,6 +804,7 @@ label HallwayFloor1Left:
         "Look at the left, towards the bathroom.":
             $ fade_down_ambience()
             play sound "audio/drip_slow.mp3" fadein 1.5 volume 0.5
+            scene BathroomOutside with fade 
             "Lea looks over the bathroom, she has an uneasy feeling as she stares at the doorway."
             $ fade_up_ambience()
             stop sound fadeout 1.5
@@ -926,7 +928,7 @@ label preBossEncounter:
     $ fade_down_ambience()
     play music "audio/tense_drone_1.mp3" fadein 1.5 volume 0.5
     $ fade_up_ambience()
-    scene bathroom with fade 
+    scene BathroomOpen with fade 
 
     "Lea looks over to the key, the door awaits in front of her."
     $ fade_down_ambience()
@@ -989,7 +991,7 @@ label preBossEncounter:
     "She walks out of the bathroom"
     stop sound fadeout 1.5
 
-    scene bathroom with fade 
+    scene BathroomOpen with fade 
     $ fade_up_ambience()
     $ fade_down_ambience()
     l "Okay, now to open the door"
@@ -1018,7 +1020,7 @@ label preBossEncounter:
     $ fade_down_ambience()
     l "Kate? Is that you? Where are you? Were you hiding in the stalls?"
 
-    scene bathroomWithUnity with fade
+    scene BathroomUnity with fade
     play sound "audio/heavy_breathing.mp3" fadein 1.0 volume 0.5
 
     if persistent.endings["UnityEnding"] == False:
@@ -1962,11 +1964,11 @@ label floor2:
 
         show lea scared at right 
         with dissolve
-    $ fade_down_ambience()
+        $ fade_down_ambience()
         "Just then, Lea feels like something is staring at her from behind."
 
         "She may not be alone here after all..."
-    $ fade_up_ambience()
+        $ fade_up_ambience()
     label hallway2:
         $ fade_down_ambience()
         play music "audio/church_bells_thingy.mp3"
@@ -2034,11 +2036,11 @@ label floor2:
                 stop sound
                 $ fade_up_ambience()
                 jump ShatterEnding 
-        
-        menu:
+
         $ fade_down_ambience()
         play music "audio/church_bells_thingy.mp3"
         $ fade_up_ambience()
+        menu:
             "Look at the nearby vault.":
                 scene black with fade 
                 jump vault 
@@ -2060,7 +2062,12 @@ label floor2:
                 "She breathes in."
 
                 "She breathes out."
-                if counters["floor2"]["Sanity"] == 5:
+                if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
+                    $ i += 1
+                    $ floor2["Shatter"]["Interactions"] = 0
+
+                    "Lea feels that the eyes watching her are starting to dissapate."
+                elif counters["floor2"]["Sanity"] == 5:
                     $ counters["floor2"]["Sanity"] -= 1 
                     if persistent.endings["FalseIdolEnding"]:
                         st"... That will not work on me.{nw}"
@@ -2115,7 +2122,7 @@ label floor2:
         $ fade_up_ambience()
         window hide
         if persistent.endings["endingAchieved"] == False:
-        $ fade_down_ambience()
+            $ fade_down_ambience()
             $ persistent.endings["endingAchieved"] = True
             centered "..." 
 
@@ -2264,7 +2271,8 @@ label floor2:
                 "She feels something... Someone, linger behind her."
             hide lea
             jump insertAttempt
-        
+    
+    ### ESCAPE CUTSCENE    
     label openVault:
         $ fade_down_ambience()
         play music "audio/ambient_silence.mp3" volume 1 fadein 1.0
@@ -2549,6 +2557,108 @@ label floor2:
 
         "Seeds of doubt starts to sow inside her."
         jump hallway2 
+
+### FLOOR 3 
+
+define floor3 = {
+    "library" : {
+        "isFirstInteraction" : False, 
+        "isInsideLibrary" : False
+    }
+} 
+
+label floor3:
+    ### CUTSCENE 
+    scene hallway3rdFloor with fade 
+    "Lea makes her way towards the third floor."
+
+    "The rooms are dim and silent as always."
+
+    "Although, something was greeting her in the middle of the hallway."
+
+    "A statue, made of brass. It stands there with her arms outwards. as if she were waiting for an embrace."
+
+    "Lea walks closer."
+
+    scene hallwayInteraction with fade
+
+    "On one of the statue's fingers, was the key. Lea reaches out before she was stopped by a voice."
+
+    show lea surprised at right
+    with dissolve
+    if persistent.endings["GoldenEnding"]:
+        au "Halt, do you seek your way out of here?"
+
+        l "O- Of course I do."
+
+        au "Do you think you are worthy of the outside?"
+        show lea worried at right 
+        with dissolve
+        l "Well..."
+
+        au "Prove it to me."
+
+        au "I see all the minute flaws in you."
+
+        au "Unless you are worthy of this key."
+
+        au "You and I shall be one in the same way."
+    else:
+        unk "Halt, do you seek your way out of here?"
+
+        l "O- Of course I do."
+
+        unk "Do you think you are worthy of the outside?"
+        show lea worried at right 
+        with dissolve
+        l "Well..."
+
+        unk "Prove it to me."
+
+        unk "I see all the minute flaws in you."
+
+        unk "Unless you are worthy of this key."
+
+        unk "You and I shall be one in the same way."
+    
+    label hallway3: 
+        scene hallway3rdFloor with fade 
+        "Lea walks around the hallway, the only unlocked room was the library."
+        show lea default at right 
+        with dissolve
+        l "Suppose everything I need to know is just right at this room."
+
+        "What should lea do?"
+
+        menu: 
+            "Enter the libary.":
+                jump library 
+            "Walk towards the statue.":
+                jump statueInteraction
+    
+    label libary:
+        if floor3["library"]["isFirstInteraction"] == False:
+            "She walks inside the library."
+            
+            "Illuminated but barren, there are differing books around the area."
+
+            "Since the first floor, no one comes to greet her. Not even a glance to acknowledge her existence."
+
+            "Lea looks around, searching where she could find clues to deem her worth,"
+        else: 
+            "She steps insie the Library."
+
+            "The clues to her escape lingers around."
+
+            "She should find them, imprint them on her mind."
+        
+        "What should she do?"
+
+    label statueInteraction:
+
+    
+
+
 
 
 
