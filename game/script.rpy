@@ -15,9 +15,6 @@ define n = Character("Note", color="#1900ffc0")
 define st = Character("Shatter", color="#241d86")
 define u = Character("Unity", color="#9f0b0b")
 define unk = Character("???", color="#444444e3")
-define au = Character("Aurum", color="#d4c74ae3") 
-define k = Character("Kate", color = "#d44ac8e3") 
-define m = Character("Mom", color = "#3f2699e3")
 
 # Helper functions for ambience fading
 init python:
@@ -74,30 +71,20 @@ default counters = {
 }
 
 label start:
-    
     if persistent.endings["endingAchieved"] == True:
-        if persistent.endings["TrueEnding"] == False:
-            scene black with fade
-            window hide
-            centered "Lea's body is still here."
+        scene black with fade
+        window hide
+        centered "Lea's body is still here."
 
-            centered "It tries to remember."
+        centered "It tries to remember."
 
-            centered "It wanted to know what happened."
+        centered "It wanted to know what happened."
 
         menu:
             "Check memories.":
                 jump memoryCheck
             "Continue on.":
-                if persistent.endings["TrueEnding"]:
-                    centered "Lea is now recovering from her toils."
-
-                    centered "You should too."
-
-                    centered "You deserve it."
-                    $ renpy.quit()
-                else:
-                    jump gameStart
+                jump gameStart
     else:
         jump gameStart
     
@@ -160,7 +147,7 @@ label gameStart:
         "Ignore your instincts, stay in the classroom.":
             $ fade_down_ambience()
             play sound "audio/door_open.mp3" volume 1
-            #
+            $ renpy.pause(3.0)
             stop sound fadeout 2
             $ fade_up_ambience()
             scene black
@@ -171,6 +158,7 @@ label gameStart:
 
 # CLASSROOM INTERACTIONS
 label returnToClassroom1st:
+    
     $ fade_down_ambience()
     play music "audio/classroom_ambience.mp3"
     $ fade_up_ambience()
@@ -189,7 +177,7 @@ label returnToClassroom1st:
 
     $ fade_down_ambience()
     play sound "audio/sigh.mp3" volume 1 fadein 1.0 #
-    #(4.0)
+    $ renpy.pause(4.0)
     "She sighed."
     stop sound fadeout 2
     $ fade_up_ambience()
@@ -200,21 +188,21 @@ label returnToClassroom1st:
 
     $ fade_down_ambience()
     play sound "audio/door_open.mp3" fadein 1.0 #
-    #
+    $ renpy.pause(3)
     stop sound fadeout 2
     $ fade_up_ambience()
 
     $ fade_down_ambience()
     play sound "audio/footsteps_heels.mp3" fadein 1.0 #
-    #(7)
+    $ renpy.pause(7)
     stop sound fadeout 2
     $ fade_up_ambience()
 
     menu:
         "Head out, drink at the water fountain.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 #
-            #
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 1.5
+            $ renpy.pause(9.0)
             stop sound fadeout 2
             $ fade_up_ambience()
             scene black
@@ -232,8 +220,8 @@ label returnToClassroom1st:
 
         "Head out to the hallway.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 #
-            #
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 1.5
+            $ renpy.pause(9.0)
             stop sound fadeout 2
             $ fade_up_ambience()
             jump hallway1st
@@ -254,7 +242,7 @@ label hallway1st:
 
     $ fade_down_ambience()
     play sound "audio/footsteps_heels.mp3" fadein 1.0 #
-    #
+    $ renpy.pause(2.0)
     stop sound fadeout 2
     $ fade_up_ambience()
     stop music
@@ -273,7 +261,7 @@ label hallway1st:
         "Head left, leave via the front doors.":
             $ fade_down_ambience()
             play sound "audio/footsteps_heels.mp3" fadein 1.0 #
-            #(5.0)
+            $ renpy.pause(5.0)
             stop sound fadeout 2
             $ fade_up_ambience()
             scene black
@@ -283,7 +271,7 @@ label hallway1st:
         "Head right, leave through the back doors.":
             $ fade_down_ambience()
             play sound "audio/footsteps_heels.mp3" fadein 1.0 #
-            #
+            $ renpy.pause(2.0)
             stop sound fadeout 2
             $ fade_up_ambience()
             scene black
@@ -300,7 +288,7 @@ label leftEntrance1:
 
     $ fade_down_ambience()
     play sound "audio/chair_scrape.mp3" fadein 1.0 #
-    #
+    $ renpy.pause(2.0)
     stop sound fadeout 2
     $ fade_up_ambience()
 
@@ -308,7 +296,7 @@ label leftEntrance1:
 
     $ fade_down_ambience()
     play sound "audio/heartbeat_slow.mp3" fadein 1.0 #
-    #(5.0)
+    $ renpy.pause(5.0)
     stop sound fadeout 2
     $ fade_up_ambience()
 
@@ -318,7 +306,7 @@ label leftEntrance1:
         "Check the back door.":
             $ fade_down_ambience()
             play sound "audio/footsteps_heels.mp3" fadein 1.0 #
-            #
+            $ renpy.pause(9.0)
             stop sound fadeout 2
             $ fade_up_ambience()
             scene black
@@ -352,7 +340,7 @@ label leftEntrance2:
         "She remembers something. Reaching into her pockets, she takes out a key to a door."
         $ fade_down_ambience()
         play sound "audio/keys_jingle.mp3" fadeout 1
-        #
+        $ renpy.pause(1.0)
         stop sound fadeout 2
         $ fade_up_ambience()
         show lea worried at right
@@ -374,11 +362,11 @@ label rightEntrance1:
 
     $ fade_down_ambience()
     play sound "audio/chain_rattle.mp3" fadein 1.0 #
-
-
-    "She feels a rush of unease go through her."
     stop sound fadeout 2
     $ fade_up_ambience()
+
+    "She feels a rush of unease go through her."
+
     menu:
         "Check the front door.":
             scene black
@@ -413,7 +401,7 @@ label rightEntrance2:
         "She remembers something. Reaching into her pockets, she takes out a key to a door."
         $ fade_down_ambience()
         play sound "audio/keys_jingle.mp3" fadeout 1
-        #
+        $ renpy.pause(1.0)
         stop sound fadeout 2
         $ fade_up_ambience()
         show lea worried at right
@@ -437,7 +425,7 @@ label waterFountain1st:
 
     $ fade_down_ambience()
     play sound "audio/metal_creaking.mp3" volume 1 fadein 1 #
-    #
+    $ renpy.pause(3)
     stop sound fadeout 2
     $ fade_up_ambience()
 
@@ -445,7 +433,7 @@ label waterFountain1st:
         "Try again":
             $ fade_down_ambience()
             play sound "audio/fountain_click.mp3" fadein 1.0 #
-            #(4.0)
+            $ renpy.pause(4.0)
             stop sound fadeout 2
             $ fade_up_ambience()
             jump waterFountain2nd
@@ -453,7 +441,7 @@ label waterFountain1st:
         "Return to the classroom.":
             $ fade_down_ambience()
             play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 #
-            #
+            $ renpy.pause(9.0)
             stop sound fadeout 2
             $ fade_up_ambience()
             if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
@@ -477,7 +465,7 @@ label waterFountain2nd:
 
     $ fade_down_ambience()
     play sound "audio/fountain_click.mp3" fadein 1.0 #
-    #(4.0)
+    $ renpy.pause(4.0)
     stop sound fadeout 2
     $ fade_up_ambience()
 
@@ -485,7 +473,7 @@ label waterFountain2nd:
 
     $ fade_down_ambience()
     play sound "audio/drip_slow.mp3" fadein 1.0 #
-    #(5.0)
+    $ renpy.pause(5.0)
     "The faint echo of dripping pipes fills the hallway."
     stop sound fadeout 2
     $ fade_up_ambience()
@@ -495,7 +483,7 @@ label waterFountain2nd:
             with fade
             $ fade_down_ambience()
             play sound "audio/fountain_click.mp3" fadein 1.0 #
-            #(4.0)
+            $ renpy.pause(4.0)
             stop sound fadeout 2
             stop music fadeout 1.0
             $ fade_up_ambience()
@@ -521,13 +509,13 @@ label waterFountain3rd:
 
     $ fade_down_ambience()
     play sound "audio/tension_swell.mp3" fadein 1.0 #
-    #
+    $ renpy.pause(9.0)
     stop sound fadeout 2
     $ fade_up_ambience()
 
     $ fade_down_ambience()
     play sound "audio/fountain_click.mp3" fadein 1.0 #
-    #(4.0)
+    $ renpy.pause(4.0)
     stop sound fadeout 2
     $ fade_up_ambience()
 
@@ -535,13 +523,13 @@ label waterFountain3rd:
 
     $ fade_down_ambience()
     play sound "audio/liquid_splash.mp3" fadein 1.0 #
-    #(8.0)
+    $ renpy.pause(8.0)
     stop sound fadeout 2
     $ fade_up_ambience()
 
     $ fade_down_ambience()
     play sound "audio/heartbeat_fast.mp3" volume 15 fadein 1.0 #
-    #
+    $ renpy.pause(3.0)
     stop sound fadeout 2
     $ fade_up_ambience()
 
@@ -584,7 +572,7 @@ label waterFountainInteracted:
 
     $ fade_down_ambience()
     play sound "audio/drip_slow.mp3" fadein 1.0 #
-    #(4.0)
+    $ renpy.pause(4.0)
     stop sound fadeout 2
     $ fade_up_ambience()
 
@@ -604,7 +592,7 @@ label waterFountainInteracted:
         with fade
         $ fade_down_ambience()
         play sound "audio/ooze_drip.mp3" fadein 1 fadein 1.0 #
-        #(5.0)
+        $ renpy.pause(5.0)
         stop sound fadeout 2
         $ fade_up_ambience()
 
@@ -614,7 +602,7 @@ label waterFountainInteracted:
         "She hesitantly picks the key up."
         $ fade_down_ambience()
         play sound "audio/keys_jingle.mp3" volume 1.0 fadeout 1
-        #
+        $ renpy.pause(1.0)
         stop sound fadeout 2
         $ fade_up_ambience()
         show bathroomKey with dissolve
@@ -625,7 +613,7 @@ label waterFountainInteracted:
         "Return to the classroom.":
             $ fade_down_ambience()
             play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 #
-            #
+            $ renpy.pause(9.0)
             stop sound fadeout 2
             $ fade_up_ambience()
             if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
@@ -664,7 +652,7 @@ label hallwayFloor1:
     else:
         play sound "audio/low_rumble.mp3" volume 1 fadein 2.0
         "The air is tight, but time spent idling around here is time wasted on finding something to get out of here."
-        stop sound fadeout 2 #
+        stop sound fadeout 2 fadeout 1.5
         $ floor1["hallway"]["firstHallwayInteraction"] = True
 
     "What to do now?"
@@ -679,7 +667,7 @@ label hallwayFloor1:
                 $ fade_down_ambience()
                 play sound "audio/walking_heels_echo.mp3" fadein 1.0 volume 1
                 "Lea returns to the water fountain."
-                stop sound fadeout 2 #
+                stop sound fadeout 2 fadeout 1.5
                 jump waterFountainInteracted
             elif floor1["waterFountain"]["secondInteraction"] == True:
                 "Lea returns to the water fountain."
@@ -720,7 +708,7 @@ label HallwayFloor1Right:
     $ fade_up_ambience()
     play sound "audio/walking_heels_echo.mp3" volume 1
     "Lea walks towards the hallway to the right."
-    stop sound fadeout 2 #
+    stop sound fadeout 2 fadeout 1.5
 
     scene hallwayLocked with fade
     $ fade_down_ambience()
@@ -734,7 +722,7 @@ label HallwayFloor1Right:
 
             $ fade_down_ambience()
             play sound "audio/walking_heels2.mp3" volume 1
-            #
+            $ renpy.pause(2)
             stop sound fadeout 2 fadeout 0.5
             "Lea takes a few steps back, and then runs towards the door and gave it a good kick."
             play sound "audio/footsteps_running.mp3" volume 1
@@ -744,7 +732,7 @@ label HallwayFloor1Right:
             "..."
             $ renpy.pause(1.5)
             "The Door did not budge."
-            stop sound fadeout 1.0
+            stop sound fadeout 2 fadeout 1.0
             $ fade_up_ambience()
 
             show lea default at right
@@ -778,7 +766,7 @@ label HallwayFloor1Left:
 
     play sound "audio/faint_whispers.mp3" fadein 2.0 volume 1
     "It is the same barricaded door from earlier."
-    stop sound fadeout 2 #
+    stop sound fadeout 2 fadeout 1.5
 
     label backtoHallLeftChoice:
     scene LeftHallway with fade 
@@ -807,10 +795,10 @@ label HallwayFloor1Left:
             jump backtoHallLeftChoice
         "Look at the left, towards the bathroom.":
             $ fade_down_ambience()
-            play sound "audio/drip_slow.mp3" fadein 1.5 volume 0.5
+            play sound "audio/drip_slow.mp3" fadein 1.5 volume 1
             "Lea looks over the bathroom, she has an uneasy feeling as she stares at the doorway."
             $ fade_up_ambience()
-            stop sound fadeout 2 #
+            stop sound fadeout 2 fadeout 1.5
 
             menu:
                 "Read the notes." if floor1['puzzlePieces']['Note1'] or floor1['puzzlePieces']['Note2'] or floor1['puzzlePieces']['Note3']:
@@ -931,7 +919,7 @@ label preBossEncounter:
     $ fade_down_ambience()
     play music "audio/tense_drone_1.mp3" fadein 1.5 volume 1
     $ fade_up_ambience()
-    scene BathroomOpen with fade 
+    scene bathroom with fade 
 
     "Lea looks over to the key, the door awaits in front of her."
     $ fade_down_ambience()
@@ -942,7 +930,7 @@ label preBossEncounter:
     $ fade_up_ambience()
     $ fade_down_ambience()
     play sound "audio/lock_click.mp3" volume 1
-    #
+    $ renpy.pause(1.0)
     stop sound fadeout 2
     $ fade_up_ambience()
     $ fade_down_ambience()
@@ -976,7 +964,7 @@ label preBossEncounter:
     $ fade_down_ambience()
     play sound "audio/slimy_surface.mp3" volume 1
     "She feels ooze on the door of the bathroom stalls..."
-    stop sound fadeout 2 #
+    stop sound fadeout 2 fadeout 1.5
     $ fade_up_ambience()
     $ fade_down_ambience()
     play sound "audio/metallic_clink.mp3" volume 1
@@ -992,9 +980,9 @@ label preBossEncounter:
     $ fade_down_ambience()
     play sound "audio/walking_heels2.mp3" fadein 0.8 volume 1
     "She walks out of the bathroom"
-    stop sound fadeout 2 #
+    stop sound fadeout 2 fadeout 1.5
 
-    scene BathroomOpen with fade 
+    scene bathroom with fade 
     $ fade_up_ambience()
     $ fade_down_ambience()
     l "Okay, now to open the door"
@@ -1005,7 +993,7 @@ label preBossEncounter:
         unk "Lea..."
     else:
         u "Lea..."
-    stop sound fadeout 2 #
+    stop sound fadeout 2 fadeout 1.5
     
     "The voice came from the bathrooms, it was the voice of one of her classmates."
 
@@ -1019,12 +1007,12 @@ label preBossEncounter:
         play sound "audio/ghostly_voice.mp3" fadein 2.0 volume 1
         u "Lea... Let's stay together, please."
         $ fade_up_ambience()
-    stop sound fadeout 2 #
+    stop sound fadeout 2 fadeout 1.5
     $ fade_down_ambience()
     l "Kate? Is that you? Where are you? Were you hiding in the stalls?"
 
     scene bathroomWithUnity with fade
-    play sound "audio/heavy_breathing.mp3" fadein 1.0 volume 0.5
+    play sound "audio/heavy_breathing.mp3" fadein 1.0 volume 1
 
     if persistent.endings["UnityEnding"] == False:
         unk "Lea... Let's stay together."
@@ -1042,7 +1030,7 @@ label preBossEncounter:
         unk "You never go with us Lea. Stay with us!"
     else:
         u "You never go with us Lea. Stay with us!"
-    stop sound fadeout 2 #
+    stop sound fadeout 2 fadeout 1.5
     $ fade_up_ambience()
 
     $ fade_down_ambience()
@@ -1274,7 +1262,7 @@ label Escape:
     "Wasting no time, she held the key and turns the lock."
     $ fade_down_ambience()
     play sound "audio/lock_click.mp3" volume 1
-    #
+    $ renpy.pause(1.0)
     stop sound fadeout 2
     $ fade_up_ambience()
     scene black with fade
@@ -1342,18 +1330,17 @@ label UnityEnding:
 
         centered "She needs to get out." 
     centered "*Unity Ending, Reached.*" 
-    scene black with fade
     return 
     
 
 ### LEA CLASSROOM 
 
 label returnToClassroom:
-    $ fade_down_ambience()
-    play music "audio/classroom_ambience.mp3"
-    $ fade_up_ambience()
     scene Classroom1
     with fade
+    $ fade_down_ambience()
+    play music "audio/classroom_ambience.mp3" 
+    $ fade_up_ambience()
     if floor1["LeaClassroom"]["insideClassRoom"] == True:
         "..."
     else:
@@ -1752,7 +1739,7 @@ label ClassroomFloor1Room3:
             with fade
             jump chairsRoom3 
             $ fade_up_ambience()
-        "Search the whiteboard.":
+        "Search the whiteboard":
             $ fade_down_ambience()
             play sound "audio/drawer.mp3" volume 1
             scene black 
@@ -1760,7 +1747,7 @@ label ClassroomFloor1Room3:
             jump whiteboardRoom3 
             stop sound fadeout 2 #
             $ fade_up_ambience()
-        "Head back to the hallways.":
+        "Head back to the halways":
             $ floor1["Room3"]["insideClassRoom"] = False
             $ fade_down_ambience()
             play sound "audio/walking_heels_echo.mp3" volume 1
@@ -1968,11 +1955,11 @@ label floor2:
 
         show lea scared at right 
         with dissolve
-        $ fade_down_ambience()
+    $ fade_down_ambience()
         "Just then, Lea feels like something is staring at her from behind."
 
         "She may not be alone here after all..."
-        $ fade_up_ambience()
+    $ fade_up_ambience()
     label hallway2:
         $ fade_down_ambience()
         play music "audio/church_bells_thingy.mp3"
@@ -2040,11 +2027,11 @@ label floor2:
                 stop sound fadeout 2
                 $ fade_up_ambience()
                 jump ShatterEnding 
-
+        
+        menu:
         $ fade_down_ambience()
         play music "audio/church_bells_thingy.mp3"
         $ fade_up_ambience()
-        menu:
             "Look at the nearby vault.":
                 scene black with fade 
                 jump vault 
@@ -2066,12 +2053,7 @@ label floor2:
                 "She breathes in."
 
                 "She breathes out."
-                if floor2["Shatter"]["Interactions"] == floor2["Shatter"]["JumpscareInterval"][i]:
-                    $ i += 1
-                    $ floor2["Shatter"]["Interactions"] = 0
-
-                    "Lea feels that the eyes watching her are starting to dissapate."
-                elif counters["floor2"]["Sanity"] == 5:
+                if counters["floor2"]["Sanity"] == 5:
                     $ counters["floor2"]["Sanity"] -= 1 
                     if persistent.endings["FalseIdolEnding"]:
                         st"... That will not work on me.{nw}"
@@ -2126,7 +2108,7 @@ label floor2:
         $ fade_up_ambience()
         window hide
         if persistent.endings["endingAchieved"] == False:
-            $ fade_down_ambience()
+        $ fade_down_ambience()
             $ persistent.endings["endingAchieved"] = True
             centered "..." 
 
@@ -2138,7 +2120,6 @@ label floor2:
         $ persistent.endings["FalseIdolEnding"] = True
         $ fade_up_ambience()
         centered "*Shattered Ending, Reached.*" 
-        scene black with fade
         return
 
 ### VAULT
@@ -2276,8 +2257,7 @@ label floor2:
                 "She feels something... Someone, linger behind her."
             hide lea
             jump insertAttempt
-    
-    ### ESCAPE CUTSCENE    
+        
     label openVault:
         $ fade_down_ambience()
         play music "audio/ambient_silence.mp3" volume 1 fadein 1.0
@@ -2551,7 +2531,7 @@ label floor2:
         $ floor2["Shatter"]["isJumpscared"] = True 
 
 
-        #
+        $ renpy.pause(1)
 
         scene hallway2ndFloor 
         show lea scared at right 
@@ -2562,819 +2542,6 @@ label floor2:
 
         "Seeds of doubt starts to sow inside her."
         jump hallway2 
-
-### FLOOR 3 
-
-define floor3 = {
-    "library" : {
-        "isFirstInteraction" : True, 
-        "isInsideLibrary" : False
-    },
-    "conditon": {
-        "hasLeaLost" : False,
-        "hasLeaWon" : False
-    },
-    
-    "notes" : {
-        "notesSeen" : 0,
-        "sources" : {
-            "tech": False,
-            "history": False
-        }
-    }
-} 
-
-label floor3:
-    ### CUTSCENE 
-    scene hallway3rdFloor with fade 
-    "Lea makes her way towards the third floor."
-
-    "The rooms are dim and silent as always."
-
-    "Although, something was greeting her in the middle of the hallway."
-
-    "A statue, made of brass. It stands there with her arms outwards. as if she were waiting for an embrace."
-
-    "Lea walks closer."
-
-    scene hallwayInteraction with fade
-
-    "On one of the statue's fingers, was the key. Lea reaches out before she was stopped by a voice."
-
-    show lea surprised at right
-    with dissolve
-    if persistent.endings["GoldenEnding"]:
-        au "Halt, do you seek your way out of here?"
-
-        l "O- Of course I do."
-
-        au "Do you think you are worthy of the outside?"
-        show lea worried at right 
-        with dissolve
-        l "Well..."
-
-        au "Prove it to me."
-
-        au "I see all the minute flaws in you."
-
-        au "Unless you are worthy of this key."
-
-        au "You and I shall be one in the same way."
-    else:
-        unk "Halt, do you seek your way out of here?"
-
-        l "O- Of course I do."
-
-        unk "Do you think you are worthy of the outside?"
-        show lea worried at right 
-        with dissolve
-        l "Well..."
-
-        unk "Prove it to me."
-
-        unk "I see all the minute flaws in you."
-
-        unk "Unless you are worthy of this key."
-
-        unk "You and I shall be one in the same way."
-    
-    label hallway3: 
-        scene hallway3rdFloor with fade 
-        "Lea walks around the hallway, the only unlocked room was the library."
-        show lea default at right 
-        with dissolve
-        l "Suppose everything I need to know is just right at this room."
-
-        "What should lea do?"
-
-        menu: 
-            "Enter the libary.":
-                jump library 
-            "Walk towards the statue.":
-                jump statueInteraction
-    
-    label library:
-        scene library with fade
-        if floor3["library"]["isFirstInteraction"]:
-            $ floor3["library"]["isFirstInteraction"] = False
-            "She walks inside the library."
-            
-            "Illuminated but barren, there are differing books around the area."
-
-            "Since the first floor, no one comes to greet her. Not even a glance to acknowledge her existence."
-
-            "Lea looks around, searching where she could find clues to deem her worth."
-
-            "her eyes are set over one of the tables."
-            
-            "It's her journal."
-            show lea surprised at right 
-            with dissolve
-
-            "She made hurried steps towards her jounral."
-
-            "Opening it, multiple pages were ripped off."
-
-            if counters["floor1"]["noteCount"] >= 1:
-                "Lea pieced together that some pages that she found on the first floor are also ripped off from here."
-            
-                "Other than the 3 pages, many more pages were ripped off"
-            else:
-                "A lot of the pages are ripped off."
-            
-            l "12 pages... I should hurry up and find them"
-        else: 
-            if floor3["library"]["isInsideLibrary"]:
-                "..."
-            else:
-                "She steps insie the Library."
-
-                "The clues to her escape lingers around."
-
-                "She should find them, imprint them on her mind."
-        
-        "What should she do?"
-        $ floor3["library"]["isInsideLibrary"] = True 
-        menu: 
-            "Look for her notes.":
-                menu:
-                    "Search the maths section.":
-                        "looking over a math book, she found 3 torn pages that are located throughout the book"
-                        
-                        "Lea flips through a note"
-                        show note with dissolve
-                        menu:
-                            "Search note 1.":
-                                $ floor3["notes"]["notesSeen"] +=1
-                                n "2013."
-
-                                n "I gave my mom a drawing."
-
-                                n "My teacher said it's great!"
-
-                                n "She might appreciate it."
-
-                                n "But mom just left it at the counter."
-
-                                n "And I can't find it anymore the next day."
-
-                                n "I wonder what happened."
-                                scene black with fade
-                                jump library
-
-                            "Search note 2.":
-                                $ floor3["notes"]["notesSeen"] +=1
-                                n "2023."
-
-                                n "I saw my friends on a cafe one morning."
-
-                                n "It was the first time in a while that I had free time."
-
-                                n "They were having fun, but they never bothered to invite me."
-
-                                n "Was I a little too distant to them?"
-
-                                n "Is that why they do not really care much anymore?"
-                                scene black with fade
-                                jump library
-                            "Search note 3.":
-                                $ floor3["notes"]["notesSeen"] +=1
-                                n "2015."
-
-                                n "Someone tried to approach me."
-
-                                n "I wanted to talk to them, but I feel something heavy on my chest."
-
-                                n "I can't put a single word out of my mouth."
-
-                                n "They soon went away after this."
-                                scene black with fade
-                                jump library
-
-                    "Search the history section":
-                        "Lea looks over to a nearby history book."
-
-                        "One of the note is stuck and neatly folded."
-
-                        "She picks it up"
-                        show note with dissolve
-                        menu:
-                            "Read note.":
-                                $ floor3["notes"]["notesSeen"] +=1
-                                n "2019."
-
-                                n "I think they haven't noticed."
-
-                                n "I slipped up on an exam."
-
-                                n "But their eyes are on to me."
-
-                                n "I'm a fraud, but I can not afford to let them know about it."
-
-                                n "This score, no one should know about this."
-
-                                n "I am glad it is easier to hide it at this day."
-
-                                n "I don't think I learnt a thing for the past months..."
-                                scene black with fade
-                                jump library
-                    "Search the technologies section":
-                        "Lea finds a slightly opened programming 1 book."
-
-                        "Inside contained 3 notes."
-                        show note with dissolve
-                        menu:
-                            "Search note 1.":
-                                $ floor3["notes"]["notesSeen"] +=1
-                                n "I have to be ahead."
-
-                                n "I have to be!"
-
-                                n "I spent so many days studying in advance that no one noticed."
-
-                                n "They think I was smart."
-
-                                n "Im not."
-
-                                n "If I don't learn the material days... weeks... in advance..."
-
-                                n "They'll see how unknowledgable I am."
-                                scene black with fade
-                                jump library
-                            "Search note 2.":
-                                $ floor3["notes"]["notesSeen"] +=1
-                                n "This..."
-
-                                n "This..."
-
-                                n "What the HELL is this?!"
-
-                                n "Needing to use a function in another function?"
-
-                                n "What?"
-
-                                n "God... I feel so worthless."
-
-                                n "If I don't manage to understand this I'm doomed."
-                                scene black with fade
-                                jump library
-                            "Search note 3.":
-                                $ floor3["notes"]["notesSeen"] +=1
-                                n "Im stumped."
-
-                                n "I can't work on this project for long."
-
-                                n "My body's tired."
-
-                                n "I haven't had proper sleep in days."
-
-                                n "But I need to continue going."
-
-                                n "They might make fun of me if this turns out lucklaster."
-                                scene black with fade
-                                jump library
-            "Look for other materials":
-                menu:
-                    "Look at the history books":
-                        $ floor3["notes"]["sources"]["history"] = True
-                        "Lea approached a history book on the table and started to flip pages."
-                        
-                        "She found a news paper clipping hidden within the thick book."
-
-                        "an infectious disease caused by the SARS-CoV-2 virus has spread around the recent areas."
-                        
-                        "Most people infected with the virus will experience mild to moderate respiratory illness and recover without requiring special treatment."
-                        
-                        "However, some will become seriously ill and require medical attention."
-                        scene black with fade 
-                        jump library 
-                    "Look at the Object Oriented Programming Book":
-                        $ floor3["notes"]["sources"]["tech"] = True
-                        "Lea looks over to a programming book located at one of the tables at the edge."
-
-                        "Approaching it, she notices a bookmark placed on one of the pages."
-
-                        "Function: A function is a self contained block of code designed to perform a specific task, often taking inputs and producing an output."
-                        
-                        "Recursion: Recursion is a programming technique where a function calls itself to solve a smaller version of the same problem."
-                        
-                        "Parameter: A parameter is a variable defined in a function's definition that acts as a placeholder for the values the function will receive as input."
-
-                        show lea worried at right 
-                        l "That's a lengthy read."
-
-                        scene black with fade
-                        jump library 
-            "Head outside":
-                $ floor3["library"]["isInsideLibrary"] = False
-                "Lea walks outside the libary, the sounds of wooden flooring transitioning to stone."
-                scene black with fade 
-                jump hallway3
-
-    label statueInteraction:
-        scene hallwayInteraction with fade
-
-        if persistent.endings["GoldenEnding"]:
-            au "What is it that you seek?"
-        else:
-            unk "What is it that you seek?"
-        
-        show lea default at right 
-        with dissolve 
-        menu:
-            
-            "The key.":
-                l "I want the key to the outside."
-
-                if persistent.endings["GoldenEnding"]:
-                    au "do you think that you are worthy of this?"
-                else:
-                    unk "do you think that you are worthy of this?"
-                
-                menu:
-                    "I wish to prove it.":
-                        l "I will prove myself for it."
-
-                        if persistent.endings["GoldenEnding"]:
-                            au "Very well, we shall commence at once."
-                        else:
-                            unk "Very well, we shall commence at once."
-                        scene black with fade
-                        jump questioning
-                    "Give me time.":
-                        l "Give me a few more moments."
-
-                        if persistent.endings["GoldenEnding"]:
-                            au "I shall wait."
-                        else:
-                            unk "I shall wait."
-                        scene black with fade
-                        jump hallway3
-
-            "Your terms.":
-                show lea default at right
-                with dissolve
-                l "I need you to tell me what I need to do to get that key."
-
-                if persistent.endings["GoldenEnding"]:
-                    au "The terms are simple, a guessing game."
-                else:
-                    unk "The terms are simple, a guessing game."
-
-                l "A guessing game?"
-
-                if persistent.endings["GoldenEnding"]:
-                    au "Indeed."
-
-                    au "Though you have one chance and only that chance."
-
-                    au "The questions are limited to only three."
-
-                    au "I reserve the right to shape you into your perfect self."
-
-                    au "If you fail to deem yourself worthy."
-                else:
-                    unk "Indeed."
-
-                    unk "Though you have one chance and only that chance."
-
-                    unk "The questions are limited to only three."
-
-                    unk "I reserve the right to shape you into your perfect self."
-
-                    unk "If you fail to deem yourself worthy."
-                show lea worried at right 
-                with dissolve
-
-                l "I better continue gathering information then."
-
-                if persistent.endings["GoldenEnding"]:
-                    au "Make haste."
-                else:
-                    unk "Make haste."
-                
-                scene black with fade 
-                jump hallway3
-
-                
-            "Nothing.":
-                l "Nothing at the moment."
-
-                if persistent.endings["GoldenEnding"]:
-                    au "Time is off the essence."
-                else:
-                    unk "Time is off the essence."
-                
-                scene black with fade
-                jump hallway3
-            
-    label questioning:
-        scene hallwayInteraction with fade 
-        $ config.has_autosave = False
-        $ _game_menu_screen = None
-        $ quick_menu = False
-        if persistent.endings["GoldenEnding"]:
-            au "This shall be a trial between you and I."
-
-            au "Do not manipulate your memories with such petty actions."
-
-            au "..."
-
-            au "I shall begin."
-
-            au "The year you ignored someone's attempt to be your peer."
-            
-            au "Subtract it to the year your mother lost your drawing." 
-            
-            au "Remember this result."
-
-            au "The year you are born is 2005. Subtract it to the year your friends did not bother to invite you for an outing."
-
-            au "Add both of those results."
-
-            au "What do you get."
-        else:
-            unk "This shall be a trial between you and I."
-
-            unk "Do not manipulate your memories with such petty actions."
-
-            unk "..."
-
-            unk "I shall begin."
-
-            unk "The year you ignored someone's attempt to be your peer."
-            
-            unk "Subtract it to the year your mother lost your drawing." 
-            
-            unk "Remember this result."
-
-            unk "The year you are born is 2005. Subtract it to the year your friends did not bother to invite you for an outing."
-
-            unk "Add both of those results."
-
-            unk "What do you get."
-        menu: 
-            "20.":
-
-                if persistent.endings["GoldenEnding"]:
-                    au "Impressive. For basic arithmetic."
-                else:
-                    unk "Impressive. For basic arithmetic."
-
-                jump question2
-
-            "22.":
-
-                if floor3["conditon"]["hasLeaLost"]:
-
-                    if persistent.endings["GoldenEnding"]:
-                        au "Do not resist this Lea."
-                    else:
-                        unk "Do not resist this Lea."
-                else:
-                    $ floor3["conditon"]["hasLeaLost"] = True
-
-                    if persistent.endings["GoldenEnding"]:
-                        au "Incorrect. Losing this early is unfortunate Lea."
-                    else:
-                        unk "Incorrect. Losing this early is unfortunate Lea."
-                scene black with fade
-                jump leaGolden
-
-            "18.":
-
-                if floor3["conditon"]["hasLeaLost"]:
-
-                    if persistent.endings["GoldenEnding"]:
-                        au "Do not resist this Lea."
-                    else:
-                        unk "Do not resist this Lea."
-
-                else:
-
-                    $ floor3["conditon"]["hasLeaLost"] = True
-
-                    if persistent.endings["GoldenEnding"]:
-                        au "Incorrect. Losing this early is unfortunate Lea."
-                    else:
-                        unk "Incorrect. Losing this early is unfortunate Lea."
-                scene black with fade
-                jump leaGolden
-
-        label question2:
-            if persistent.endings["GoldenEnding"]:
-                au "We proceed."
-
-                au "The year you slipped on your exams."
-
-                au "What is the major event that prevented everyone from easily seeing your grades?"
-            else:
-                unk "We proceed."
-
-                unk "The year you slipped on your exams."
-
-                unk "What is the major event that prevented everyone from easily seeing your grades?"
-
-            menu:
-                "A storm.":
-                    if floor3["conditon"]["hasLeaLost"]:
-
-                        if persistent.endings["GoldenEnding"]:
-                            au "Do not resist this Lea."
-                        else:
-                            unk "Do not resist this Lea."
-
-                    else:
-
-                        $ floor3["conditon"]["hasLeaLost"] = True
-
-                        if persistent.endings["GoldenEnding"]:
-                            au "Incorrect. You have had a good run, Lea."
-                        else:
-                            unk "Incorrect. You have had a good run, Lea."
-                    scene black with fade                    
-                    jump leaGolden
-
-
-                "A pandemic.":
-                    if persistent.endings["GoldenEnding"]:
-                        au "Perhaps you are more capable than you think you are."
-                    else:
-                        unk "Perhaps you are more capable than you think you are."
-                    
-                    jump question3
-
-
-                "A major outage.":
-                    if floor3["conditon"]["hasLeaLost"]:
-
-                        if persistent.endings["GoldenEnding"]:
-                            au "Do not resist this Lea."
-                        else:
-                            unk "Do not resist this Lea."
-
-                    else:
-
-                        $ floor3["conditon"]["hasLeaLost"] = True
-
-                        if persistent.endings["GoldenEnding"]:
-                            au "Incorrect. You have had a good run, Lea."
-                        else:
-                            unk "Incorrect. You have had a good run, Lea."
-                    scene black with fade                    
-                    jump leaGolden
-        
-        label question3:
-            "Now, comes my final question."
-
-            "You toil yourself studying for a long time."
-
-            "Yet this specific sub-subject has given you a hard time."
-
-            "Can you recall it?"
-
-            menu:
-                "It's the function.":
-                    if floor3["conditon"]["hasLeaLost"]:
-
-                        if persistent.endings["GoldenEnding"]:
-                            au "Do not resist this Lea."
-                        else:
-                            unk "Do not resist this Lea."
-
-                    else:
-
-                        $ floor3["conditon"]["hasLeaLost"] = True
-
-                        if persistent.endings["GoldenEnding"]:
-                            au "Incorrect. You have had a good run, Lea."
-                        else:
-                            unk "Incorrect. You have had a good run, Lea."
-                    
-                    scene black with fade
-                    jump leaGolden
-
-                "It's the parameters.":
-                    if floor3["conditon"]["hasLeaLost"]:
-
-                        if persistent.endings["GoldenEnding"]:
-                            au "Do not resist this Lea."
-                        else:
-                            unk "Do not resist this Lea."
-
-                    else:
-
-                        $ floor3["conditon"]["hasLeaLost"] = True
-
-                        if persistent.endings["GoldenEnding"]:
-                            au "Incorrect. You have had a good run, Lea."
-                        else:
-                            unk "Incorrect. You have had a good run, Lea."
-                    
-                    scene black with fade
-                    jump leaGolden
-
-                "It's the recursion.":
-                    if persistent.endings["GoldenEnding"]:
-                        au "You have done well Lea."
-                    else:
-                        unk "You have done well Lea."
-                    
-                    "*You obtained a door key.*"
-
-                    show lea surprised at right 
-                    with dissolve
-
-                    l "It's... Over?"
-                    if floor3["notes"]["notesSeen"] >= 4 and floor3["notes"]["sources"]["tech"] and floor3["notes"]["sources"]["history"]:
-                        if persistent.endings["GoldenEnding"]:
-                            au "You have passed, return home."
-                        else:
-                            unk "You have passed, return home."
-                    elif floor3["notes"]["notesSeen"] == 0 and floor3["notes"]["sources"]["tech"] == False  and floor3["notes"]["sources"]["history"] == False:
-                        if persistent.endings["GoldenEnding"]:
-                            au "You have proven your capabilities in a very astonishing way, return home."
-                        else:
-                            unk "You have proven your capabilities in a very astonishing way, return home."
-                    else:
-                        if persistent.endings["GoldenEnding"]:
-                            au "Your effort are sufficient, return home."
-                        else:
-                            unk "Your effort are sufficient, return home."
-                    show lea smiling at right 
-                    with dissolve
-
-                    scene black with fade 
-                    jump end
-    
-label leaGolden:
-    $ config.has_autosave = True 
-    $ _game_menu_screen = 'save'
-    $ quick_menu = True
-    window hide
-    centered "She had one chance, and she answered wrong."
-
-    centered "She starts to feel her body stiffen."
-
-    centered "The varying colors turning into a monotone gold."
-
-    centered "Slowly, Lea could no longer feel her lower half."
-
-    centered "And soon, her entire body turned into a perfect gold monument."
-    window show
-    if persistent.endings["GoldenEnding"]:
-        au "Brace my gift to you."
-
-        au "Perfection."
-    else:
-        unk "Brace my gift to you."
-        
-        unk "Perfection."
-    
-    if persistent.endings["endingAchieved"] == False:
-        $ fade_down_ambience()
-        $ persistent.endings["endingAchieved"] = True
-        centered "..." 
-
-        centered "Lea is not done yet." 
-
-        centered "She needs to find out."
-
-        centered "She needs to get out." 
-    $ persistent.endings["GoldenEnding"] = True
-
-    centered "*Perfected Ending Achieved.*"
-    scene black with fade
-    return
-
-label end:
-    scene hallwayLocked with fade
-
-    "Lea approached the door, the final door."
-
-    "She turns the key and."
-
-    scene white with fade
-
-    l "Finally..."
-
-    "Lea runs outside to the bright light."
-
-    "But she feels her body grow weak."
-
-    "She collapses."
-    if persistent.endings['UnityEnding'] and persistent.endings['FalseIdolEnding'] and persistent.endings['GoldenEnding'] and persistent.endings['FalseEnding']:
-        scene Hospital1 with fade 
-        l "... Ugh."
-
-        l "... What the?"
-
-        "A crash came from the other room as a rolling chair was launched to the wall."
-
-        k "Auntie! Auntie! She's awake!"
-
-        k "Hurry!"
-
-        "A familiar voice rang at the left side of the bed."
-
-        "the voice suddenly followed with one pair of footsteps darting across the room."
-
-        "A door opening and closing shut is heard right after."
-
-        "..."
-
-        "A few minutes later a group of footsteps followed suite."
-
-        "The doors opened and about half a dozen people poured inside."
-
-        scene Hospital2 with fade 
-
-        show lea headHurt at right 
-        with dissolve
-
-        l "Wh- What?"
-
-        k "See auntie! She's awake!"
-
-        "Before Lea could process what was happening, she feels the weight of her mother crash into her as she went in for a hug."
-
-        m "Oh dear... What happened to you? We were worried sick!"
-
-        show lea worried at right 
-        with dissolve 
-
-        l "What happened? I was at the school... then I felt tired..."
-
-        l "I passed out for a few hours."
-
-        "A woman's voice, about her age cut her off."
-
-        k "You were in a coma."
-
-        k "For a few weeks now."
-
-        l "... what? I- I've missed so much I have to-"
-
-        "Lea tries to stand up, but kate grabbed her by the shoulders and put her back to sitting in the hospital bed"
-        show lea surprised at right 
-        with dissolve
-
-        k "Please, you've been hospitalized."
-
-        k "Hell, you were in a coma. For WEEKS."
-
-        k "We've distanced ourselves because we thought you'd need the space but..."
-
-        k "Look at you! You need to rest!"
-
-        m "Your friend Kate insisted to be here, I have already written your excuse letter weeks ago."
-
-        m "Let's make up for lost time, shall we?"
-
-        l "..."
-
-        show lea smiling at right 
-        with dissolve 
-
-        "Lea nods with a smile on her face"
-
-        "..."
-
-        scene black with fade 
-        centered "Fin!"
-        
-        centered "Thank you for playing Oblivio!"
-        $ persistent.endings["TrueEnding"] = True
-        scene black with fade 
-        return
-
-    else:
-        window hide
-        scene black with fade
-
-        centered "Fin?"
-
-        if persistent.endings["endingAchieved"] == False:
-            $ fade_down_ambience()
-            $ persistent.endings["endingAchieved"] = True
-            centered "..." 
-
-            centered "Lea is not done yet." 
-
-            centered "She needs to find out."
-
-            centered "She needs to get out." 
-        
-        centered "..."
-
-        centered "She is still trapped here."
-        
-        centered "*False Ending Achieved.*"
-        window show
-        $ persistent.endings["FalseEnding"] = True
-    
-    scene black with fade
-    return
 
 
 
@@ -3400,12 +2567,3 @@ label memoryCheck:
                     jump gameStart
         else:
             jump memoryCheck
-
-label memoryBathroom:
-    "Flavor."
-label memoryMidterm:
-    "Flavor."
-label memoryRoom:
-    "Flavor."
-label memoryHome:
-    "Flavor."
