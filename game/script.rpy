@@ -3461,10 +3461,114 @@ label memoryCheck:
             jump memoryCheck
 
 label memoryBathroom:
-    "Flavor."
+    centered "{color=#000000}A voice echoes through the Bathroom."
+
+    centered "{color=#000000}It leaks throught the stall Lea was on."
+
+    centered "{color=#000000}Voices of people familiar to her."
+
+    unk "Look, I don't know why she doesn't want to hang out with us even. And it's annoying me a lot."
+
+    unk "Right? Does she thinks she's better than us or something?"
+
+    unk "Probably."
+
+    unk "Ugh, can't we just stop inviting her? I mean, she never even comes anyways."
+    if persistent.endings["TrueEnding"]:
+        k "Look, aren't we being a little too harsh?"
+
+        k "She's probably just busy most of the time."
+    else:
+        unk "Look, aren't we being a little too harsh?"
+
+        unk "She's probably just busy most of the time."
+    
+    unk "Girl? Who's side are you on?"
+
+    unk "She's always been busy, always."
+
+    unk "I don't get why you'd want to defend her in the first place."
+
+    centered "{color=#000000}The voices stop after a while, and their footsteps head outside the room."
+
+    centered "{color=#000000}Lea was left in the stall, processing everything."
+
+    centered "{color=#000000}The words, the sting."
 label memoryMidterm:
-    "Flavor."
+    scene white with fade 
+    centered "{color=#000000}A voice has travelled through her class."
+
+    centered "{color=#000000}The grades for the midterms are released."
+
+    centered "{color=#000000}An app holds the personal grades of each student's performance."
+
+    centered "{color=#000000}Lea opens that app."
+
+    centered "{color=#000000}Her high hopes were quickly shattered."
+
+    centered "{color=#000000}36/60."
+
+    centered "{color=#000000}It says."
+
+    centered "{color=#000000}Barely above the half."
+
+    centered "{color=#000000}Droplets fall on the phone as Lea looks at the score."
+
+    centered "{color=#000000}Her eyes swelling up."
+
+    centered "{color=#000000}She quickly wipes it off."
+
+    centered "{color=#000000}Her eyes darts around the room, everyone was minding their own business."
+
+    centered "{color=#000000}Too busy to notice her."
+
+    centered "{color=#000000}Too busy to find out how much she messed up."
+
+    centered "{color=#000000}But she knew it would be a matter of time before someone asks for her score."
+
+    centered "{color=#000000}Should she lie?"
+
+    centered "{color=#000000}She shouldn't, but the honest reply would warrant shock."
+
+    centered "{color=#000000}Or worse, a rumor."
+    jump start
+    
 label memoryRoom:
-    "Flavor."
+    scene black with fade 
+    centered "Everything was dark."
+
+    centered "The lights are killed, curtains closed."
+
+    centered "Gloom looms through, its usual silence."
+
+    centered "the slight sniffling heard from time to time."
+
+    centered "Lea is at her bed, refusing to work a muscle."
+
+    centered "Was it from her friends?"
+
+    centered "Her family?"
+
+    centered "The school workload?"
+
+    centered "Or a pile up of every little thing."
+
+    centered "Snowballing into a large, strong emotion."
+
+    centered "No one dared comfort her."
+
+    centered "There was no one to comfort her."
+
+    centered "Lea's wails and sobs are reciprocated through utter silence."
+
+    centered "Just like any other day."
+
+    centered "And the next day, like it never happened."
+
+    centered "As if nothing occured, she continues to be the rolemodel."
+    jump start
+
 label memoryHome:
-    "Flavor."
+    "Lea's footsteps echo through the empty night of the neighborhood."
+
+    "Her house, it's just right at the "
