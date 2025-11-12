@@ -2658,7 +2658,7 @@ label floor3:
         show lea default at right 
         with dissolve
         l "Suppose everything I need to know is just right at this room."
-
+        stop sound fadeout 2
         "What should lea do?"
 
         menu: 
@@ -2668,11 +2668,9 @@ label floor3:
                 jump statueInteraction
     
     label library:
+        stop music fadeout 5
         $ fade_down_ambience()
-        play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1
-        $ fade_up_ambience()
-        $ fade_down_ambience()
-        play music "audio/library.mp3" volume 1 fadein 1
+        play music "audio/floor3.mp3" volume 1 fadein 5
         $ fade_up_ambience()
         scene library with fade
         if floor3["library"]["isFirstInteraction"]:
@@ -2694,7 +2692,7 @@ label floor3:
             "It's her journal."
             show lea surprised at right 
             with dissolve
-            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1
+            play sound "audio/walking_heels2.mp3" volume 1 fadein 1
             "She made hurried steps towards her jounral."
             stop sound fadeout 2
             $ fade_down_ambience()
@@ -2913,6 +2911,7 @@ label floor3:
                 jump hallway3
 
     label statueInteraction:
+        stop sound fadeout 2
         $ fade_down_ambience()
         play music "audio/statue.mp3" volume 1 fadein 1
         $ fade_up_ambience()
@@ -3304,8 +3303,9 @@ label leaGolden:
     return
 
 label end:
+    stop sound fadeout 5
     $ fade_down_ambience()
-    play music "audio/end.mp3" volume 1 fadein 1
+    play music "audio/end.mp3" volume 0.7 fadein 10
     $ fade_up_ambience()
     scene hallwayLocked with fade
 
@@ -3320,7 +3320,7 @@ label end:
     "Lea runs outside to the bright light."
 
     "But she feels her body grow weak."
-
+    stop music fadeout 5
     "She collapses."
     if persistent.endings['UnityEnding'] and persistent.endings['FalseIdolEnding'] and persistent.endings['GoldenEnding'] and persistent.endings['FalseEnding']:
         scene Hospital1 with fade 
