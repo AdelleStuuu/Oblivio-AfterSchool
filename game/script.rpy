@@ -3461,6 +3461,7 @@ label memoryCheck:
             jump memoryCheck
 
 label memoryBathroom:
+    scene white with fade 
     centered "{color=#000000}A voice echoes through the Bathroom."
 
     centered "{color=#000000}It leaks throught the stall Lea was on."
@@ -3494,6 +3495,8 @@ label memoryBathroom:
     centered "{color=#000000}Lea was left in the stall, processing everything."
 
     centered "{color=#000000}The words, the sting."
+    scene black with fade 
+    jump start
 label memoryMidterm:
     scene white with fade 
     centered "{color=#000000}A voice has travelled through her class."
@@ -3531,6 +3534,7 @@ label memoryMidterm:
     centered "{color=#000000}She shouldn't, but the honest reply would warrant shock."
 
     centered "{color=#000000}Or worse, a rumor."
+    scene black with fade 
     jump start
     
 label memoryRoom:
@@ -3566,9 +3570,37 @@ label memoryRoom:
     centered "And the next day, like it never happened."
 
     centered "As if nothing occured, she continues to be the rolemodel."
+    scene black with fade 
     jump start
 
 label memoryHome:
-    "Lea's footsteps echo through the empty night of the neighborhood."
+    scene white with fade
+    centered "{color=#000000}Lea's footsteps echo through the empty night of the neighborhood."
 
-    "Her house, it's just right at the "
+    centered "{color=#000000}Her house, it's just right at the next turn."
+
+    centered "{color=#000000}A sound of a door knob opening, followed up by silence is what greeted her when she's home."
+
+    centered "{color=#000000}The lights flickered, she finds a note pinned on the refrigerator."
+
+    centered '{color=#000000}"Mom and Dad has to be gone for a few more days, the bills need to be paid."'
+
+    centered '{color=#000000}"We left some food at the fridge for you."'
+
+    centered "{color=#000000}How many times has it been for them to be gone for a few days?"
+
+    centered "{color=#000000}The reheated frozen meal is her only source of comfort here."
+
+    centered "{color=#000000}Should she watch some T.V?"
+
+    centered "{color=#000000}Maybe finally take more time for herself?"
+
+    centered "{color=#000000}Mo."
+
+    centered "{color=#000000}Her schedule is packed."
+
+    centered "{color=#000000}Atleast in her eyes."
+
+    centered "{color=#000000}She needs to continue studying."
+    scene black with fade 
+    jump start
