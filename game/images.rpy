@@ -68,12 +68,18 @@ image note:
     "Items/note.webp"
 
 #hallways 
+
+## FLOORS
 image hallway1stFloor:
-    "hallway1stFloor.webp"
-image HallwayBack:
     "hallway1stFloor.webp"
 image hallway2ndFloor:
     "hallway2ndFloor.webp"
+image hallway3rdFloor:
+    "hallway3rdFloor.webp"
+
+## INTRETACTIONS
+image HallwayBack:
+    "hallway1stFloor.webp"
 image HallwayStalking:
     "HallwayStalking.webp"
 image hallwayBarricadedZoomed:
@@ -84,15 +90,31 @@ image hallwayBarricaded:
     "LeftHallway.webp"
 image hallwayLocked:
     "hallwayLocked.webp"
+image hallwayInteraction:
+    "hallwayInteraction.webp"
 
 #rooms
 image Classroom1:
     "Classroom1.webp"
 image Classroom2:
     "Classroom2.webp"
+image BathroomOpen:
+    "BathroomOpen.webp"
+image BathroomOutside:
+    "BathroomOutside2.webp"
+image BathroomUnity:
+    "BathroomUnity.webp"
+image Library:
+    "Library.webp"
 
 #water fountain
 image waterFountain:
     "waterFountain.webp"
 image waterFountainOozeFlowing:
     "waterFountainOozeFlowing.webp"
+
+#hospital 
+image Hospital1:
+    "Hospital1.webp"
+image Hospital2:
+    "Hospital2.webp"
