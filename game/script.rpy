@@ -71,6 +71,7 @@ default counters = {
 }
 
 label start:
+    
     if persistent.endings["endingAchieved"] == True:
         scene black with fade
         window hide
@@ -93,7 +94,7 @@ label gameStart:
     scene chairZoomed 
 
     $ fade_down_ambience()
-    play music "audio/night_ambience.mp3" fadein 2.0 volume 0.4
+    play music "audio/night_ambience.mp3" fadein 2.0 volume 1
     with fade
     $ fade_up_ambience()
     "Lea woke up from her nap, her hair a mess from the deep sleep she had been in."
@@ -102,39 +103,34 @@ label gameStart:
     with dissolve
 
     $ fade_down_ambience()
-    play sound "audio/lightbulb_buzzing.mp3" volume 1 fadein 1.0 fadeout 2.0
-    $ renpy.pause(2.0)
-    stop sound
-    $ fade_up_ambience()
+    play sound "audio/lightbulb_buzzing.mp3" volume 1 fadein 1.0 
+    
 
     "There was nothing but the faint glow of moonlight and the weak neon light from the exit signs illuminating the hallways."
-
+    stop sound fadeout 2 #
+    $ fade_up_ambience()
     show lea default at right
     with dissolve
 
     l "God... What time is it?"
 
     $ fade_down_ambience()
-    play sound "audio/phone_click.mp3" volume 1 fadein 1.0 fadeout 2.0
-    $ renpy.pause(3.0)
-    stop sound
-    $ fade_up_ambience()
-
+    play sound "audio/phone_click.mp3" volume 1 fadein 1.0 
     "Lady Luck wasn't on her side today, her phone was dead."
-
+    stop sound fadeout 2 #
+    $ fade_up_ambience()
     l "I must've slept for a long... long time."
 
     $ fade_down_ambience()
-    play sound "audio/stumble.mp3" volume 1 fadein 1.0 fadeout 2.0
-    $ renpy.pause(2.0)
-    stop sound
-    $ fade_up_ambience()
+    play sound "audio/stumble.mp3" volume 1 fadein 1.0 
 
     show lea headHurt at right
+
     with dissolve
 
     "She stood up and stumbled, catching herself on something nearby."
-
+    stop sound fadeout 2 #
+    $ fade_up_ambience()
     l "Right, I skipped lunch earlier."
 
     "She held her temples."
@@ -143,21 +139,17 @@ label gameStart:
 
     menu:
         "Use the water fountain.":
-            $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 1 
             scene black
             with fade
-            stop sound
-            $ fade_up_ambience()
             pause 2
-            stop sound
+            stop sound fadeout 2
             jump waterFountain1st
 
         "Ignore your instincts, stay in the classroom.":
             $ fade_down_ambience()
             play sound "audio/door_open.mp3" volume 1
-            $ renpy.pause(3.0)
-            stop sound
+            #
+            stop sound fadeout 2
             $ fade_up_ambience()
             scene black
             with fade
@@ -167,7 +159,6 @@ label gameStart:
 
 # CLASSROOM INTERACTIONS
 label returnToClassroom1st:
-    
     $ fade_down_ambience()
     play music "audio/classroom_ambience.mp3"
     $ fade_up_ambience()
@@ -185,10 +176,10 @@ label returnToClassroom1st:
     l "It's not like anyone will be suspicious of me being out at night, but..."
 
     $ fade_down_ambience()
-    play sound "audio/sigh.mp3" volume 1 fadein 1.0 fadeout 2
-    $ renpy.pause(4.0)
+    play sound "audio/sigh.mp3" volume 1 fadein 1.0 #
+    #(4.0)
     "She sighed."
-    stop sound
+    stop sound fadeout 2
     $ fade_up_ambience()
 
     l "I just really want to get home. My head is killing me."
@@ -196,23 +187,23 @@ label returnToClassroom1st:
     $ floor1["LeaClassroom"]["classroomFirstInteracted"] = True
 
     $ fade_down_ambience()
-    play sound "audio/door_open.mp3" fadein 1.0 fadeout 2
-    $ renpy.pause(3)
-    stop sound
+    play sound "audio/door_open.mp3" fadein 1.0 #
+    #
+    stop sound fadeout 2
     $ fade_up_ambience()
 
     $ fade_down_ambience()
-    play sound "audio/footsteps_heels.mp3" fadein 1.0 fadeout 2
-    $ renpy.pause(7)
-    stop sound
+    play sound "audio/footsteps_heels.mp3" fadein 1.0 #
+    #(7)
+    stop sound fadeout 2
     $ fade_up_ambience()
 
     menu:
         "Head out, drink at the water fountain.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 1.5
-            $ renpy.pause(9.0)
-            stop sound
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 #
+            #
+            stop sound fadeout 2
             $ fade_up_ambience()
             scene black
             with fade
@@ -229,9 +220,9 @@ label returnToClassroom1st:
 
         "Head out to the hallway.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 1.5
-            $ renpy.pause(9.0)
-            stop sound
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 #
+            #
+            stop sound fadeout 2
             $ fade_up_ambience()
             jump hallway1st
 
@@ -250,9 +241,9 @@ label hallway1st:
     with fade
 
     $ fade_down_ambience()
-    play sound "audio/footsteps_heels.mp3" fadein 1.0 fadeout 2
-    $ renpy.pause(2.0)
-    stop sound
+    play sound "audio/footsteps_heels.mp3" fadein 1.0 #
+    #
+    stop sound fadeout 2
     $ fade_up_ambience()
     stop music
     "Lea walks back outside, it is still quiet, not even a cricket dares to break the tense air that fills the building."
@@ -269,9 +260,9 @@ label hallway1st:
     menu:
         "Head left, leave via the front doors.":
             $ fade_down_ambience()
-            play sound "audio/footsteps_heels.mp3" fadein 1.0 fadeout 2
-            $ renpy.pause(5.0)
-            stop sound
+            play sound "audio/footsteps_heels.mp3" fadein 1.0 #
+            #(5.0)
+            stop sound fadeout 2
             $ fade_up_ambience()
             scene black
             with fade
@@ -279,9 +270,9 @@ label hallway1st:
 
         "Head right, leave through the back doors.":
             $ fade_down_ambience()
-            play sound "audio/footsteps_heels.mp3" fadein 1.0 fadeout 2
-            $ renpy.pause(2.0)
-            stop sound
+            play sound "audio/footsteps_heels.mp3" fadein 1.0 #
+            #
+            stop sound fadeout 2
             $ fade_up_ambience()
             scene black
             with fade
@@ -296,17 +287,17 @@ label leftEntrance1:
     with fade
 
     $ fade_down_ambience()
-    play sound "audio/chair_scrape.mp3" fadein 1.0 fadeout 2
-    $ renpy.pause(2.0)
-    stop sound
+    play sound "audio/chair_scrape.mp3" fadein 1.0 #
+    #
+    stop sound fadeout 2
     $ fade_up_ambience()
 
     "Stacks and stacks of chairs pile upon the door. It is all over the place, futile to break down."
 
     $ fade_down_ambience()
-    play sound "audio/heartbeat_slow.mp3" fadein 1.0 fadeout 2
-    $ renpy.pause(5.0)
-    stop sound
+    play sound "audio/heartbeat_slow.mp3" fadein 1.0 #
+    #(5.0)
+    stop sound fadeout 2
     $ fade_up_ambience()
 
     "She feels a rush of unease go through her."
@@ -314,9 +305,9 @@ label leftEntrance1:
     menu:
         "Check the back door.":
             $ fade_down_ambience()
-            play sound "audio/footsteps_heels.mp3" fadein 1.0 fadeout 2
-            $ renpy.pause(9.0)
-            stop sound
+            play sound "audio/footsteps_heels.mp3" fadein 1.0 #
+            #
+            stop sound fadeout 2
             $ fade_up_ambience()
             scene black
             with fade
@@ -349,8 +340,8 @@ label leftEntrance2:
         "She remembers something. Reaching into her pockets, she takes out a key to a door."
         $ fade_down_ambience()
         play sound "audio/keys_jingle.mp3" fadeout 1
-        $ renpy.pause(1.0)
-        stop sound
+        #
+        stop sound fadeout 2
         $ fade_up_ambience()
         show lea worried at right
         l "Maybe there is something here that this key can open to."
@@ -370,13 +361,12 @@ label rightEntrance1:
     "Lea approaches the locked doors. It is chained and the knob was torn off."
 
     $ fade_down_ambience()
-    play sound "audio/chain_rattle.mp3" fadein 1.0 fadeout 2
-    $ renpy.pause(5.0)
-    stop sound
-    $ fade_up_ambience()
+    play sound "audio/chain_rattle.mp3" fadein 1.0 #
+
 
     "She feels a rush of unease go through her."
-
+    stop sound fadeout 2
+    $ fade_up_ambience()
     menu:
         "Check the front door.":
             scene black
@@ -411,8 +401,8 @@ label rightEntrance2:
         "She remembers something. Reaching into her pockets, she takes out a key to a door."
         $ fade_down_ambience()
         play sound "audio/keys_jingle.mp3" fadeout 1
-        $ renpy.pause(1.0)
-        stop sound
+        #
+        stop sound fadeout 2
         $ fade_up_ambience()
         show lea worried at right
         l "Maybe there is something here that this key can open to."
@@ -425,31 +415,34 @@ label rightEntrance2:
 
 # WATER FOUNTAIN INTERACTIONS
 label waterFountain1st:
+    $ fade_down_ambience()
+    play sound "audio/walking_heels_echo.mp3" volume 1 
+    $ fade_up_ambience()
     $ floor1["waterFountain"]["FirstInteraction"] = True
     scene waterfountain
     with fade
     "Lea steps on the pressure plate that activates the water fountain, nothing happens."
 
     $ fade_down_ambience()
-    play sound "audio/metal_creaking.mp3" volume 1 fadein 1 fadeout 2
-    $ renpy.pause(3)
-    stop sound
+    play sound "audio/metal_creaking.mp3" volume 1 fadein 1 #
+    #
+    stop sound fadeout 2
     $ fade_up_ambience()
 
     menu:
         "Try again":
             $ fade_down_ambience()
-            play sound "audio/fountain_click.mp3" fadein 1.0 fadeout 2
-            $ renpy.pause(4.0)
-            stop sound
+            play sound "audio/fountain_click.mp3" fadein 1.0 #
+            #(4.0)
+            stop sound fadeout 2
             $ fade_up_ambience()
             jump waterFountain2nd
 
         "Return to the classroom.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 2
-            $ renpy.pause(9.0)
-            stop sound
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 #
+            #
+            stop sound fadeout 2
             $ fade_up_ambience()
             if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
                 scene black
@@ -471,27 +464,27 @@ label waterFountain2nd:
     $ fade_up_ambience()
 
     $ fade_down_ambience()
-    play sound "audio/fountain_click.mp3" fadein 1.0 fadeout 2
-    $ renpy.pause(4.0)
-    stop sound
+    play sound "audio/fountain_click.mp3" fadein 1.0 #
+    #(4.0)
+    stop sound fadeout 2
     $ fade_up_ambience()
 
     "She tries turning the water fountain on again. Lea hears the rushing of liquid, but nothing flows out."
 
     $ fade_down_ambience()
-    play sound "audio/drip_slow.mp3" fadein 1.0 fadeout 2
-    $ renpy.pause(5.0)
+    play sound "audio/drip_slow.mp3" fadein 1.0 #
+    #(5.0)
     "The faint echo of dripping pipes fills the hallway."
-    stop sound
+    stop sound fadeout 2
     $ fade_up_ambience()
     menu:
         "Try again":
             scene black
             with fade
             $ fade_down_ambience()
-            play sound "audio/fountain_click.mp3" fadein 1.0 fadeout 2
-            $ renpy.pause(4.0)
-            stop sound
+            play sound "audio/fountain_click.mp3" fadein 1.0 #
+            #(4.0)
+            stop sound fadeout 2
             stop music fadeout 1.0
             $ fade_up_ambience()
             jump waterFountain3rd
@@ -515,29 +508,29 @@ label waterFountain3rd:
     with fade
 
     $ fade_down_ambience()
-    play sound "audio/tension_swell.mp3" fadein 1.0 fadeout 2
-    $ renpy.pause(9.0)
-    stop sound
+    play sound "audio/tension_swell.mp3" fadein 1.0 #
+    #
+    stop sound fadeout 2
     $ fade_up_ambience()
 
     $ fade_down_ambience()
-    play sound "audio/fountain_click.mp3" fadein 1.0 fadeout 2
-    $ renpy.pause(4.0)
-    stop sound
+    play sound "audio/fountain_click.mp3" fadein 1.0 #
+    #(4.0)
+    stop sound fadeout 2
     $ fade_up_ambience()
 
     "In a desperate attempt, Lea turns the water fountain on aggressively, and black unidentifiable liquid pours out."
 
     $ fade_down_ambience()
-    play sound "audio/liquid_splash.mp3" fadein 1.0 fadeout 2
-    $ renpy.pause(8.0)
-    stop sound
+    play sound "audio/liquid_splash.mp3" fadein 1.0 #
+    #(8.0)
+    stop sound fadeout 2
     $ fade_up_ambience()
 
     $ fade_down_ambience()
-    play sound "audio/heartbeat_fast.mp3" volume 0.75 fadein 1.0 fadeout 2
-    $ renpy.pause(3.0)
-    stop sound
+    play sound "audio/heartbeat_fast.mp3" volume 15 fadein 1.0 #
+    #
+    stop sound fadeout 2
     $ fade_up_ambience()
 
     scene hallway1stFloor
@@ -551,14 +544,14 @@ label waterFountain3rd:
     with dissolve
     l "Maybe they turned off the filters at night. Still... that's... disturbing."
 
-    stop sound fadeout 2.0
+    stop sound fadeout 2 #
     stop music fadeout 3.0
 
     menu:
         "Return to the classroom.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 2
-            stop sound
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 #
+            stop sound fadeout 2
             $ fade_up_ambience()
             if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
                 scene black
@@ -578,9 +571,9 @@ label waterFountainInteracted:
     $ fade_up_ambience()
 
     $ fade_down_ambience()
-    play sound "audio/drip_slow.mp3" fadein 1.0 fadeout 2
-    $ renpy.pause(4.0)
-    stop sound
+    play sound "audio/drip_slow.mp3" fadein 1.0 #
+    #(4.0)
+    stop sound fadeout 2
     $ fade_up_ambience()
 
     if floor1["waterFountain"]["doorKeyObtained"] == True:
@@ -598,9 +591,9 @@ label waterFountainInteracted:
         scene waterFountainOozeFlowing
         with fade
         $ fade_down_ambience()
-        play sound "audio/ooze_drip.mp3" fadein 1 fadein 1.0 fadeout 2
-        $ renpy.pause(5.0)
-        stop sound
+        play sound "audio/ooze_drip.mp3" fadein 1 fadein 1.0 #
+        #(5.0)
+        stop sound fadeout 2
         $ fade_up_ambience()
 
         "The ooze makes its way to the fountain's drain."
@@ -609,8 +602,8 @@ label waterFountainInteracted:
         "She hesitantly picks the key up."
         $ fade_down_ambience()
         play sound "audio/keys_jingle.mp3" volume 1.0 fadeout 1
-        $ renpy.pause(1.0)
-        stop sound
+        #
+        stop sound fadeout 2
         $ fade_up_ambience()
         show bathroomKey with dissolve
         "*You obtained a Door Key.*"
@@ -619,9 +612,9 @@ label waterFountainInteracted:
     menu:
         "Return to the classroom.":
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 fadeout 2
-            $ renpy.pause(9.0)
-            stop sound
+            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1.0 #
+            #
+            stop sound fadeout 2
             $ fade_up_ambience()
             if floor1["LeaClassroom"]["classroomFirstInteracted"] == True:
                 scene black
@@ -638,11 +631,11 @@ label waterFountainInteracted:
 label hallwayFloor1:
     
     $ fade_down_ambience()
-    play music "audio/hallway_ambience.mp3" fadein 1.5 volume 0.4
+    play music "audio/hallway_ambience.mp3" fadein 1.5 volume 1
     with fade
     $ fade_up_ambience()
 
-    play sound "audio/soft_wind.mp3" fadein 1.5 volume 0.3
+    play sound "audio/soft_wind.mp3" fadein 1.5 volume 1
     scene hallway1stFloor 
     show lea default at right 
     with fade    
@@ -651,15 +644,15 @@ label hallwayFloor1:
 
     if floor1["hallway"]["firstHallwayInteraction"] == True:
         $ fade_down_ambience()
-        play sound "audio/walking_heels_echo.mp3" volume 0.8
+        play sound "audio/walking_heels_echo.mp3" volume 1
         "The hallway is silent."
         "Cackling sounds of her shoe's heels are what accompanies her as she walks through the halls devoid of life besides her own."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         $ fade_up_ambience()
     else:
-        play sound "audio/low_rumble.mp3" volume 0.3 fadein 2.0
+        play sound "audio/low_rumble.mp3" volume 1 fadein 2.0
         "The air is tight, but time spent idling around here is time wasted on finding something to get out of here."
-        stop sound fadeout 1.5
+        stop sound fadeout 2 #
         $ floor1["hallway"]["firstHallwayInteraction"] = True
 
     "What to do now?"
@@ -672,9 +665,9 @@ label hallwayFloor1:
         "Approach the water fountain.":
             if floor1["waterFountain"]["waterFountainInteracted"] == True:
                 $ fade_down_ambience()
-                play sound "audio/walking_heels_echo.mp3" fadein 1.0 volume 0.5
+                play sound "audio/walking_heels_echo.mp3" fadein 1.0 volume 1
                 "Lea returns to the water fountain."
-                stop sound fadeout 1.5
+                stop sound fadeout 2 #
                 jump waterFountainInteracted
             elif floor1["waterFountain"]["secondInteraction"] == True:
                 "Lea returns to the water fountain."
@@ -711,35 +704,35 @@ label floor1Hallways:
 label HallwayFloor1Right:
     
     $ fade_down_ambience()
-    play music "audio/hallway_ambience.mp3" fadein 1.5 volume 0.4
+    play music "audio/hallway_ambience.mp3" fadein 1.5 volume 1
     $ fade_up_ambience()
-    play sound "audio/walking_heels_echo.mp3" volume 0.6
+    play sound "audio/walking_heels_echo.mp3" volume 1
     "Lea walks towards the hallway to the right."
-    stop sound fadeout 1.5
+    stop sound fadeout 2 #
 
     scene hallwayLocked with fade
     $ fade_down_ambience()
-    play sound "audio/chain_rattle.mp3" fadein 1.0 volume 0.8
+    play sound "audio/chain_rattle.mp3" fadein 1.0 volume 1
     "It is the door from earlier, it is still chained shut."
-    stop sound fadeout 1.0
+    stop sound fadeout 2 fadeout 1.0
     $ fade_up_ambience()
 
     menu: 
         "Try kicking it open.":
 
             $ fade_down_ambience()
-            play sound "audio/walking_heels2.mp3" volume 0.7
-            $ renpy.pause(2)
-            stop sound fadeout 0.5
+            play sound "audio/walking_heels2.mp3" volume 1
+            #
+            stop sound fadeout 2 fadeout 0.5
             "Lea takes a few steps back, and then runs towards the door and gave it a good kick."
-            play sound "audio/footsteps_running.mp3" volume 0.7
-            stop sound fadeout 0.5
+            play sound "audio/footsteps_running.mp3" volume 1
+            stop sound fadeout 2 fadeout 0.5
 
             play sound "audio/door_kick_thud.mp3" volume 1.0
             "..."
-            $ renpy.pause(1.5)
+            #(1.5)
             "The Door did not budge."
-            stop sound fadeout 1.0
+            stop sound fadeout 2 fadeout 1.0
             $ fade_up_ambience()
 
             show lea default at right
@@ -750,12 +743,12 @@ label HallwayFloor1Right:
             menu:
                 "Go back to the middle of the hallway.":
                     scene black with fade 
-                    play sound "audio/walking_heels_echo.mp3" volume 0.5
+                    play sound "audio/walking_heels_echo.mp3" volume 1
                     jump hallwayFloor1
 
         "Go back to the middle of the Hallway.": 
             scene black with fade 
-            play sound "audio/walking_heels_echo.mp3" volume 0.5
+            play sound "audio/walking_heels_echo.mp3" volume 1
             jump hallwayFloor1
 
 
@@ -764,16 +757,16 @@ label HallwayFloor1Right:
 label HallwayFloor1Left:
     
     $ fade_down_ambience()
-    play music "audio/hallway_ambience.mp3" fadein 1.5 volume 0.4
+    play music "audio/hallway_ambience.mp3" fadein 1.5 volume 1
     $ fade_up_ambience()
-    play sound "audio/footsteps_slow.mp3" volume 0.6
+    play sound "audio/footsteps_slow.mp3" volume 1
     "Lea walks towards the hallway to the left."
-    stop sound fadeout 1.0
+    stop sound fadeout 2 fadeout 1.0
     scene LeftHallway with fade 
 
-    play sound "audio/faint_whispers.mp3" fadein 2.0 volume 0.3
+    play sound "audio/faint_whispers.mp3" fadein 2.0 volume 1
     "It is the same barricaded door from earlier."
-    stop sound fadeout 1.5
+    stop sound fadeout 2 #
 
     label backtoHallLeftChoice:
     scene LeftHallway with fade 
@@ -781,15 +774,15 @@ label HallwayFloor1Left:
         "Look closer at the barricade.":
 
             $ fade_down_ambience()
-            play sound "audio/creaking_wood.mp3" volume 0.8
+            play sound "audio/creaking_wood.mp3" volume 1
             scene hallwayBarricadedZoomed 
             show lea default at right 
             with fade
             "She takes a few steps closer at the barricade."
-            stop sound fadeout 1.0
+            stop sound fadeout 2 fadeout 1.0
             $ fade_up_ambience()
             $ fade_down_ambience()
-            play sound "audio/whispers_layered.mp3" fadein 1.0 volume 0.4 #gusto ko ipagawa toh sa pinsan ko
+            play sound "audio/whispers_layered.mp3" fadein 1.0 volume 1 #gusto ko ipagawa toh sa pinsan ko
             "The pile of chairs were stationary, but she swears she could hear whispers."
             "It is as if the chairs are talking to each other."
             show lea worried at right 
@@ -797,30 +790,30 @@ label HallwayFloor1Left:
             "..."
             "No, they're trying to talk to her."
             $ fade_up_ambience()
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
             scene black with fade
             jump backtoHallLeftChoice
         "Look at the left, towards the bathroom.":
             $ fade_down_ambience()
-            play sound "audio/drip_slow.mp3" fadein 1.5 volume 0.5
+            play sound "audio/drip_slow.mp3" fadein 1.5 volume 1
             "Lea looks over the bathroom, she has an uneasy feeling as she stares at the doorway."
             $ fade_up_ambience()
-            stop sound fadeout 1.5
+            stop sound fadeout 2 #
 
             menu:
                 "Read the notes." if floor1['puzzlePieces']['Note1'] or floor1['puzzlePieces']['Note2'] or floor1['puzzlePieces']['Note3']:
                     $ fade_down_ambience()
-                    play sound "audio/page_flip.mp3" volume 0.6
+                    play sound "audio/page_flip.mp3" volume 1
                     $ fade_up_ambience()
                     menu:
                         "Read the first note" if floor1['puzzlePieces']['Note1']:
                             show note with dissolve
                             "Lea opens the note and reads the content"
                             $ fade_down_ambience()
-                            play sound "audio/paper_rustle.mp3" volume 0.7
+                            play sound "audio/paper_rustle.mp3" volume 1
                             n "Am I doing the Right choice?"
                             n "Last week,I heard them talking about me when I was at the stalls..."
-                            stop sound
+                            stop sound fadeout 2
                             $ fade_up_ambience()
                             show lea default at right 
                             with dissolve 
@@ -831,13 +824,13 @@ label HallwayFloor1Left:
                         "Read the second note" if floor1['puzzlePieces']['Note2']:
                             show note with dissolve
                             $ fade_down_ambience()
-                            play sound "audio/paper_rustle.mp3" volume 0.7
+                            play sound "audio/paper_rustle.mp3" volume 1
                             
                             "Lea opens the note and reads the content"
                             
                             n "I wonder what the others are Up to?"
                             
-                            stop sound
+                            stop sound fadeout 2
                             $ fade_up_ambience()
                             n "This project is difficult, I couldn't believe I just had to add all these extra things for no one other than myself."
 
@@ -860,7 +853,7 @@ label HallwayFloor1Left:
                         "Read the third note" if floor1['puzzlePieces']['Note3']:
                             show note with dissolve
                             
-                            play sound "audio/paper_rustle.mp3" volume 0.7
+                            play sound "audio/paper_rustle.mp3" volume 1
                             
                             "Lea opens the note and reads the content"
 
@@ -874,7 +867,7 @@ label HallwayFloor1Left:
 
                             n "There is nothing Left for myself."
 
-                            stop sound
+                            stop sound fadeout 2
                             $ fade_up_ambience()
                             show lea worried at right 
                             with dissolve 
@@ -896,9 +889,9 @@ label HallwayFloor1Left:
 
                             $ fade_down_ambience()
 
-                            play sound "audio/key_unlock.mp3" fadein 1.0 volume 0.8
+                            play sound "audio/key_unlock.mp3" fadein 1.0 volume 1
 
-                            stop sound
+                            stop sound fadeout 2
 
                             $ fade_up_ambience()
 
@@ -915,7 +908,7 @@ label HallwayFloor1Left:
                     jump backtoHallLeftChoice
         
         "Return to the middle of the hallway.":
-            play sound "audio/walking_heels_echo.mp3" volume 0.5
+            play sound "audio/walking_heels_echo.mp3" volume 1
             scene black with fade 
             jump hallwayFloor1
 
@@ -924,37 +917,37 @@ label HallwayFloor1Left:
 label preBossEncounter:
     
     $ fade_down_ambience()
-    play music "audio/tense_drone_1.mp3" fadein 1.5 volume 0.5
+    play music "audio/tense_drone_1.mp3" fadein 1.5 volume 1
     $ fade_up_ambience()
     scene bathroom with fade 
 
     "Lea looks over to the key, the door awaits in front of her."
     $ fade_down_ambience()
-    play sound "audio/door_open.mp3" volume 0.8
+    play sound "audio/door_open.mp3" volume 1
     
     "She takes the key, inserts it, and turns."
-    stop sound fadeout 1.0
+    stop sound fadeout 2 fadeout 1.0
     $ fade_up_ambience()
     $ fade_down_ambience()
-    play sound "audio/lock_click.mp3" volume 0.6
-    $ renpy.pause(1.0)
-    stop sound
+    play sound "audio/lock_click.mp3" volume 1
+    #
+    stop sound fadeout 2
     $ fade_up_ambience()
     $ fade_down_ambience()
-    play sound "audio/door_open.mp3" volume 0.8
+    play sound "audio/door_open.mp3" volume 1
     "The door opens, Lea walks inside."
-    stop sound fadeout 1.0
+    stop sound fadeout 2 fadeout 1.0
     $ fade_up_ambience()
     $ fade_down_ambience()
-    play sound "audio/walking_heels3.mp3" fadein 0.5 volume 0.7
+    play sound "audio/walking_heels3.mp3" fadein 0.5 volume 1
     scene black with fade
 
     "The bathroom is silent, the eerie feeling of someone watching is a feeling Lea couldn't bear."
 
-    stop sound fadeout 2.0
+    stop sound fadeout 2 #
     $ fade_up_ambience()
     $ fade_down_ambience()
-    play sound "audio/light_switch_click.mp3" volume 0.5
+    play sound "audio/light_switch_click.mp3" volume 1
 
     "She flicked the switch to the room's lights, nothing."
 
@@ -964,17 +957,17 @@ label preBossEncounter:
     l "I suppose the lights are killed here."
     $ fade_up_ambience()
     $ fade_down_ambience()
-    play sound "audio/low_rumblez.mp3" fadein 1.5 volume 0.3
+    play sound "audio/low_rumblez.mp3" fadein 1.5 volume 1
 
     l "There must be something here if the water fountain gave me this key."
     $ fade_up_ambience()
     $ fade_down_ambience()
-    play sound "audio/slimy_surface.mp3" volume 0.6
+    play sound "audio/slimy_surface.mp3" volume 1
     "She feels ooze on the door of the bathroom stalls..."
-    stop sound fadeout 1.5
+    stop sound fadeout 2 #
     $ fade_up_ambience()
     $ fade_down_ambience()
-    play sound "audio/metallic_clink.mp3" volume 0.8
+    play sound "audio/metallic_clink.mp3" volume 1
     "She feels the sink, her arm stumbles over something metallic."
     show lea surprised at right
     with dissolve
@@ -985,9 +978,9 @@ label preBossEncounter:
     scene black with fade 
     $ fade_up_ambience()
     $ fade_down_ambience()
-    play sound "audio/walking_heels2.mp3" fadein 0.8 volume 0.6
+    play sound "audio/walking_heels2.mp3" fadein 0.8 volume 1
     "She walks out of the bathroom"
-    stop sound fadeout 1.5
+    stop sound fadeout 2 #
 
     scene bathroom with fade 
     $ fade_up_ambience()
@@ -995,49 +988,49 @@ label preBossEncounter:
     l "Okay, now to open the door"
     "Lea takes a few steps forward, until she heard something that halted her."
 
-    play sound "audio/distant_voice_reverb.mp3" fadein 1.0 volume 0.4
+    play sound "audio/distant_voice_reverb.mp3" fadein 1.0 volume 1
     if persistent.endings["UnityEnding"] == False:
         unk "Lea..."
     else:
         u "Lea..."
-    stop sound fadeout 1.5
+    stop sound fadeout 2 #
     
     "The voice came from the bathrooms, it was the voice of one of her classmates."
 
     if persistent.endings["UnityEnding"] == False:
         $ fade_down_ambience()
-        play sound "audio/ghostly_voice.mp3" fadein 2.0 volume 0.6
+        play sound "audio/ghostly_voice.mp3" fadein 2.0 volume 1
         unk "Lea... Let's stay together, please."
         $ fade_up_ambience()
     else:
         $ fade_down_ambience()
-        play sound "audio/ghostly_voice.mp3" fadein 2.0 volume 0.6
+        play sound "audio/ghostly_voice.mp3" fadein 2.0 volume 1
         u "Lea... Let's stay together, please."
         $ fade_up_ambience()
-    stop sound fadeout 1.5
+    stop sound fadeout 2 #
     $ fade_down_ambience()
     l "Kate? Is that you? Where are you? Were you hiding in the stalls?"
 
     scene bathroomWithUnity with fade
-    play sound "audio/heavy_breathing.mp3" fadein 1.0 volume 0.5
+    play sound "audio/heavy_breathing.mp3" fadein 1.0 volume 1
 
     if persistent.endings["UnityEnding"] == False:
         unk "Lea... Let's stay together."
     else:
         u "Lea... Let's stay together."
-    stop sound fadeout 1.0
+    stop sound fadeout 2 fadeout 1.0
     $ fade_up_ambience()
     show lea scared at right 
     with dissolve
 
     $ fade_down_ambience()
     l "You're... You're not."
-    play sound "audio/static_rise.mp3" fadein 2.0 volume 0.7
+    play sound "audio/static_rise.mp3" fadein 2.0 volume 1
     if persistent.endings["UnityEnding"] == False:
         unk "You never go with us Lea. Stay with us!"
     else:
         u "You never go with us Lea. Stay with us!"
-    stop sound fadeout 1.5
+    stop sound fadeout 2 #
     $ fade_up_ambience()
 
     $ fade_down_ambience()
@@ -1045,7 +1038,7 @@ label preBossEncounter:
     play sound "audio/footsteps_running.mp3" volume 1.0 fadein 0.5
 
     scene black with fade 
-    stop sound fadeout 2.0
+    stop sound fadeout 2 #
     $ fade_up_ambience()
 label Run:
     scene hallway1stFloor with fade 
@@ -1066,16 +1059,16 @@ label Run:
         play sound "audio/ooze_drip.mp3" volume 1.0 fadein 0.5
 
         "She comes across the hallway, it holds multiple paths."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
     elif counters["floor1"]["runningLives"] == 2:
         $ fade_down_ambience()
         play sound "audio/monster_footsteps.mp3" volume 1.0 fadein 0.5
         "Lea hears the faint sounds of the abomination's multiple feet clasping as it pursues her."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         $ fade_down_ambience()
         play sound "audio/distorted_voices.mp3" volume 1.0 fadein 0.5
         "The distorted voice of multiple people ring across the hallway"
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         $ fade_up_ambience()
         if persistent.endings["UnityEnding"] == False: 
             
@@ -1088,16 +1081,16 @@ label Run:
         $ fade_down_ambience()
         play sound "audio/monster_footsteps.mp3" volume 1.0 fadein 0.5
         "She could hear the individual multiple steps, along with the Ooze."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         
         play sound "audio/monster_lurk.mp3" volume 1.0 fadein 0.5
         "It's Near."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
     else:
         scene black with fade
         play sound "audio/grab.mp3" volume 1.0 fadein 0.5
         "Lea feels something grab her."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         jump UnityEnding
         $ fade_up_ambience()
     
@@ -1108,24 +1101,24 @@ label Run:
             scene black with fade
             $ fade_down_ambience()
             "She proceeds forward."
-            play sound "audio/walking_heels_echo.mp3" volume 0.5
+            play sound "audio/walking_heels_echo.mp3" volume 1
             jump Run
         "Head Right.":
             scene black with fade
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
             $ fade_up_ambience()
             $ fade_down_ambience()
             "She makes a turn to the right."
-            play sound "audio/walking_heels_echo.mp3" volume 0.5
+            play sound "audio/walking_heels_echo.mp3" volume 1
             jump Run1 
         "Head Left.":
             $ counters["floor1"]["runningLives"] -= 1
             scene black with fade
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
             $ fade_up_ambience()
             $ fade_down_ambience()
             "She makes a turn to the left."
-            play sound "audio/walking_heels_echo.mp3" volume 0.5
+            play sound "audio/walking_heels_echo.mp3" volume 1
             jump Run
     stop music
 
@@ -1139,56 +1132,56 @@ label Run1:
         show lea surprised at right
         with fade
         $ fade_down_ambience()
-        play sound "audio/door_open.mp3" volume 0.5
+        play sound "audio/door_open.mp3" volume 1
         "She opens a classroom to the right. For a moment, she thought she messed up."
-        stop sound fadeout 2.0
-        play sound "audio/monster_footsteps.mp3" volume 0.5
+        stop sound fadeout 2 #
+        play sound "audio/monster_footsteps.mp3" volume 1
         "But in the other end was another hallway. She hears the monster from behind."
-        stop sound fadeout 2.0
-        play sound "audio/footsteps_running.mp3" volume 0.5
+        stop sound fadeout 2 #
+        play sound "audio/footsteps_running.mp3" volume 1
         "Lea continues sprinting"
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         $ fade_up_ambience()
     else:
         show lea scared at right
         with fade 
         $ fade_down_ambience()
-        play sound "audio/walking_heels_echo.mp3" volume 0.5
+        play sound "audio/walking_heels_echo.mp3" volume 1
         "Lea remembers to take a right turn."
-        stop sound fadeout 2.0
-        play sound "audio/monster_footsteps.mp3" volume 0.5
+        stop sound fadeout 2 #
+        play sound "audio/monster_footsteps.mp3" volume 1
         "She hears the abomination behind her."
-        stop sound fadeout 2.0
-        play sound "audio/footsteps_running.mp3" volume 0.5
+        stop sound fadeout 2 #
+        play sound "audio/footsteps_running.mp3" volume 1
         "Wasting no time, she continues sprinting."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         $ fade_up_ambience()
     "Where should she go?"
     menu:
         "Head Up.":
             scene black with fade
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5
+            play sound "audio/walking_heels_echo.mp3" volume 1
             "She proceeds forward."
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
             $ fade_up_ambience()
             jump Run2
         "Head Right.":
             $ counters["floor1"]["runningLives"] -= 1
             scene black with fade
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5
+            play sound "audio/walking_heels_echo.mp3" volume 1
             "She makes a turn to the right."
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
             $ fade_up_ambience()
             jump Run 
         "Head Left.":
             $ counters["floor1"]["runningLives"] -= 1
             scene black with fade
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5
+            play sound "audio/walking_heels_echo.mp3" volume 1
             "She makes a turn to the left."
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
             $ fade_up_ambience()
             jump Run
     stop music
@@ -1200,7 +1193,7 @@ label Run2:
     if counters["floor1"]["runningLives"] == 3:
         show lea worried at right
         $ fade_down_ambience()
-        play sound "audio/walking_heels2.mp3" volume 0.5
+        play sound "audio/walking_heels2.mp3" volume 1
         "The hallways felt endless, yet she pursues further."
         
     else:
@@ -1208,7 +1201,7 @@ label Run2:
         "She feels the corridor extend continously."
 
         "She's nearly out of here."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         $ fade_up_ambience()
     "A distored set of voices rings behind her"
     
@@ -1231,26 +1224,26 @@ label Run2:
             $ counters["floor1"]["runningLives"] -= 1
             scene black with fade
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5
+            play sound "audio/walking_heels_echo.mp3" volume 1
             "She proceeds forward."
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
             $ fade_up_ambience()
             jump Run
         "Head Right.":
             $ counters["floor1"]["runningLives"] -= 1
             scene black with fade
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5
+            play sound "audio/walking_heels_echo.mp3" volume 1
             "She makes a turn to the right."
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
             $ fade_up_ambience()
             jump Run 
         "Head Left.":
             scene black with fade
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5
+            play sound "audio/walking_heels_echo.mp3" volume 1
             "She makes a turn to the left."
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
             $ fade_up_ambience()
             jump Escape
     stop music
@@ -1261,16 +1254,16 @@ label Escape:
     play music "audio/escape.mp3" fadein 1.5
     $ fade_up_ambience()
     $ fade_down_ambience()
-    play sound "audio/footsteps_running.mp3" volume 0.5
+    play sound "audio/footsteps_running.mp3" volume 1
     "There she ran, what greets her was the locked door."
-    stop sound fadeout 2.0
+    stop sound fadeout 2 #
     $ fade_up_ambience()
 
     "Wasting no time, she held the key and turns the lock."
     $ fade_down_ambience()
-    play sound "audio/lock_click.mp3" volume 0.6
-    $ renpy.pause(1.0)
-    stop sound
+    play sound "audio/lock_click.mp3" volume 1
+    #
+    stop sound fadeout 2
     $ fade_up_ambience()
     scene black with fade
     window hide
@@ -1302,7 +1295,7 @@ label UnityEnding:
     
     window hide 
     $ fade_down_ambience()
-    play sound "audio/wet_squelch.mp3" volume 0.6
+    play sound "audio/wet_squelch.mp3" volume 1
     centered "Lea struggles to break free."   
 
     centered "It's futile, the ooze, the multiple arms grabbing into her."  
@@ -1343,18 +1336,18 @@ label UnityEnding:
 ### LEA CLASSROOM 
 
 label returnToClassroom:
+    $ fade_down_ambience()
+    play music "audio/classroom_ambience.mp3"
+    $ fade_up_ambience()
     scene Classroom1
     with fade
-    $ fade_down_ambience()
-    play music "audio/classroom_ambience.mp3" 
-    $ fade_up_ambience()
     if floor1["LeaClassroom"]["insideClassRoom"] == True:
         "..."
     else:
         $ fade_down_ambience()
         play sound "audio/door_open.mp3"
         "Lea enters the classroom. It's the same room she attends every school day."
-        stop sound
+        stop sound fadeout 2
         $ fade_up_ambience()
         "But it feels like everyone left in a hurry."
         "They've been gone for a while already."
@@ -1367,7 +1360,7 @@ label returnToClassroom:
                 scene black
                 with fade
                 jump chairsLeaClassroom
-                stop sound fadeout 2
+                stop sound fadeout 2 #
                 $ fade_up_ambience()
             "search the teacher's desk.":
                 $ fade_down_ambience()
@@ -1375,16 +1368,16 @@ label returnToClassroom:
                 scene black
                 with fade
                 jump teachersDeskLeaClassroom
-                stop sound fadeout 2
+                stop sound fadeout 2 #
                 $ fade_up_ambience()
             "head back to the hallway.":
                 $ floor1["LeaClassroom"]["insideClassRoom"] = False
                 $ fade_down_ambience()
-                play sound "audio/walking_heels_echo.mp3" volume 0.5
+                play sound "audio/walking_heels_echo.mp3" volume 1
                 scene black
                 with fade
                 jump hallwayFloor1
-                stop sound fadeout 2.0
+                stop sound fadeout 2 #
                 $ fade_up_ambience()
     else:
         menu:
@@ -1393,16 +1386,16 @@ label returnToClassroom:
                 with fade
                 if floor1["waterFountain"]["waterFountainInteracted"] == True:
                     $ fade_down_ambience()
-                    play sound "audio/walking_heels_echo.mp3" volume 0.5
+                    play sound "audio/walking_heels_echo.mp3" volume 1
                     "Lea returns to the water fountain."
                     jump waterFountainInteracted
-                    stop sound fadeout 2.0
+                    stop sound fadeout 2 #
                     $ fade_up_ambience()
                 elif floor1["waterFountain"]["secondInteraction"] == True:
                     $ fade_down_ambience()
-                    play sound "audio/walking_heels_echo.mp3" volume 0.5
+                    play sound "audio/walking_heels_echo.mp3" volume 1
                     "Lea returns to the water fountain."
-                    stop sound fadeout 2.0
+                    stop sound fadeout 2 #
                     $ fade_up_ambience()
                     jump waterFountain3rd
                 elif floor1["waterFountain"]["FirstInteraction"] == True:
@@ -1411,12 +1404,12 @@ label returnToClassroom:
                     jump waterFountain1st
             "Head out to the hallway.":
                 $ fade_down_ambience()
-                play sound "audio/walking_heels_echo.mp3" volume 0.5
+                play sound "audio/walking_heels_echo.mp3" volume 1
                 $ floor1["LeaClassroom"]["insideClassRoom"] = False
                 scene black
                 with fade
                 jump hallway1st
-                stop sound fadeout 2
+                stop sound fadeout 2 #
                 $ fade_up_ambience()
 label chairsLeaClassroom:
     $ fade_down_ambience()
@@ -1426,9 +1419,9 @@ label chairsLeaClassroom:
     with fade 
     $ floor1["LeaClassroom"]["insideClassRoom"] = True
     $ fade_down_ambience()
-    play sound "audio/chair_scrape.mp3" volume 0.5
+    play sound "audio/chair_scrape.mp3" volume 1
     "Checking each chair, she spends her time looking for anything useful here."
-    stop sound
+    stop sound fadeout 2
     $ fade_up_ambience()
     if floor1["LeaClassroom"]["chairChecking"] == 0:
         "..."
@@ -1466,9 +1459,9 @@ label chairsLeaClassroom:
         with dissolve
         $ fade_down_ambience()
         l "A note from a journal?"
-        play sound "audio/paper_rustle.mp3" volume 0.5
+        play sound "audio/paper_rustle.mp3" volume 1
         "She reads the content, it gives her a chill down her spine."
-        stop sound
+        stop sound fadeout 2
         $ fade_up_ambience()
         show lea surprised at right
         with dissolve
@@ -1484,9 +1477,9 @@ label chairsLeaClassroom:
 
             l "Why is a ripped page of my journal in this room?"
             $ fade_down_ambience()
-            play sound "audio/paper_rustle.mp3" volume 0.5
+            play sound "audio/paper_rustle.mp3" volume 1
             "*Obtained Note #3*"
-            stop sound
+            stop sound fadeout 2
             $ fade_up_ambience()
         $ counters["floor1"]["noteCount"] += 1
         $ floor1["puzzlePieces"]["Note3"] = True
@@ -1511,10 +1504,10 @@ label teachersDeskLeaClassroom:
     $ floor1["LeaClassroom"]["insideClassRoom"] = True
     $ fade_down_ambience()
     "Walking to the teacher's desk, the desk itself was empty, but Lea pulls the drawer open."
-    play sound "audio/paper_rustle.mp3" volume 0.5
+    play sound "audio/paper_rustle.mp3" volume 1
     show lea default at right 
     with dissolve
-    stop sound
+    stop sound fadeout 2
     $ fade_up_ambience()
     $ fade_down_ambience()
     l "A rubik's cube? It's jumbled, someone must've confiscated it."
@@ -1523,7 +1516,7 @@ label teachersDeskLeaClassroom:
     with dissolve
 
     "Lea turns the cube a few times."
-    play sound "audio/cube.mp3" volume 0.5
+    play sound "audio/cube.mp3" volume 1
     $ fade_up_ambience()
     l "That's a nice distraction."
     
@@ -1539,18 +1532,18 @@ label ClassroomFloor1Room2:
     if floor1["Room2"]["isRoomFound"]== False:
         $ fade_down_ambience()
         "Lea heads to the right side, twisting the knobs of each of the rooms."
-        play sound "audio/locked_door.mp3" volume 0.5
+        play sound "audio/locked_door.mp3" volume 1
         "Locked."
-        stop sound fadeout 2.0
-        play sound "audio/locked_door.mp3" volume 0.5
+        stop sound fadeout 2 #
+        play sound "audio/locked_door.mp3" volume 1
         "Locked."
-        stop sound fadeout 2.0
-        play sound "audio/locked_door.mp3" volume 0.5
+        stop sound fadeout 2 #
+        play sound "audio/locked_door.mp3" volume 1
         "Locked."
-        stop sound fadeout 2.0
-        play sound "audio/door_open.mp3" volume 0.5
+        stop sound fadeout 2 #
+        play sound "audio/door_open.mp3" volume 1
         "One creaks open, the room is available."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         $ fade_up_ambience()
     $ floor1["Room2"]["isRoomFound"]= True
 
@@ -1558,7 +1551,7 @@ label ClassroomFloor1Room2:
         $ fade_down_ambience()
         play sound "audio/walking_heels_echo.mp3" volume 1
         "She carefully walks inside the door, no one was there to greet her. The chairs are tilted in such a way that it seemed like everyone left in a panic."
-        stop sound
+        stop sound fadeout 2
         $ fade_up_ambience() 
     else:
         "..."
@@ -1569,7 +1562,7 @@ label ClassroomFloor1Room2:
             play sound "audio/chair_scrape.mp3" volume 1
             scene black 
             with fade
-            stop sound
+            stop sound fadeout 2
             jump chairsRoom2 
             $ fade_up_ambience() 
         "Search the whiteboard":
@@ -1577,7 +1570,7 @@ label ClassroomFloor1Room2:
             play sound "audio/drawer.mp3" volume 1
             scene black 
             with fade
-            stop sound
+            stop sound fadeout 2
             jump whiteboardRoom2
             $ fade_up_ambience() 
         "Head back to the hallways":
@@ -1586,7 +1579,7 @@ label ClassroomFloor1Room2:
             $ floor1["Room2"]["insideClassRoom"] = False
             scene black
             with fade
-            stop sound
+            stop sound fadeout 2
             jump hallwayFloor1
             $ fade_up_ambience() 
 
@@ -1599,7 +1592,7 @@ label chairsRoom2:
     $ fade_down_ambience()
     play sound "audio/chair_scrape.mp3" volume 1
     "Checking each chair, she spends her time looking for anything useful here."
-    stop sound fadeout 2.0
+    stop sound fadeout 2 #
     $ fade_up_ambience()
     if floor1["Room2"]["chairChecking"] == 0:
         "..."
@@ -1632,7 +1625,7 @@ label chairsRoom2:
             $ fade_down_ambience()
             play sound "audio/paper_rustle.mp3" volume 1
             l "Its a note, and it looks like it's ripped from a journal."
-            stop sound 
+            stop sound fadeout 2 
             $ fade_up_ambience()
             "Lea reads the contents of the note."
             show lea surprised at right
@@ -1642,13 +1635,13 @@ label chairsRoom2:
             $ fade_down_ambience()
             play sound "audio/paper_rustle.mp3" volume 1
             "*Obtained Note #1*"
-            stop sound 
+            stop sound fadeout 2 
             $ fade_up_ambience()
         else:
             $ fade_down_ambience()
             play sound "audio/paper_rustle.mp3" volume 1
             l "It looks like I found a note."
-            stop sound 
+            stop sound fadeout 2 
             $ fade_up_ambience()
             show lea surprised at right
             with dissolve
@@ -1659,7 +1652,7 @@ label chairsRoom2:
             $ fade_down_ambience()
             play sound "audio/paper_rustle.mp3" volume 1
             "*Obtained Note #1*"
-            stop sound 
+            stop sound fadeout 2 
             $ fade_up_ambience()
 
         $ counters["floor1"]["noteCount"] += 1
@@ -1684,7 +1677,7 @@ label whiteboardRoom2:
     $ fade_down_ambience()
     play sound "audio/creaking_wood.mp3"
     "Lea approaches the whiteboard,she looks over the crevices."
-    stop sound fadeout 2.0
+    stop sound fadeout 2 #
     $ fade_up_ambience()
     "Her head moves to the right, and then left for anything useful there."
 
@@ -1699,7 +1692,7 @@ label whiteboardRoom2:
     $ fade_down_ambience()
     play sound "audio/walking_heels3.mp3"
     "She walks back to the middle of the room"
-    stop sound fadeout 2.0
+    stop sound fadeout 2 #
     $ fade_up_ambience()
     scene black
     with fade  
@@ -1715,25 +1708,25 @@ label ClassroomFloor1Room3:
     if floor1["Room3"]["isRoomFound"] == False:
         "Lea heads to the left side, twisting the knobs of each of the rooms."
         $ fade_down_ambience()
-        play sound "audio/locked_door.mp3" volume 0.5
+        play sound "audio/locked_door.mp3" volume 1
         "Locked."
-        stop sound fadeout 2.0
-        play sound "audio/locked_door.mp3" volume 0.5
+        stop sound fadeout 2 #
+        play sound "audio/locked_door.mp3" volume 1
         "Locked."
-        stop sound fadeout 2.0
-        play sound "audio/locked_door.mp3" volume 0.5
+        stop sound fadeout 2 #
+        play sound "audio/locked_door.mp3" volume 1
         "Locked."
         $ fade_up_ambience()
-        play sound "audio/door_open.mp3" volume 0.5
+        play sound "audio/door_open.mp3" volume 1
         "One creaks open, the room is available."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
     $ floor1["Room3"]["isRoomFound"] = True
 
     if floor1["Room3"]["insideClassRoom"] == False:
         $ fade_down_ambience()
         play sound "audio/walking_heels_echo.mp3" volume 1 
         "She walks inside the classroom. It is just as barren as the halls outside."
-        stop sound
+        stop sound fadeout 2
         $ fade_up_ambience()
     else:
         "..."
@@ -1752,16 +1745,16 @@ label ClassroomFloor1Room3:
             scene black 
             with fade
             jump whiteboardRoom3 
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
             $ fade_up_ambience()
         "Head back to the halways":
             $ floor1["Room3"]["insideClassRoom"] = False
             $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 0.5
+            play sound "audio/walking_heels_echo.mp3" volume 1
             scene black 
             with fade
             jump hallwayFloor1
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
             $ fade_up_ambience()
 
 label chairsRoom3:
@@ -1775,7 +1768,7 @@ label chairsRoom3:
     $ fade_down_ambience()
     play sound "audio/chair_scrape.mp3" volume 1
     "Checking each chair, she spends her time looking for anything useful here."
-    stop sound fadeout 2.0
+    stop sound fadeout 2 #
     $ fade_up_ambience()
     if floor1["Room3"]["chairChecking"] == 0:
         "..."
@@ -1821,7 +1814,7 @@ label whiteboardRoom3:
     $ fade_down_ambience()
     play sound "audio/creaking_wood.mp3"
     "Lea approaches the whiteboard,she looks over the crevices."
-    stop sound fadeout 2.0
+    stop sound fadeout 2 #
     $ fade_up_ambience()
     "Her head moves to the right, and then left for anything useful there."
 
@@ -1842,7 +1835,7 @@ label whiteboardRoom3:
     $ fade_down_ambience()
     play sound "audio/paper_rustle.mp3"
     "She picks up a piece of folded paper on the crevice of the whiteboard."
-    stop sound
+    stop sound fadeout 2
     $ fade_up_ambience()
     "She opens it and reads the contents inside."
 
@@ -1854,7 +1847,7 @@ label whiteboardRoom3:
         $ fade_down_ambience()
         play sound "audio/paper_rustle.mp3" volume 1
         "*Obtained Note #2*"
-        stop sound
+        stop sound fadeout 2
         $ fade_up_ambience()
     else:
         l "This note..."
@@ -1866,7 +1859,7 @@ label whiteboardRoom3:
         $ fade_down_ambience()
         play sound "audio/paper_rustle.mp3" volume 1
         "*Obtained Note #2*"
-        stop sound
+        stop sound fadeout 2
         $ fade_up_ambience()
     $ counters["floor1"]["noteCount"] += 1
     $ floor1["puzzlePieces"]["Note2"] = True
@@ -1943,7 +1936,7 @@ label floor2:
         $ fade_down_ambience()
         play sound "audio/walking_heels_echo.mp3" 
         "As she walks, she was greeted with rows upon rows of computers."
-        stop sound
+        stop sound fadeout 2
         $ fade_up_ambience()
         "Some, open. Most, Closed."
 
@@ -1980,7 +1973,7 @@ label floor2:
             $ fade_down_ambience()
             play sound "audio/walking_heels_echo.mp3" volume 1
             "Being in the hallway, Lea begins her search."
-            stop sound
+            stop sound fadeout 2
             "The air is tense, its silent."
 
             "But someone's already been here."
@@ -2010,7 +2003,7 @@ label floor2:
                 "She feels its eyes, watching her."
 
                 "Doubts starts to set into her mind."
-                play sound "audio/girl_laugh.mp3" volume 0.5
+                play sound "audio/girl_laugh.mp3" volume 1
                 "Was she actually capable to escape the first floor?"
 
                 "Or was it just a stroke of luck?"
@@ -2019,9 +2012,9 @@ label floor2:
             elif counters["floor2"]["Sanity"] >= 1:
                 "Lea stands between the hallway."
                 
-                play sound "audio/girl_laugh.mp3" volume 0.5
+                play sound "audio/girl_laugh.mp3" volume 1
                 "It's stalking her, They're enjoying this."
-                stop sound
+                stop sound fadeout 2
                 "She couldn't do this."
 
                 "She has never been capable."
@@ -2031,7 +2024,7 @@ label floor2:
             else:
                 play sound "audio/stumble.mp3" volume 1
                 "Lea's legs felt weak, she falls to the ground."
-                stop sound
+                stop sound fadeout 2
                 $ fade_up_ambience()
                 jump ShatterEnding 
         
@@ -2275,13 +2268,13 @@ label floor2:
         play sound "audio/vault.mp3" volume 1 fadein 1.0
         
         "For such a big vault, there is only one item inside."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         l "The key."
 
         "Lea takes a hold of it and walks towards the locked door."
         play sound "audio/waling_heels_echo.mp3" volume 1 fadein 1.0
         scene hallwayLocked
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         
         show lea default at right 
         with fade
@@ -2291,7 +2284,7 @@ label floor2:
         "She puts the key into the lock and turns."
         play sound "audio/door_open.mp3" volume 1 fadein 1.0
         "The lock goes off, the chains loosens."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         "She takes a step into the stairs of the next floor."
         $ fade_up_ambience()
         scene black with fade
@@ -2370,7 +2363,7 @@ label floor2:
         "Lea continues walking towards the door."
         play sound "audio/chain_rattle.mp3" volume 1 fadein 1.0
         "The chains returning as soon as she stepped inside."
-        stop sound fadeout 2
+        stop sound fadeout 2 #
         l "One final floor, to the emergency exit outside."
 
         scene black with fade
@@ -2404,7 +2397,7 @@ label floor2:
             play sound "audio/computer_flick.mp3" volume 1 fadein 1.0
             "The lone flickering computer in a flurry of dead desktops."
             $ fade_up_ambience()
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
         else:
             "She heads towards the nearest computer."
 
@@ -2412,7 +2405,7 @@ label floor2:
         $ fade_down_ambience()
         play sound "audio/lightbulb_buzzing.mp3" volume 1 fadein 1.0
         "It's buzzing."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
         $ fade_up_ambience()
         $ _history = False
 
@@ -2454,13 +2447,13 @@ label floor2:
             $ fade_down_ambience()
             play sound "audio/computer_flick.mp3" volume 1 fadein 1.0
             "The lone flickering computer in a flurry of dead desktops."
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
         else:
             "The"
         $ fade_down_ambience()
         play sound "audio/lightbulb_buzzing.mp3" volume 1 fadein 1.0
         "It's buzzing."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
 
         $ _history = False
 
@@ -2497,7 +2490,7 @@ label floor2:
             $ fade_down_ambience()
             play sound "audio/computer_flick.mp3" volume 1 fadein 1.0
             "The lone flickering computer in a flurry of dead desktops."
-            stop sound fadeout 2.0
+            stop sound fadeout 2 #
         else:
             "Lea walks to the furthest desktop in the hallway."
 
@@ -2505,7 +2498,7 @@ label floor2:
         $ fade_down_ambience()
         play sound "audio/lightbulb_buzzing.mp3" volume 1 fadein 1.0
         "It's buzzing."
-        stop sound fadeout 2.0
+        stop sound fadeout 2 #
 
         $ _history = False
 
@@ -2538,7 +2531,7 @@ label floor2:
         $ floor2["Shatter"]["isJumpscared"] = True 
 
 
-        $ renpy.pause(1)
+        #
 
         scene hallway2ndFloor 
         show lea scared at right 
