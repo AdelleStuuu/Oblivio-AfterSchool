@@ -811,6 +811,7 @@ label HallwayFloor1Left:
             scene black with fade
             jump backtoHallLeftChoice
         "Look at the left, towards the bathroom.":
+            scene BathroomOutside with fade
             $ fade_down_ambience()
             play sound "audio/drip_slow.mp3" volume 1 fadein 1 # volume 0.5
             "Lea looks over the bathroom, she has an uneasy feeling as she stares at the doorway."
@@ -2543,8 +2544,9 @@ label floor2:
 
     label jumpscare:
         scene black 
-        show notLea
         play sound "audio/jumpscare_sting.mp3" volume 1 fadein 1 
+        show notLea
+        $ renpy.pause(1.5)
         if i == 3:
             $ i = 0
         else:
