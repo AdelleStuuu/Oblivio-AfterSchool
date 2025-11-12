@@ -60,6 +60,10 @@ image UnifiedLea:
     "Endings/Unified.webp"
     yoffset 1500
     zoom 1.8
+image PerfectedLea:
+    "Endings/Perfected.webp"
+    yoffset 1500
+    zoom 1.8
 
 #items
 image bathroomKey:

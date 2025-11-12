@@ -616,7 +616,7 @@ label waterFountainInteracted:
         stop sound fadeout 2
         $ fade_up_ambience()
         show bathroomKey with dissolve
-        "*You obtained a Door Key.*"
+        "*You obtained a Bathroom Key.*"
         $ floor1["waterFountain"]["doorKeyObtained"] = True
 
     menu:
@@ -2140,7 +2140,7 @@ label floor2:
             centered "She needs to get out." 
         $ persistent.endings["FalseIdolEnding"] = True
         $ fade_up_ambience()
-        centered "*Shattered Ending, Reached.*" 
+        centered "*Shattered Ending Achieved.*" 
         scene black with fade
         return
 
@@ -3259,12 +3259,14 @@ label floor3:
                     jump end
     
 label leaGolden:
+    scene black with fade
     $ fade_down_ambience()
     play music "audio/church_bells_thingy.mp3" volume 1 fadein 1
     $ fade_up_ambience()
     $ config.has_autosave = True 
     $ _game_menu_screen = 'save'
     $ quick_menu = True
+    show PerfectedLea with dissolve
     window hide
     centered "She had one chance, and she answered wrong."
 
