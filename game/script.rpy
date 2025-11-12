@@ -231,17 +231,15 @@ label returnToClassroom1st:
                 jump waterFountain1st
 
         "Head out to the hallway.":
-            $ fade_down_ambience()
-            play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1 # 1 #
-            #
-            stop sound fadeout 2
-            $ fade_up_ambience()
             jump hallway1st
 
 
 # FIRST FLOOR HALLWAY
 # SCRIPTED SCENES ONLY
 label hallway1st:
+    $ fade_down_ambience()
+    play sound "audio/walking_heels_echo.mp3" volume 1 fadein 1 
+    $ fade_up_ambience()
     $ fade_down_ambience()
     play music "audio/hallway.mp3" volume 1 fadein 1 # 1
     $ fade_up_ambience()
