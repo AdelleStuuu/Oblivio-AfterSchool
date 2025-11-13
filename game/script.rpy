@@ -38,7 +38,8 @@ default floor1 = {
         "chairChecking": 0,
         "classroomFirstInteracted": False,
         "insideClassRoom": False,
-        "fromInsideClassroom": False
+        "fromInsideClassroom": False,
+        "isRubiks" : False
     },
     "Room2": {
         "chairChecking": 0,
@@ -1526,7 +1527,11 @@ label teachersDeskLeaClassroom:
     stop sound fadeout 2
     $ fade_up_ambience()
     $ fade_down_ambience()
-    l "A rubik's cube? It's jumbled, someone must've confiscated it."
+
+    if floor1["LeaClassroom"]["isRubiks"]:
+        l "The rubik's cube again."
+    else:
+        l "A rubik's cube? It's jumbled, someone must've confiscated it."
 
     show lea smiling at right 
     with dissolve
