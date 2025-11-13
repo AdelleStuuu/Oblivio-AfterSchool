@@ -900,7 +900,7 @@ label HallwayFloor1Left:
                     menu:
                         "Go in regardless.":
 
-                            "Lea strangthen's her resolve."
+                            "Lea strengthen's her resolve."
                             scene black with fade
 
                             $ fade_down_ambience()
@@ -1026,7 +1026,7 @@ label preBossEncounter:
     $ fade_down_ambience()
     l "Kate? Is that you? Where are you? Were you hiding in the stalls?"
 
-    scene bathroomWithUnity with fade
+    scene BathroomUnity with fade
     play sound "audio/heavy_breathing.mp3" volume 1 fadein 1 # volume 0.5
 
     if persistent.endings["UnityEnding"] == False:

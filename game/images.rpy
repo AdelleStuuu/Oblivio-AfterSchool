@@ -97,6 +97,7 @@ image hallwayLocked:
 image hallwayInteraction:
     "hallwayInteraction.webp"
 
+
 #rooms
 image Classroom1:
     "Classroom1.webp"
