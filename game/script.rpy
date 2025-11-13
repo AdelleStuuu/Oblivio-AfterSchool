@@ -518,7 +518,7 @@ label waterFountain3rd:
     play music "audio/ambient_silence.mp3" volume 1 fadein 1 #
     $ fade_up_ambience()
     $ floor1["waterFountain"]["waterFountainInteracted"] = True
-    scene waterFountainOozeFlowing
+    scene waterfountain
     with fade
 
     $ fade_down_ambience()
@@ -531,11 +531,11 @@ label waterFountain3rd:
     play sound "audio/fountain_click.mp3" volume 1 fadein 1 
 
     
-
     "In a desperate attempt, Lea turns the water fountain on aggressively, and black unidentifiable liquid pours out."
     stop sound fadeout 2
     $ fade_up_ambience()
-
+    scene waterFountainOozeFlowing
+    with fade
     $ fade_down_ambience()
     play sound "audio/liquid_splash.mp3" volume 1 fadein 1
     $ renpy.pause(5)
@@ -935,13 +935,14 @@ label preBossEncounter:
     $ fade_down_ambience()
     play music "audio/tense_drone_1.mp3" volume 1 fadein 1 # #
     $ fade_up_ambience()
-    scene BathroomOpen with fade 
+    scene BathroomOutside with fade
 
     "Lea looks over to the key, the door awaits in front of her."
     $ fade_down_ambience()
     play sound "audio/door_open.mp3" volume 1 fadein 1 #
     
     "She takes the key, inserts it, and turns."
+    scene BathroomOpen with fade
     stop sound fadeout 2 #
     $ fade_up_ambience()
     $ fade_down_ambience()
@@ -1531,6 +1532,7 @@ label teachersDeskLeaClassroom:
     if floor1["LeaClassroom"]["isRubiks"]:
         l "The rubik's cube again."
     else:
+        $ floor1["LeaClassroom"]["isRubiks"] = True
         l "A rubik's cube? It's jumbled, someone must've confiscated it."
 
     show lea smiling at right 
