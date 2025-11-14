@@ -939,7 +939,7 @@ label preBossEncounter:
 
     "Lea looks over to the key, the door awaits in front of her."
     $ fade_down_ambience()
-    play sound "audio/door_open.mp3" volume 1 fadein 1 #
+    play sound "audio/key_unlock.mp3" volume 1 fadein 1 #
     
     "She takes the key, inserts it, and turns."
     scene BathroomOpen with fade
@@ -1540,9 +1540,9 @@ label teachersDeskLeaClassroom:
 
     "Lea turns the cube a few times."
     play sound "audio/cube.mp3" volume 1 fadein 1 #
-    $ fade_up_ambience()
     l "That's a nice distraction."
-    
+    stop sound fadeout 2.0
+    $ fade_up_ambience()
     jump returnToClassroom
 
 ### ROOM 2 CLASSROOM 
